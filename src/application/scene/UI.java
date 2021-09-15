@@ -35,5 +35,4 @@ public class UI {
 		button.setOnAction(e -> handler.run());
 		return button;
 	}
-	
 }

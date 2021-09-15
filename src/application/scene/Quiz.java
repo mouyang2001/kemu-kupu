@@ -19,7 +19,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
 /**
- * Quizes the user on the spelling of the provided wordlist.
+ * Quizzes the user on the spelling of the provided wordlist.
  * Speaks the words to the user and tells them if they are correct or not.
  */
 public class Quiz implements Scene {
@@ -55,14 +55,14 @@ public class Quiz implements Scene {
 		label.setFont(new Font(20));
 		label.setPrefHeight(100);
 		
-		// Textbox for the user to input their spelling.
+		// Text field for the user to input their spelling.
 		TextField input = new TextField();
 
 		// Submit button for the user to submit their spelling.
 		// The handler is initialised in setHandlers.
 		Button submit = new Button("Submit");
 		
-		// Display the textbox and submit horisontally.
+		// Display the text field and submit horisontally.
 		HBox hbox = new HBox(input, submit);
 		hbox.setAlignment(Pos.TOP_CENTER);
 		
