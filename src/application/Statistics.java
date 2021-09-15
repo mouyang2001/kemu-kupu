@@ -109,11 +109,11 @@ public class Statistics {
 	}
 	
 	/**
-	 * Get the occurences of a word in a statistic file.
+	 * Get the occurrences of a word in a statistic file.
 	 *
 	 * @param file The file to search.
 	 * @param word The word to search for.
-	 * @return The number of occurences.
+	 * @return The number of occurrences.
 	 */
 	private static int occurences(File file, String word) {
 		try {
@@ -135,7 +135,7 @@ public class Statistics {
 			return occurences;
 		} catch (FileNotFoundException e) {
 			// Treat a non-existent file the
-			// same as empty, no occurences.
+			// same as empty, no occurrences.
 			return 0;
 		}
 	}
@@ -146,7 +146,7 @@ public class Statistics {
 	 *
 	 * @param type The type of attempt to update the mistakes file for.
 	 * @param word The word that was attempted.
-	 * @throws IOException If an I/O error occured.
+	 * @throws IOException If an I/O error occurred.
 	 */
 	private static void updateMistakes(Type type, String word) throws IOException {
 		switch (type) {
@@ -166,7 +166,7 @@ public class Statistics {
 	 * Adds a word to the mistakes file if it hasn't already.
 	 *
 	 * @param word Word to add to the mistakes file.
-	 * @throws IOException If an I/O error occured.
+	 * @throws IOException If an I/O error occurred.
 	 */
 	private static void addMistake(String word) throws IOException {
 		// Ensure the mistakes file has each word at most once.
@@ -179,7 +179,7 @@ public class Statistics {
 	 * Removes a word from the mistakes file.
 	 *
 	 * @param word Word to remove from the mistakes file.
-	 * @throws IOException If an I/O error occured.
+	 * @throws IOException If an I/O error occurred.
 	 */
 	private static void removeMistake(String word) throws IOException {
 		// Ensure the mistakes file exists.
@@ -201,10 +201,10 @@ public class Statistics {
 	
 	/**
 	 * Creates a file if it doesn't already exist.
-	 * Creates the nessecary directories if required.
+	 * Creates the necessary directories if required.
 	 *
 	 * @param file The file to create.
-	 * @throws IOException If an I/O error occured.
+	 * @throws IOException If an I/O error occurred.
 	 */
 	private static void createFile(File file) throws IOException {
 		// Create parent directories if they don't exist.

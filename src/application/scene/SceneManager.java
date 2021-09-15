@@ -27,7 +27,7 @@ public class SceneManager {
 	/**
 	 * Shows the initial scene to the user.
 	 * Defaults to the menu scene.
-	 * This must be called before an other show... methods.
+	 * This must be called before any other show... methods.
 	 */
 	public void show() {
 		// Render menu scene.
@@ -90,18 +90,18 @@ public class SceneManager {
 	}
 	
 	/**
-	 * Gets the width of the window.
+	 * Gets the width of the scene.
 	 *
-	 * @return Width of the window.
+	 * @return Width of the scene.
 	 */
 	public double getWidth() {
 		return stage.getWidth();
 	}
 	
 	/**
-	 * Gets the height of the window.
+	 * Gets the height of the scene.
 	 *
-	 * @return Height of the window.
+	 * @return Height of the scene.
 	 */
 	public double getHeight() {
 		return stage.getHeight();

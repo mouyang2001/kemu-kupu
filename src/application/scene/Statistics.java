@@ -13,7 +13,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 
 /**
  * Statistics menu for the user to view the number of mastered,
@@ -47,7 +46,7 @@ public class Statistics implements Scene {
 		Button menu = UI.button("Menu", () -> manager.showMenu());
 		Button clear = UI.button("Clear", () -> {
 			application.Statistics.clear();
-			// Rerender cleared statistics.
+			// Re-render cleared statistics.
 			manager.showStatistics(wordlist);
 		});
 		
