@@ -14,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -22,19 +23,26 @@ import javafx.scene.text.Font;
  * Quizes the user on the spelling of the provided wordlist.
  * Speaks the words to the user and tells them if they are correct or not.
  */
-public class Quiz implements Scene {
+public class Quiz extends Scene {
 	private String title;
 	
 	private Wordlist wordlist;
+	
+	private String word;
+	
+	private boolean attempted;
 	
 	/**
 	 * Runs a quiz on the provided wordlist.
 	 * Renders the provided title at the top of the screen.
 	 *
+	 * @param manager The associated SceneManager handling this scene.
 	 * @param title Title to put at the top of the screen.
 	 * @param wordlist Wordlist to quiz the user on.
 	 */
-	Quiz(String title, Wordlist wordlist) {
+	Quiz(SceneManager manager, String title, Wordlist wordlist) {
+		super(manager);
+		
 		this.title = title;
 		this.wordlist = wordlist;
 	}
@@ -46,21 +54,27 @@ public class Quiz implements Scene {
 	 * @return Root JavaFX node to render.
 	 */
 	@Override
-	public Parent render(SceneManager manager) {
+	public Parent render() {
 		Label title = UI.title(this.title);
 		
-		// Label on which word is being tested.
-		// Contents is initialised in testWord.
+		// TODO: Replace with a loading message.
+		if (word == null) {
+			return title;
+		}
+		
+		// Label to tell the user which word is being tested.
 		Label label = new Label();
+		label.setText("Spell word " + wordlist.getUsed() + " of " + wordlist.getSize());
 		label.setFont(new Font(20));
 		label.setPrefHeight(100);
 		
 		// Textbox for the user to input their spelling.
 		TextField input = new TextField();
-
+		input.setOnKeyPressed(e -> textFieldHandler(e, input.getText()));
+		
 		// Submit button for the user to submit their spelling.
-		// The handler is initialised in setHandlers.
 		Button submit = new Button("Submit");
+		submit.setOnAction(e -> submit(input.getText()));
 		
 		// Display the textbox and submit horisontally.
 		HBox hbox = new HBox(input, submit);
@@ -70,116 +84,85 @@ public class Quiz implements Scene {
 		VBox vbox = new VBox(title, label, hbox);
 		vbox.setAlignment(Pos.TOP_CENTER);
 		
-		// Start testing the first word.
-		testWord(manager, label, input, submit);
-		
 		return vbox;
 	}
 	
 	/**
-	 * Tests the user on their spelling of a word.
-	 *
-	 * @param manager SceneManager to allow error messages and automatic return to menu.
-	 * @param label Label to show the user which number word they are spelling.
-	 * @param input Textbox the user is inputting their spelling into.
-	 * @param submit Submit button to wait for the user to press.
+	 * Starts testing the first word as soon as the scene is shown.
 	 */
-	private void testWord(SceneManager manager, Label label, TextField input, Button submit) {
+	@Override
+	public void didMount() {
+		quizNextWord();
+	}
+	
+	/**
+	 * Quizzes the user on the next word from the wordlist.
+	 * Speaks the word to the user and waits for their submission.
+	 */
+	private void quizNextWord() {
 		try {
-			String word = wordlist.getRandomWord();
+			// Get the word to test.
+			word = wordlist.getRandomWord();
+			attempted = false;
 			
-			// Set submission handlers for an unattempted quiz.
-			setHandlers(false, manager, label, input, submit, word);
-
-			// Tell the user to spell the random word.
-			label.setText("Spell word " + wordlist.getUsed() + " of " + wordlist.getSize());
 			speak(word, false);
+			
+			// Update the GUI with the new counter.
+			manager.update();
 		} catch (NoWordsException e) {
-			// Return to the main menu if the
-			// wordlist has no more words to test.
+			// If there are not more words to test,
+			// return to the main menu.
 			manager.showMenu();
-		} 
+		}
 	}
 	
 	/**
-	 * Set the submission handlers for the submit button
-	 * and for when the enter key is pressed in the textbox.
-	 *
-	 * @param attempted If the current word has already been attempted.
-	 * @param manager SceneManager of the current scene.
-	 * @param label Label to update when the user is tested on the next word.
-	 * @param input Textbox to set the handler of.
-	 * @param submit Submit button to set the handler of.
-	 * @param word Current word being tested.
+	 * Submits the attempt if the user pressing enter in the text field.
+	 * 
+	 * @param event The keyboard event that occurred.
+	 * @param attempt The users current spelling attempt.
 	 */
-	private void setHandlers(
-		boolean attempted,
-		SceneManager manager,
-		Label label,
-		TextField input,
-		Button submit,
-		String word
-	) {
-		submit.setOnAction(e -> submit(attempted, manager, label, input, submit, word));
-
-		input.setOnKeyPressed(e -> {
-			// Allow submission by pressing enter in the textbox.
-			if (e.getCode().equals(KeyCode.ENTER)) {
-				submit(attempted, manager, label, input, submit, word);
-			}
-		});
+	private void textFieldHandler(KeyEvent event, String attempt) {
+		// Allow submission by pressing enter in the text field.
+		if (event.getCode().equals(KeyCode.ENTER)) {
+			submit(attempt);
+		}
 	}
 	
 	/**
-	 * Checks if the user has spelled the quizzed word correctly.
-	 * Quizes the next word if correct, allows another attempt if it is
-	 * the first try or moves on to the next word if attempted and incorrect.
-	 *
-	 * @param attempted If the current word has already been attempted.
-	 * @param manager SceneManager of the current scene.
-	 * @param label Label to update when the user is tested on the next word.
-	 * @param input Textbox to set the handler of.
-	 * @param submit Submit button to set the handler of.
-	 * @param word Current word being tested.
+	 * Handles the users submission of their spelling attempt.
+	 * Tells the user if they are correct and updates the statistics.
+	 * 
+	 * @param attempt The users current spelling attempt.
 	 */
-	private void submit(
-		boolean attempted,
-		SceneManager manager,
-		Label label,
-		TextField input,
-		Button submit,
-		String word
-	) {
-		String guess = input.getText();
-
-		input.clear();
-		
-		// Check if the spelling is correct, ignoring case.
-		if (guess.toLowerCase().equals(word.toLowerCase())) {
+	private void submit(String attempt) {
+		if (attempt.toLowerCase().equals(word.toLowerCase())) {
 			speak("Correct", true);
-
+			
 			// Update statistics based on if the word was attempted multiple times.
 			updateStatistics(attempted ? Type.FAULTED : Type.MASTERED, word);
-
-			// Test the next word.
-			testWord(manager, label, input, submit);
+			
+			quizNextWord();
 		} else if (!attempted) {
 			// Allow another attempt if the word hasn't been attempted before.
 			speak("Incorrect, try once more", true);
 			speak(word, true);
 			speak(word, true);
-
-			// Update handlers for the next submission to have been attempted before.
-			setHandlers(true, manager, label, input, submit, word);
+			
+			// Mark the word as attempted, so only two attempts are made.
+			attempted = true;
 		} else {
 			// The user has gotten both attempts incorrect.
 			speak("Incorrect", true);
-
+			
 			updateStatistics(Type.FAILED, word);
-
-			// Test the next word.
-			testWord(manager, label, input, submit);
+			
+			quizNextWord();
 		}
+		
+		// Update the GUI with the new counter
+		// and clears the text field.
+		manager.update();
 	}
 	
 	/**

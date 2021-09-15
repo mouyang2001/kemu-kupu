@@ -16,17 +16,20 @@ import javafx.scene.text.Font;
  * Main menu for the user to chose what they want to do.
  * Provides navigation to all other scenes.
  */
-public class Menu implements Scene {
+public class Menu extends Scene {
+	public Menu(SceneManager manager) {
+		super(manager);
+	}
+	
 	private final String wordsFile = "words/popular";
 	
 	/**
 	 * Renders the menu scene to the screen.
 	 *
-	 * @param manager SceneManager of stage to render to.
 	 * @return Root JavaFX node to render.
 	 */
 	@Override
-	public Parent render(SceneManager manager) {
+	public Parent render() {
 		// Title at the top of the screen.
 		Label title = new Label("Spelling Whiz!");
 		title.setFont(new Font(30));
@@ -35,17 +38,17 @@ public class Menu implements Scene {
 		// Navigation buttons.
 		Button quiz = UI.button(
 			"New Spelling Quiz",
-			() -> openQuiz(manager, "Spelling Quiz", wordsFile)
+			() -> openQuiz("Spelling Quiz", wordsFile)
 		);
 		
 		Button mistakes = UI.button(
 			"Review Mistakes",
-			() -> openMistakes(manager, application.Statistics.mistakesFile.getPath())
+			() -> openMistakes(application.Statistics.mistakesFile.getPath())
 		);
 		
 		Button stats = UI.button(
 			"Statistics",
-			() -> openStatistics(manager, wordsFile)
+			() -> openStatistics(wordsFile)
 		);
 		
 		// Show title and buttons vertically.
@@ -58,11 +61,10 @@ public class Menu implements Scene {
 	/**
 	 * Open a quiz with the specified title and wordlist file.
 	 *
-	 * @param manager SceneManager to display the quiz on.
 	 * @param title Title to show at the top of the quiz.
 	 * @param file Wordlist file to load and quiz.
 	 */
-	private void openQuiz(SceneManager manager, String title, String file) {
+	private void openQuiz(String title, String file) {
 		try {
 			manager.showQuiz(title, new Wordlist(file));
 		} catch (FileNotFoundException e) {
@@ -73,10 +75,9 @@ public class Menu implements Scene {
 	/**
 	 * Open a quiz to review mistakes of a wordlist.
 	 *
-	 * @param manager SceneManager to display the quiz on.
 	 * @param file Wordlist file to load and quiz.
 	 */
-	private void openMistakes(SceneManager manager, String file) {
+	private void openMistakes(String file) {
 		try {
 			Wordlist wordlist = new Wordlist(file);
 			
@@ -95,10 +96,9 @@ public class Menu implements Scene {
 	/**
 	 * Open the statistics menu.
 	 *
-	 * @param manager SceneManager to display statistics on.
 	 * @param file Wordlist file to load statistics for.
 	 */
-	private void openStatistics(SceneManager manager, String file) {
+	private void openStatistics(String file) {
 		try {
 			manager.showStatistics(new Wordlist(file));
 		} catch (FileNotFoundException e) {

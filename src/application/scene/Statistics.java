@@ -19,7 +19,7 @@ import javafx.scene.text.Font;
  * Statistics menu for the user to view the number of mastered,
  * faulted, and failed attempts for each word in a wordlist.
  */
-public class Statistics implements Scene {
+public class Statistics extends Scene {
 	private Wordlist wordlist;
 	
 	/**
@@ -27,7 +27,9 @@ public class Statistics implements Scene {
 	 *
 	 * @param wordlist Wordlist to show statistics of.
 	 */
-	public Statistics(Wordlist wordlist) {
+	public Statistics(SceneManager manager, Wordlist wordlist) {
+		super(manager);
+		
 		this.wordlist = wordlist;
 	}
 	
@@ -38,10 +40,10 @@ public class Statistics implements Scene {
 	 * @return Root JavaFX node to render.
 	 */
 	@Override
-	public Parent render(SceneManager manager) {
+	public Parent render() {
 		Label title = UI.title("Statistics");
 	
-		TableView<Statistic> table = table(manager);
+		TableView<Statistic> table = table();
 		
 		// Navigation buttons.
 		Button menu = UI.button("Menu", () -> manager.showMenu());
@@ -49,6 +51,7 @@ public class Statistics implements Scene {
 			application.Statistics.clear();
 			// Rerender cleared statistics.
 			manager.showStatistics(wordlist);
+			manager.update();
 		});
 		
 		// Show navigation buttons horisontally.
@@ -68,7 +71,7 @@ public class Statistics implements Scene {
 	 * @param manager SceneManager to display the table on.
 	 * @return Table of statistics.
 	 */
-	private TableView<Statistic> table(SceneManager manager) {
+	private TableView<Statistic> table() {
 		TableView<Statistic> table = new TableView<>();
 		table.setMaxWidth(manager.getWidth() * 0.8);
 		
