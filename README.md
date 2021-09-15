@@ -1,6 +1,18 @@
-# project
+# SOFTENG 206 Assignment 2
 
-Use this repo for both Assignment 3 and also your final Project (as you will be in the same team). 
+## Dependencies
 
-Be sure to update this README file to provide an easy-to-follow set of instructions on how to run your program. 
+Use the following commands to install the required dependencies.
 
+```bash
+> sudo apt-get install gtk2-engines-pixbuf
+> sudo apt-get install libcanberra-gtk-module
+```
+
+## Run
+
+Run the project with the following command.
+
+```bash
+> ./run.sh
+```
