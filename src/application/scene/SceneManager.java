@@ -14,6 +14,8 @@ import javafx.stage.Stage;
  */
 public class SceneManager {
 	private Stage stage;
+	
+	private Scene scene;
 
 	/**
 	 * Creates a SceneManager to manage a JavaFX stage.
@@ -30,22 +32,26 @@ public class SceneManager {
 	 * This must be called before any other show... methods.
 	 */
 	public void show() {
-		// Render menu scene.
-		Parent root = new Menu().render(this);
+		// Create menu scene.
+		scene = new Menu(this);
+		
+		// Get nodes to display.
+		Parent root = scene.render();
+		scene.didMount();
 		
 		// Create new JavaFX scene with the rendered nodes.
 		javafx.scene.Scene scene = new javafx.scene.Scene(root);
 		
-		// Show scene to the user.
+		// Show menu to the user.
 		stage.setScene(scene);
 		stage.show();
 	}
-
+	
 	/**
 	 * Shows the main menu scene to the user.
 	 */
 	public void showMenu() {
-		this.setScene(new Menu());
+		mount(new Menu(this));
 	}
 
 	/**
@@ -55,7 +61,7 @@ public class SceneManager {
 	 * @param wordlist Wordlist to pass to the Quiz scene.
 	 */
 	public void showQuiz(String title, Wordlist wordlist) {
-		this.setScene(new Quiz(title, wordlist));
+		mount(new Quiz(this, title, wordlist));
 	}
 
 	/**
@@ -64,29 +70,32 @@ public class SceneManager {
 	 * @param wordlist Wordlist to pass to the Statistics scene.
 	 */
 	public void showStatistics(Wordlist wordlist) {
-		this.setScene(new Statistics(wordlist));
+		mount(new Statistics(this, wordlist));
+	}
+	
+	/**
+	 * Updates the GUI.
+	 * This should be called whenever the state
+	 * used to render the scene has changed.
+	 */
+	public void update() {
+		render();
+		scene.didUpdate();
 	}
 
 	/**
-	 * Shows the provided scene to the user.
-	 *
-	 * @param scene Scene to display to the user.
+	 * Mounts a and renders a new scene to be shown to the user.
+	 * 
+	 * @param scene The scene to be mounted.
 	 */
-	private void setScene(Scene scene) {
-		stage.getScene().setRoot(scene.render(this));
-	}
-
-	/**
-	 * Displays a dialog box to the user.
-	 *
-	 * @param title Title on the dialog box window.
-	 * @param message Message on the dialog box.
-	 */
-	public static void alert(String title, String message) {
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle(title);
-		alert.setHeaderText(message);
-		alert.showAndWait();
+	private void mount(Scene scene) {
+		// Unmount the old scene.
+		this.scene.willUnmount();
+		this.scene = scene;
+		
+		// Run the initial render.
+		render();
+		scene.didMount();
 	}
 	
 	/**
@@ -105,5 +114,18 @@ public class SceneManager {
 	 */
 	public double getHeight() {
 		return stage.getHeight();
+	}
+	
+	/**
+	 * Displays a dialog box to the user.
+	 *
+	 * @param title Title on the dialog box window.
+	 * @param message Message on the dialog box.
+	 */
+	public static void alert(String title, String message) {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle(title);
+		alert.setHeaderText(message);
+		alert.showAndWait();
 	}
 }
