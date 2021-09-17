@@ -99,6 +99,13 @@ public class SceneManager {
 	}
 	
 	/**
+	 * Renders the scene to the screen.
+	 */
+	private void render() {
+		stage.getScene().setRoot(scene.render());
+	}
+	
+	/**
 	 * Gets the width of the scene.
 	 *
 	 * @return Width of the scene.
