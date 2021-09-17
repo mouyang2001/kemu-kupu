@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" prefHeight="400.0" prefWidth="600.0" spacing="16.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.scene.Menu">
+    <children>
+        <Label fx:id="titleLabel" alignment="CENTER" layoutX="266.0" layoutY="80.0" prefWidth="100.0" text="Spelling Quiz" />
+        <Button fx:id="quizButton" onAction="#newQuiz" layoutX="266.0" layoutY="112.0" mnemonicParsing="false" text="New Quiz" />
+        <Button fx:id="quitButton" onAction="#quitGame" layoutX="281.0" layoutY="259.0" mnemonicParsing="false" text="Quit" />
+    </children>
+</VBox>

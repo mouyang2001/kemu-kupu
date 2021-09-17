@@ -1,7 +1,9 @@
 package application;
 
-import application.scene.SceneManager;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -11,10 +13,25 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		// Show the main menu to the user.
-		new SceneManager(stage).show();
+		// loads menu scene first
+		try {
+			// load fxml
+			Parent root = FXMLLoader.load(getClass().getResource("./scene/fxml/Menu.fxml"));
+			Scene scene = new Scene(root);
 
-		stage.setTitle("Spelling Whiz");
-		stage.setMaximized(true);
+			// load css
+			String homeSceneCss = this.getClass().getResource("./scene/css/Menu.css").toExternalForm();
+			scene.getStylesheets().add(homeSceneCss);
+
+			// options
+			stage.setScene(scene);
+			stage.setTitle("Spelling Whiz");
+			stage.setMaximized(false);
+
+			stage.show();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 }
