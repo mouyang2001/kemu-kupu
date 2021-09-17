@@ -1,0 +1,8 @@
+.root {
+    -fx-background-color: #1E2124;
+}
+
+#titleLabel {
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 20;
+}
