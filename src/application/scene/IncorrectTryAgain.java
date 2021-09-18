@@ -4,18 +4,14 @@ import java.io.IOException;
 
 import javafx.event.ActionEvent;
 
-public class Topic extends SceneManager{
+public class IncorrectTryAgain extends SceneManager {
 	
 	// this method is for pre loading things
 	public void initialize() {
 		System.out.println("Menu Started");
 	}
-	
-	public void startQuiz(ActionEvent e) throws IOException {
-		switchToQuizScene(e);
+
+	public void tryAgain(ActionEvent e) throws IOException {
+		switchToQuizSecondAttemptScene(e);
 	}
-	
-	/*
-	 * TODO: functionality of choosing topic from list
-	 */
 }
