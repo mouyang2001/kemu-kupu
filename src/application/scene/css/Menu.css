@@ -5,7 +5,6 @@
 #title {
     -fx-text-fill: #FFFFFF;
     -fx-font-size: 80;
-    -fx-alignment: centre;
     -fx-font-family: Verdana;
 }
 
@@ -15,13 +14,13 @@
     -fx-font-size: 50;
     -fx-font-family: Play;
 }
-.button_new:hover
+#button_new:hover
 {
--fx-background-color : #7086D4;
+-fx-background-color : #6076C4;
 }
-.button_new:pressed
+#button_new:pressed
 {
--fx-background-color : #485CA5;
+-fx-background-color : #475B9F;
 }
 
 #button_quit {
@@ -29,4 +28,10 @@
 	-fx-text-fill: #FFFFFF;
     -fx-font-size: 50;
     -fx-font-family: Play;
+}
+#button_quit:hover {
+	-fx-background-color : #4A4A4A;
+}
+#button_quit:pressed {
+	-fx-background-color : #3B3B3C;
 }
