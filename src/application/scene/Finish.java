@@ -8,7 +8,7 @@ public class Finish extends SceneManager{
 	
 	// this method is for pre loading things
 	public void initialize() {
-		System.out.println("Menu Started");
+		
 	}
 
 	// new quiz action

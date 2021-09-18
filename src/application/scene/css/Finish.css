@@ -1,0 +1,47 @@
+.root {
+    -fx-background-color: #1E2124;
+}
+
+#label_welldone {
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 40;
+    -fx-font-family: Verdana;
+}
+
+#label_scoretitle {
+	-fx-text-fill: #FFFFFF;
+    -fx-font-size: 30;
+}
+
+#label_score {
+	-fx-text-fill: #FFFFFF;
+    -fx-font-size: 20;
+}
+
+#button_playagain {
+	-fx-background-color: #7289DA;
+	-fx-text-fill: #FFFFFF;
+    -fx-font-size: 20;
+    -fx-font-family: Play;
+}
+#button_playagain:hover
+{
+-fx-background-color : #6076C4;
+}
+#button_playagain:pressed
+{
+-fx-background-color : #475B9F;
+}
+
+#button_quit {
+	-fx-background-color: #595959;
+	-fx-text-fill: #FFFFFF;
+    -fx-font-size: 20;
+    -fx-font-family: Play;
+}
+#button_quit:hover {
+	-fx-background-color : #4A4A4A;
+}
+#button_quit:pressed {
+	-fx-background-color : #3B3B3C;
+}

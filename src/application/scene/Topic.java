@@ -8,7 +8,7 @@ public class Topic extends SceneManager{
 	
 	// this method is for pre loading things
 	public void initialize() {
-		System.out.println("Menu Started");
+		
 	}
 	
 	public void startQuiz(ActionEvent e) throws IOException {

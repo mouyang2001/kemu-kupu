@@ -61,66 +61,6 @@ public class SceneManager {
         stage.show();
     }
     
-    public void switchToQuizSecondAttemptScene(ActionEvent event) throws IOException {
-        // load fxml file
-        root = FXMLLoader.load(getClass().getResource("./fxml/QuizSecondAttempt.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root, stage.getWidth(), stage.getHeight());
-
-        // load css file
-        String homeSceneCss = this.getClass().getResource("./css/QuizSecondAttempt.css").toExternalForm();
-        scene.getStylesheets().add(homeSceneCss);
-
-        // set and show stage
-        stage.setScene(scene);
-        stage.show();
-    }
-    
-    public void switchToCorrectScene(ActionEvent event) throws IOException {
-        // load fxml file
-        root = FXMLLoader.load(getClass().getResource("./fxml/Correct.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root, stage.getWidth(), stage.getHeight());
-
-        // load css file
-        String homeSceneCss = this.getClass().getResource("./css/Correct.css").toExternalForm();
-        scene.getStylesheets().add(homeSceneCss);
-
-        // set and show stage
-        stage.setScene(scene);
-        stage.show();
-    }
-    
-    public void switchToIncorrectTryAgainScene(ActionEvent event) throws IOException {
-        // load fxml file
-        root = FXMLLoader.load(getClass().getResource("./fxml/IncorrectTryAgain.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root, stage.getWidth(), stage.getHeight());
-
-        // load css file
-        String homeSceneCss = this.getClass().getResource("./css/IncorrectTryAgain.css").toExternalForm();
-        scene.getStylesheets().add(homeSceneCss);
-
-        // set and show stage
-        stage.setScene(scene);
-        stage.show();
-    }
-    
-    public void switchToIncorrectNextScene(ActionEvent event) throws IOException {
-        // load fxml file
-        root = FXMLLoader.load(getClass().getResource("./fxml/IncorrectNext.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root, stage.getWidth(), stage.getHeight());
-
-        // load css file
-        String homeSceneCss = this.getClass().getResource("./css/IncorrectNext.css").toExternalForm();
-        scene.getStylesheets().add(homeSceneCss);
-
-        // set and show stage
-        stage.setScene(scene);
-        stage.show();
-    }
-    
     public void switchToFinishScene(ActionEvent event) throws IOException {
         // load fxml file
         root = FXMLLoader.load(getClass().getResource("./fxml/Finish.fxml"));

@@ -1,0 +1,47 @@
+.root {
+    -fx-background-color: #1E2124;
+}
+
+#label_score {
+    -fx-text-fill: #7289DA;
+    -fx-font-size: 20;
+    -fx-font-family: Verdana;
+}
+
+#label_correct {
+	-fx-text-fill: #FFFFFF;
+    -fx-font-size: 30;
+}
+
+#label_hint {
+	-fx-text-fill: #FFFFFF;
+    -fx-font-size: 15;
+}
+
+#button_submit {
+	-fx-background-color: #7289DA;
+	-fx-text-fill: #FFFFFF;
+    -fx-font-size: 20;
+    -fx-font-family: Play;
+}
+#button_submit:hover
+{
+-fx-background-color : #6076C4;
+}
+#button_submit:pressed
+{
+-fx-background-color : #475B9F;
+}
+
+#button_skip {
+	-fx-background-color: #595959;
+	-fx-text-fill: #FFFFFF;
+    -fx-font-size: 20;
+    -fx-font-family: Play;
+}
+#button_skip:hover {
+	-fx-background-color : #4A4A4A;
+}
+#button_skip:pressed {
+	-fx-background-color : #3B3B3C;
+}
