@@ -2,7 +2,31 @@
     -fx-background-color: #1E2124;
 }
 
-#titleLabel {
+#title {
     -fx-text-fill: #FFFFFF;
-    -fx-font-size: 20;
+    -fx-font-size: 80;
+    -fx-alignment: centre;
+    -fx-font-family: Verdana;
+}
+
+#button_new {
+	-fx-background-color: #7289DA;
+	-fx-text-fill: #FFFFFF;
+    -fx-font-size: 50;
+    -fx-font-family: Play;
+}
+.button_new:hover
+{
+-fx-background-color : #7086D4;
+}
+.button_new:pressed
+{
+-fx-background-color : #485CA5;
+}
+
+#button_quit {
+	-fx-background-color: #595959;
+	-fx-text-fill: #FFFFFF;
+    -fx-font-size: 50;
+    -fx-font-family: Play;
 }

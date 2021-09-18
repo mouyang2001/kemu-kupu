@@ -26,7 +26,7 @@ public class Main extends Application {
 			// options
 			stage.setScene(scene);
 			stage.setTitle("Spelling Whiz");
-			stage.setMaximized(false);
+			stage.setMaximized(true);
 
 			stage.show();
 		} catch (Exception e) {
