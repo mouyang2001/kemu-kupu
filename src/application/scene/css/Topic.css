@@ -1,0 +1,31 @@
+.root {
+    -fx-background-color: #1E2124;
+}
+
+#title {
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 50;
+    -fx-font-family: Verdana;
+}
+
+#button_start {
+	-fx-background-color: #7289DA;
+	-fx-text-fill: #FFFFFF;
+    -fx-font-size: 30;
+    -fx-font-family: Play;
+}
+#button_new:hover
+{
+-fx-background-color : #7086D4;
+}
+#button_new:pressed
+{
+-fx-background-color : #485CA5;
+}
+
+#list_topics {
+	-fx-background-color: #595959;
+	-fx-text-fill: #FFFFFF;
+    -fx-font-size: 50;
+    -fx-font-family: Play;
+}

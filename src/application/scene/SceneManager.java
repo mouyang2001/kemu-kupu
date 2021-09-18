@@ -27,13 +27,15 @@ public class SceneManager {
         // set and show stage
         stage.setScene(scene);
         stage.show();
+
+        
     }
 
     public void switchToTopicScene(ActionEvent event) throws IOException {
         // load fxml file
         root = FXMLLoader.load(getClass().getResource("./fxml/Topic.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
+        scene = new Scene(root, stage.getWidth(), stage.getHeight());
 
         // load css file
         String homeSceneCss = this.getClass().getResource("./css/Topic.css").toExternalForm();
@@ -43,7 +45,37 @@ public class SceneManager {
         stage.setScene(scene);
         stage.show();
     }
+    
+    public void switchToQuizScene(ActionEvent event) throws IOException {
+        // load fxml file
+        root = FXMLLoader.load(getClass().getResource("./fxml/Quiz.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root, stage.getWidth(), stage.getHeight());
 
+        // load css file
+        String homeSceneCss = this.getClass().getResource("./css/Quiz.css").toExternalForm();
+        scene.getStylesheets().add(homeSceneCss);
+
+        // set and show stage
+        stage.setScene(scene);
+        stage.show();
+    }
+    
+    public void switchToFinishScene(ActionEvent event) throws IOException {
+        // load fxml file
+        root = FXMLLoader.load(getClass().getResource("./fxml/Finish.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root, stage.getWidth(), stage.getHeight());
+
+        // load css file
+        String homeSceneCss = this.getClass().getResource("./css/Finish.css").toExternalForm();
+        scene.getStylesheets().add(homeSceneCss);
+
+        // set and show stage
+        stage.setScene(scene);
+        stage.show();
+    }
+    
     public void closeWindow(ActionEvent event) throws IOException {
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         stage.close();

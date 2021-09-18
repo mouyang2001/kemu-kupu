@@ -2,36 +2,46 @@
     -fx-background-color: #1E2124;
 }
 
-#title {
-    -fx-text-fill: #FFFFFF;
-    -fx-font-size: 80;
+#label_score {
+    -fx-text-fill: #7289DA;
+    -fx-font-size: 20;
     -fx-font-family: Verdana;
 }
 
-#button_new {
+#label_correct {
+	-fx-text-fill: #FFFFFF;
+    -fx-font-size: 30;
+}
+
+#label_hint {
+	-fx-text-fill: #FFFFFF;
+    -fx-font-size: 15;
+}
+
+#button_submit {
 	-fx-background-color: #7289DA;
 	-fx-text-fill: #FFFFFF;
-    -fx-font-size: 50;
+    -fx-font-size: 20;
     -fx-font-family: Play;
 }
-#button_new:hover
+#button_submit:hover
 {
 -fx-background-color : #6076C4;
 }
-#button_new:pressed
+#button_submit:pressed
 {
 -fx-background-color : #475B9F;
 }
 
-#button_quit {
+#button_skip {
 	-fx-background-color: #595959;
 	-fx-text-fill: #FFFFFF;
-    -fx-font-size: 50;
+    -fx-font-size: 20;
     -fx-font-family: Play;
 }
-#button_quit:hover {
+#button_skip:hover {
 	-fx-background-color : #4A4A4A;
 }
-#button_quit:pressed {
+#button_skip:pressed {
 	-fx-background-color : #3B3B3C;
 }
