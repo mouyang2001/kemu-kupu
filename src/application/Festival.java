@@ -1,18 +1,13 @@
 package application;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.PrintWriter;
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * Controls the festival text to speech command.
  */
 public class Festival {
-	private static final Path festivalScheme = Paths.get(".festival/output.scm");
-	
 	/**
 	 * Speaks text to the user in a background thread.
 	 *
@@ -30,27 +25,25 @@ public class Festival {
 	
 	/**
 	 * Speaks text to the user.
-	 * Synchronized to stop file conflicts and so festival doesn't speak over itself.
+	 * Synchronized so festival doesn't speak over itself.
 	 * 
 	 * @param text Text to speak.
 	 * @throws IOException If an I/O error occurs.
 	 * @throws InterruptedException If festival is interrupted while blocking.
 	 */
-	private synchronized static void speakInternal(String text) throws IOException, InterruptedException {
-		// Create scheme file parent directory (if needed).
-		Files.createDirectories(festivalScheme.getParent());
+	public synchronized static void speakInternal(String text) throws IOException, InterruptedException {
+		// Start festival.
+		ProcessBuilder builder = new ProcessBuilder("festival", "--pipe");
+		Process process = builder.start();
+		PrintWriter stdin = new PrintWriter(process.getOutputStream());
 		
-		// Create the festival scheme file.
-		List<String> lines = Arrays.asList(
-			"(voice_cmu_us_awb_cg)",
+		// Run festival commands.
+		stdin.print(
+			"(voice_cmu_us_awb_cg)" +
 			"(SayText \"" + text + "\")"
 		);
 		
-		Files.write(festivalScheme, lines);
-		
-		// Run festival.
-		ProcessBuilder builder = new ProcessBuilder("festival", "-b", festivalScheme.toAbsolutePath().toString());
-		Process process = builder.start();
+		stdin.close();
 		
 		process.waitFor();
 	}
