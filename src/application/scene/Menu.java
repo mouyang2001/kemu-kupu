@@ -1,27 +1,26 @@
 package application.scene;
 
-import javafx.event.ActionEvent;
 import java.io.IOException;
 
+import javafx.event.ActionEvent;
 
 /**
  * Main menu for the user to chose what they want to do.
  * Provides navigation to all other scenes.
  */
-public class Menu extends SceneManager {
-
+public class Menu {
 	// this method is for pre loading things
 	public void initialize() {
-		
+
 	}
 
 	// new quiz action
 	public void newQuiz(ActionEvent e) throws IOException {
-		switchToTopicScene(e);
+		SceneManager.switchToTopicScene();
 	}
 
 	// quit game action
-	public void quitGame(ActionEvent e) throws IOException {
-		closeWindow(e);
+	public void quitGame(ActionEvent e) {
+		SceneManager.closeWindow();
 	}
 }

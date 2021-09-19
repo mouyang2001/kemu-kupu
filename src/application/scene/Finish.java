@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import javafx.event.ActionEvent;
 
-public class Finish extends SceneManager{
+public class Finish {
 	
 	// this method is for pre loading things
 	public void initialize() {
@@ -13,11 +13,11 @@ public class Finish extends SceneManager{
 
 	// new quiz action
 	public void newQuiz(ActionEvent e) throws IOException {
-		switchToTopicScene(e);
+		SceneManager.switchToTopicScene();
 	}
 
 	// quit game action
 	public void quitGame(ActionEvent e) throws IOException {
-		closeWindow(e);
+		SceneManager.closeWindow();
 	}
 }
