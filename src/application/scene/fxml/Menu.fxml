@@ -16,7 +16,7 @@
             <Insets bottom="100.0" />
          </VBox.margin>
       </Label>
-      <Button fx:id="button_new" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#newQuiz" prefHeight="150.0" prefWidth="600.0" stylesheets="@../css/Menu.css" text="New Quiz" textFill="WHITE">
+      <Button fx:id="newQuiz" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#newQuiz" prefHeight="150.0" prefWidth="600.0" stylesheets="@../css/Menu.css" text="New Quiz" textFill="WHITE">
          <font>
             <Font size="50.0" />
          </font>
@@ -24,7 +24,7 @@
             <Insets />
          </VBox.margin>
       </Button>
-      <Button fx:id="button_quit" mnemonicParsing="false" onAction="#quitGame" prefHeight="150.0" prefWidth="600.0" stylesheets="@../css/Menu.css" text="Quit" textFill="WHITE">
+      <Button fx:id="quit" mnemonicParsing="false" onAction="#quit" prefHeight="150.0" prefWidth="600.0" stylesheets="@../css/Menu.css" text="Quit" textFill="WHITE">
          <font>
             <Font size="50.0" />
          </font>

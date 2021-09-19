@@ -3,18 +3,31 @@ package application.scene;
 import java.io.IOException;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 
 /**
  * Main menu for the user to chose what they want to do.
  * Provides navigation to all other scenes.
  */
 public class Menu {
+	@FXML
+	private Label title;
+	
+	@FXML
+	private Button newQuiz;
+	
+	@FXML
+	private Button quit;
+	
 	/**
 	 * Click handler for the new quiz button.
 	 * 
 	 * @param e Event action information.
 	 * @throws IOException If FXML or CSS resources fail to load.
 	 */
+	@FXML
 	public void newQuiz(ActionEvent e) throws IOException {
 		SceneManager.switchToTopicScene();
 	}
@@ -24,7 +37,8 @@ public class Menu {
 	 * 
 	 * @param e Event action information.
 	 */
-	public void quitGame(ActionEvent e) {
+	@FXML
+	public void quit(ActionEvent e) {
 		SceneManager.closeWindow();
 	}
 }
