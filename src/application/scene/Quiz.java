@@ -5,11 +5,13 @@ import java.io.IOException;
 
 import application.Festival;
 import application.QuizGame;
+import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.util.Duration;
 
 /**
  * Quiz screen that quizzes the users spelling.
@@ -74,21 +76,18 @@ public class Quiz {
 		// 3: Incorrect, next word
 		switch(quiz.checkSpelling(spelling)) {
 			case 1:
-				// TODO: correct prompt styling and TIMEOUT
-				setPrompt("Correct");
+				setPrompt("Correct", "#9AF1A3");
 
 				increaseScore();
 				nextWord();
 				break;
 			case 2:
-				// TODO: incorrect try again prompt styling and TIMEOUT
-				setPrompt("Incorrect, try again");
+				setPrompt("Incorrect, try again", "#E88787");
 
 				giveHint();
 				break;
 			case 3:
-				// TODO: incorrect/encouraging message prompt and TIMEOUT
-				setPrompt("Wrong, but *Encouraging*");
+				setPrompt("Incorrect :(", "#E88787");
 
 				nextWord();
 				break;
@@ -104,6 +103,7 @@ public class Quiz {
 	 */
 	@FXML
 	public void skip(ActionEvent e) throws IOException {
+		setPrompt("Incorrect :(", "#E88787");
 		nextWord();
 	}
 	
@@ -130,10 +130,18 @@ public class Quiz {
 	 * Helper method to set prompt message.
 	 *
 	 * @param message of what we want to set in prompt
+	 * @param hex code of colour to set the message
 	 */
-	private void setPrompt(String message) {
+	private void setPrompt(String message, String colour) {
 		System.out.println(message);
 		correct.setText(message);
+		correct.setStyle("-fx-text-fill: "+ colour);
+        PauseTransition wait = new PauseTransition(Duration.seconds(2));
+        wait.setOnFinished((e) -> {
+            /*YOUR METHOD*/
+        	correct.setText(" ");
+        });
+        wait.play();
 	}
 
 	/**
@@ -175,5 +183,9 @@ public class Quiz {
 			// Festival say word.
 			Festival.speak(quiz.getWord());
 		}
+	}
+	
+	public int getScore() {
+		return scoreVal;
 	}
 }
