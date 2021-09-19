@@ -7,7 +7,7 @@
 
 <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/Quiz.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.scene.Quiz">
    <children>
-      <Label fx:id="score" alignment="CENTER" contentDisplay="CENTER" layoutX="268.0" layoutY="23.0" prefHeight="50.0" prefWidth="65.0" text="*score*">
+      <Label fx:id="score" alignment="CENTER" contentDisplay="CENTER" layoutX="268.0" layoutY="23.0" prefHeight="50.0" prefWidth="65.0" text="0">
          <font>
             <Font size="20.0" />
          </font>
