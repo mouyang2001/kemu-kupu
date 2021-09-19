@@ -17,7 +17,7 @@ public class Main extends Application {
 		// Set window options.
 		stage.setTitle("Spelling Whiz");
 		stage.setMaximized(true);
-
+		
 		SceneManager.show(stage);
 	}
 }

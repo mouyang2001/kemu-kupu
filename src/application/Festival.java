@@ -1,34 +1,50 @@
 package application;
 
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.Arrays;
 
 /**
  * Controls the festival text to speech command.
  */
 public class Festival {
 	/**
-	 * Speaks text to the user.
+	 * Speaks text to the user in a background thread.
 	 *
-	 * @param text Text to speak.
-	 * @param block If the operation should block until complete.
-	 * @throws IOException If an I/O error occurs.
-	 * @throws InterruptedException If the current thread is interrupted while blocking.
+	 * @param text The text to speak.
 	 */
-	public static void speak(String text, boolean block) throws IOException, InterruptedException {
+	public static void speak(String text) {
+		BackgroundExecutor.execute(() -> {
+			try {
+				speakInternal(text);
+			} catch (IOException | InterruptedException e) {
+				// TODO: Error handling.
+			}
+		});
+	}
+	
+	/**
+	 * Speaks text to the user.
+	 * Synchronized so festival doesn't speak over itself.
+	 * 
+	 * @param text Text to speak.
+	 * @throws IOException If an I/O error occurs.
+	 * @throws InterruptedException If festival is interrupted while blocking.
+	 */
+	public synchronized static void speakInternal(String text) throws IOException, InterruptedException {
 		// Start festival.
-		Process process = new ProcessBuilder("festival", "--tts").start();
-
-		// Send the text to standard input.
-		OutputStream in = process.getOutputStream();
-		PrintWriter stdin = new PrintWriter(in);
-		stdin.print(text);
+		ProcessBuilder builder = new ProcessBuilder("festival", "--pipe");
+		Process process = builder.start();
+		PrintWriter stdin = new PrintWriter(process.getOutputStream());
+		
+		// Run festival commands.
+		stdin.print(
+			"(voice_akl_mi_pk06_cg)" +
+			"(SayText \"" + text + "\")"
+		);
+		
 		stdin.close();
 		
-		// Block until festival has stopped speaking.
-		if (block) {
-			process.waitFor();
-		}
+		process.waitFor();
 	}
 }
