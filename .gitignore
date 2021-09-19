@@ -29,5 +29,6 @@ bin
 hs_err_pid*
 
 .stats/
+.festival/
 
 assignment-3-and-project-team-35.iml
