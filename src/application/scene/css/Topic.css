@@ -8,22 +8,22 @@
     -fx-font-family: Verdana;
 }
 
-#button_start {
+#start {
 	-fx-background-color: #7289DA;
 	-fx-text-fill: #FFFFFF;
     -fx-font-size: 30;
     -fx-font-family: Play;
 }
-#button_new:hover
-{
--fx-background-color : #7086D4;
-}
-#button_new:pressed
-{
--fx-background-color : #485CA5;
+
+#start:hover {
+	-fx-background-color : #6076C4;
 }
 
-#list_topics {
+#start:pressed {
+	-fx-background-color : #475B9F;
+}
+
+#topics {
 	-fx-background-color: #595959;
 	-fx-text-fill: #FFFFFF;
     -fx-font-size: 50;

@@ -6,7 +6,6 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.VBox?>
 
-
 <VBox alignment="TOP_CENTER" prefHeight="700.0" prefWidth="1200.0" stylesheets="@../css/Topic.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.scene.Topic">
    <children>
       <Label fx:id="title" stylesheets="@../css/Topic.css" text="Choose your topic">
@@ -14,12 +13,12 @@
             <Insets top="50.0" />
          </VBox.margin>
       </Label>
-      <ListView fx:id="list_topics" prefHeight="200.0" prefWidth="200.0">
+      <ListView fx:id="topics" prefHeight="200.0" prefWidth="200.0">
          <VBox.margin>
             <Insets left="100.0" right="100.0" top="50.0" />
          </VBox.margin>
       </ListView>
-      <Button fx:id="button_start" mnemonicParsing="false" onAction="#startQuiz" prefHeight="60.0" prefWidth="150.0" text="Start">
+      <Button fx:id="start" mnemonicParsing="false" onAction="#startQuiz" prefHeight="60.0" prefWidth="150.0" text="Start">
          <VBox.margin>
             <Insets left="1000.0" top="50.0" />
          </VBox.margin>

@@ -2,46 +2,48 @@
     -fx-background-color: #1E2124;
 }
 
-#label_score {
+#score {
     -fx-text-fill: #7289DA;
     -fx-font-size: 20;
     -fx-font-family: Verdana;
 }
 
-#label_correct {
+#correct {
 	-fx-text-fill: #FFFFFF;
     -fx-font-size: 30;
 }
 
-#label_hint {
+#hint {
 	-fx-text-fill: #FFFFFF;
     -fx-font-size: 15;
 }
 
-#button_submit {
+#submit {
 	-fx-background-color: #7289DA;
 	-fx-text-fill: #FFFFFF;
     -fx-font-size: 20;
     -fx-font-family: Play;
 }
-#button_submit:hover
-{
--fx-background-color : #6076C4;
-}
-#button_submit:pressed
-{
--fx-background-color : #475B9F;
+
+#submit:hover {
+	-fx-background-color : #6076C4;
 }
 
-#button_skip {
+#submit:pressed {
+	-fx-background-color : #475B9F;
+}
+
+#skip {
 	-fx-background-color: #595959;
 	-fx-text-fill: #FFFFFF;
     -fx-font-size: 20;
     -fx-font-family: Play;
 }
-#button_skip:hover {
+
+#skip:hover {
 	-fx-background-color : #4A4A4A;
 }
-#button_skip:pressed {
+
+#skip:pressed {
 	-fx-background-color : #3B3B3C;
 }

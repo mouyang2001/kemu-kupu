@@ -66,7 +66,7 @@ public class SceneManager {
      * @throws IOException If FXML or CSS resources fail to load.
      */
     public static void switchToFinishScene() throws IOException {
-       changeScene("Finish");
+        changeScene("Finish");
     }
     
     /**
