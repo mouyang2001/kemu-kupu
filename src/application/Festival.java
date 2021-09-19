@@ -39,7 +39,7 @@ public class Festival {
 		
 		// Run festival commands.
 		stdin.print(
-			"(voice_cmu_us_awb_cg)" +
+			"(voice_akl_mi_pk06_cg)" +
 			"(SayText \"" + text + "\")"
 		);
 		
