@@ -52,12 +52,31 @@ public class SceneManager {
     }
     
     /**
-     * Show the quiz scene to the user.
+     * Show the quiz scene to the user and transfer topic selection data.
      * 
      * @throws IOException If FXML or CSS resources fail to load.
      */
-    public static void switchToQuizScene() throws IOException {
-        changeScene("Quiz");
+    public static void switchToQuizScene(String topic) throws IOException {
+        // TODO: this code here is kinda duplicating changeScene method, so idk if we can make it better?
+        // Load resources.
+        FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource("fxml/Quiz.fxml"));
+        String css = SceneManager.class.getResource("css/" + "Quiz" + ".css").toExternalForm();
+
+        // load calls initialize() method within Quiz scene controller. Must occur before we use beginQuiz();
+        Parent root = loader.load();
+
+        // Create instance of Quiz scene controller, then begin a new Quiz.
+        Quiz quizController = loader.getController();
+        quizController.beginQuiz(topic);
+
+        // Show new scene.
+        Scene scene = stage.getScene();
+        scene.setRoot(root);
+
+        // Apply CSS.
+        scene.getStylesheets().clear();
+        scene.getStylesheets().add(css);
+
     }
     
     /**
