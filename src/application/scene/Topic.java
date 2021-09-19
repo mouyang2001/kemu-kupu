@@ -49,6 +49,7 @@ public class Topic {
 	public void startQuiz(ActionEvent e) throws IOException {
 		String topic = topicListView.getSelectionModel().getSelectedItem();
 		if (topic == null) {
+			// TODO: add a prompt to user to select an option?
 			System.out.println("Please select an option");
 		} else {
 			SceneManager.switchToQuizScene(topic);

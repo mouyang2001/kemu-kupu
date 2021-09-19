@@ -57,6 +57,7 @@ public class SceneManager {
      * @throws IOException If FXML or CSS resources fail to load.
      */
     public static void switchToQuizScene(String topic) throws IOException {
+        // TODO: this code here is kinda duplicating changeScene method, so idk if we can make it better?
         // Load resources.
         FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource("fxml/Quiz.fxml"));
         String css = SceneManager.class.getResource("css/" + "Quiz" + ".css").toExternalForm();
