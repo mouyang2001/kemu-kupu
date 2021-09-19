@@ -32,6 +32,15 @@ public class Quiz {
 	
 	@FXML
 	private Label hint;
+
+	/**
+	 * Method allows SceneManager to access and transfer data topic selection data.
+	 */
+	public void beginQuiz(String topic) {
+		System.out.println("begin quiz with: " + topic);
+		// TODO: begin a new QuizGame instance
+		// eg QuizGame = new QuizGame(topic: ... );
+	}
 	
 	/**
 	 * Click handler for the submit button.
@@ -65,7 +74,7 @@ public class Quiz {
 	@FXML
 	public void skip(ActionEvent e) throws IOException {
 		// TODO: incorrect popup
-		finished(e);
+//		finished(e);
 	}
 	
 	/**
@@ -77,8 +86,6 @@ public class Quiz {
 	private void finished(ActionEvent e) throws IOException {
 		//if word list is empty
 		SceneManager.switchToFinishScene();
-		//else
-		SceneManager.switchToQuizScene();
 	}
 	
 	/**

@@ -28,6 +28,7 @@ public class Topic {
 
 	ArrayList<String> topics;
 
+	@FXML
 	public void initialize() {
 		topics = Words.getTopics("words/");
 		topicListView.getItems().addAll(topics);
@@ -37,19 +38,21 @@ public class Topic {
 			System.out.println(topic);
 		});
 	}
-	
+
 	/**
 	 * Click handler for the start quiz button.
 	 * 
 	 * @param e Event action information.
 	 * @throws IOException If FXML or CSS resources fail to load.
 	 */
+	@FXML
 	public void startQuiz(ActionEvent e) throws IOException {
 		String topic = topicListView.getSelectionModel().getSelectedItem();
 		if (topic == null) {
 			System.out.println("Please select an option");
+		} else {
+			SceneManager.switchToQuizScene(topic);
 		}
-//		SceneManager.switchToQuizScene();
 	}
 
 	/**
@@ -57,6 +60,7 @@ public class Topic {
 	 *
 	 * @throws IOException If FXML or CSS resources fail to load.
 	 */
+	@FXML
 	public void leaveQuiz() throws IOException {
 		SceneManager.switchToMenuScene();
 	}
