@@ -153,7 +153,7 @@ public class Quiz {
 	}
 
 	/**
-	 * Helper method to jump to next word.
+	 * Helper method to jump to next word and reset UI elements.
 	 *
 	 * @throws IOException If FXML or CSS resources fail to load.
 	 */
