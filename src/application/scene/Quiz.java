@@ -30,7 +30,8 @@ public class Quiz {
 	private QuizGame quiz;
 	private int scoreVal = 0;
 	private int currentRound = 1;
-	private final int numberOfRounds = 5;
+
+	private final int NUMBER_OF_ROUNDS = 5;
 
 	/**
 	 * Method allows SceneManager to access and transfer data topic selection data.
@@ -73,21 +74,21 @@ public class Quiz {
 		// 3: Incorrect, next word
 		switch(quiz.checkSpelling(spelling)) {
 			case 1:
-				// TODO: correct popup.
-				System.out.println("Correct!");
+				// TODO: correct prompt styling and TIMEOUT
+				setPrompt("Correct");
 
 				increaseScore();
 				nextWord();
 				break;
 			case 2:
-				// TODO: incorrect try again popup
-				System.out.println("Incorrect, try again");
+				// TODO: incorrect try again prompt styling and TIMEOUT
+				setPrompt("Incorrect, try again");
 
 				giveHint();
 				break;
 			case 3:
-				// TODO: incorrect/encouraging message popup
-				System.out.println("Wrong, but *Encouraging Message*");
+				// TODO: incorrect/encouraging message prompt and TIMEOUT
+				setPrompt("Wrong, but *Encouraging*");
 
 				nextWord();
 				break;
@@ -96,6 +97,7 @@ public class Quiz {
 
 	/**
 	 * Click handler for the skip button.
+	 * Tells quiz object to go to the next word.
 	 * 
 	 * @param e Event action information.
 	 * @throws IOException If FXML or CSS resources fail to load.
@@ -107,12 +109,13 @@ public class Quiz {
 	
 	/**
 	 * Click handler for the sound button.
+	 * Gets festival to say the word.
 	 * 
 	 * @param e Event action information.
 	 */
 	@FXML
 	public void sound(ActionEvent e) {
-		
+		Festival.speak(quiz.getWord());
 	}
 
 	/**
@@ -124,6 +127,16 @@ public class Quiz {
 	}
 
 	/**
+	 * Helper method to set prompt message.
+	 *
+	 * @param message of what we want to set in prompt
+	 */
+	private void setPrompt(String message) {
+		System.out.println(message);
+		correct.setText(message);
+	}
+
+	/**
 	 * Helper method to set a hint to the hint label.
 	 */
 	private void giveHint() {
@@ -132,7 +145,7 @@ public class Quiz {
 	}
 
 	/**
-	 * Helper method to clear all prompt labels (everything except score).
+	 * Helper method to clear all prompt labels (everything except score label).
 	 */
 	private void clearLabels() {
 		hint.setText("");
@@ -145,16 +158,22 @@ public class Quiz {
 	 * @throws IOException If FXML or CSS resources fail to load.
 	 */
 	private void nextWord() throws IOException {
-		if (currentRound == numberOfRounds) SceneManager.switchToFinishScene();
+		// If NUMBER_OF_ROUNDS reached then switch to finish.
+		if (currentRound == NUMBER_OF_ROUNDS) SceneManager.switchToFinishScene();
 		else {
+			// Increase current round count.
 			currentRound++;
 
-			quiz.nextWord();
-			Festival.speak(quiz.getWord());
+			// Clear labels and reset focus to input.
+			clearLabels();
+			input.requestFocus();
 
+			// Get next word.
+			quiz.nextWord();
 			System.out.println(quiz.getWord());
 
-			input.requestFocus();
+			// Festival say word.
+			Festival.speak(quiz.getWord());
 		}
 	}
 }
