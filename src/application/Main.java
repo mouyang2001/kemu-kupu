@@ -14,7 +14,7 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage stage) throws IOException {
-		// Options.
+		// Set window options.
 		stage.setTitle("Spelling Whiz");
 		stage.setMaximized(true);
 
