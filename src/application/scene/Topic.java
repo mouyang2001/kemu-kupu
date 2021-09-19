@@ -30,12 +30,11 @@ public class Topic {
 
 	@FXML
 	public void initialize() {
-		topics = Words.getTopics("words/");
+		topics = Words.getTopics();
 		topicListView.getItems().addAll(topics);
 
 		topicListView.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
 			String topic = topicListView.getSelectionModel().getSelectedItem();
-			System.out.println(topic);
 		});
 	}
 
