@@ -4,8 +4,7 @@ import java.io.IOException;
 
 import javafx.event.ActionEvent;
 
-public class Quiz extends SceneManager{
-	
+public class Quiz {
 	// this method is for pre loading things
 	public void initialize() {
 		
@@ -21,7 +20,7 @@ public class Quiz extends SceneManager{
 		/*
 		 * TODO: incorrect try again popup
 		 */
-		switchToQuizScene(e);
+		SceneManager.switchToQuizScene();
 		//if incorrect 2nd attempt
 		/*
 		 * TODO: incorrect popup
@@ -38,9 +37,9 @@ public class Quiz extends SceneManager{
 	
 	public void isFinished(ActionEvent e) throws IOException {
 		//if word list is empty
-		switchToFinishScene(e);
+		SceneManager.switchToFinishScene();
 		//else
-		switchToQuizScene(e);
+		SceneManager.switchToQuizScene();
 	}
 	
 	public void sound() {
