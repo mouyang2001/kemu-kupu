@@ -84,8 +84,26 @@ public class SceneManager {
      * 
      * @throws IOException If FXML or CSS resources fail to load.
      */
-    public static void switchToFinishScene() throws IOException {
-        changeScene("Finish");
+    public static void switchToFinishScene(int score) throws IOException {
+        // TODO: this code here is kinda duplicating changeScene method, so idk if we can make it better?
+        // Load resources.
+        FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource("fxml/Finish.fxml"));
+        String css = SceneManager.class.getResource("css/" + "Finish" + ".css").toExternalForm();
+
+        // load calls initialize() method within Quiz scene controller. Must occur before we use beginQuiz();
+        Parent root = loader.load();
+
+        // Create instance of Quiz scene controller, then begin a new Quiz.
+        Finish finishController = loader.getController();
+        finishController.initialise(score);
+
+        // Show new scene.
+        Scene scene = stage.getScene();
+        scene.setRoot(root);
+
+        // Apply CSS.
+        scene.getStylesheets().clear();
+        scene.getStylesheets().add(css);
     }
     
     /**
