@@ -5,6 +5,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class QuizGame {
+	public enum Result {
+		Correct,
+		FirstIncorrect,
+		SecondIncorrect,
+	};
+	
     private final ArrayList<String> words;
 
     private int index = 0;
@@ -66,15 +72,11 @@ public class QuizGame {
 
     /**
      * Method checks spelling of input word.
-     * Status codes are as follows:
-     * 1: Correct.
-     * 2: Incorrect, on second attempt.
-     * 3: Incorrect, on third or more attempts.
-     *
+     * 
      * @param spelling user inputted word.
-     * @return status code number
+     * @return attempt result.
      */
-    public int checkSpelling(String spelling) {
+    public Result checkSpelling(String spelling) {
         // Check if it is the first attempt
         if (attempts == 0) {
             // First attempt taken
@@ -82,15 +84,15 @@ public class QuizGame {
 
             // Check spelling with current word, trimming white spaces on ends and ignoring case.
             if (spelling.trim().equalsIgnoreCase(getWord())) {
-            	return 1;
+            	return Result.Correct;
             } else {
-            	return 2;
+            	return Result.FirstIncorrect;
             }
         } else {
             if (spelling.trim().equalsIgnoreCase(getWord())) {
-            	return 1;
+            	return Result.Correct;
             } else {
-            	return 3;
+            	return Result.SecondIncorrect;
             }
         }
     }

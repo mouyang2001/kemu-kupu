@@ -1,10 +1,11 @@
 package application.scene;
 
+import application.Festival;
+import application.QuizGame;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import application.Festival;
-import application.QuizGame;
 import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -29,9 +30,11 @@ public class Quiz {
 	private Label hint;
 
 	private QuizGame quiz;
+	
 	private int scoreVal = 0;
+	
 	private int currentRound = 1;
-
+	
 	private final int NUMBER_OF_ROUNDS = 5;
 
 	/**
@@ -69,23 +72,21 @@ public class Quiz {
 		input.clear();
 		input.requestFocus();
 
-		// The cases are:
-		// 1: Correct
-		// 2: Incorrect, try again
-		// 3: Incorrect, next word
 		switch (quiz.checkSpelling(spelling)) {
-			case 1:
+			case Correct:
 				setPrompt("Correct", "#9AF1A3");
 
 				increaseScore();
 				nextWord();
 				break;
-			case 2:
+			
+			case FirstIncorrect:
 				setPrompt("Incorrect, try again", "#E88787");
 
 				giveHint();
 				break;
-			case 3:
+			
+			case SecondIncorrect:
 				setPrompt("Incorrect :(", "#E88787");
 
 				nextWord();
@@ -138,7 +139,7 @@ public class Quiz {
 		
         PauseTransition wait = new PauseTransition(Duration.seconds(2));
         wait.setOnFinished(e -> {
-        	correct.setText(" ");
+        	correct.setText("");
         });
         
         wait.play();
