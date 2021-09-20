@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.input.MouseEvent;
 
 /**
  * Topic selection screen for the user
@@ -28,11 +29,17 @@ public class Topic {
 	 */
 	@FXML
 	public void initialize() {
+		// Add items to table view.
 		try {
 			topicListView.getItems().addAll(Words.getTopics());
 		} catch (IOException e) {
 			// TODO: Error handling.
 		}
+		
+		// Enable start button once an item is selected.
+		topicListView.addEventHandler(MouseEvent.MOUSE_PRESSED, e -> {
+			start.setDisable(topicListView.getSelectionModel().getSelectedItem() == null);
+		});
 	}
 
 	/**
@@ -43,13 +50,7 @@ public class Topic {
 	 */
 	@FXML
 	public void startQuiz(ActionEvent e) throws IOException {
-		String topic = topicListView.getSelectionModel().getSelectedItem();
-		if (topic == null) {
-			// TODO: add a prompt to user to select an option?
-			System.out.println("Please select an option");
-		} else {
-			SceneManager.switchToQuizScene(topic);
-		}
+		SceneManager.switchToQuizScene(topicListView.getSelectionModel().getSelectedItem());
 	}
 
 	/**

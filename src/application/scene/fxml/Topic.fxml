@@ -24,11 +24,13 @@
             <Button fx:id="back" mnemonicParsing="false" onAction="#leaveQuiz" prefHeight="60.0" prefWidth="150.0" text="Back">
                <HBox.margin>
                   <Insets top="10.0" />
-               </HBox.margin></Button>
-            <Button fx:id="start" mnemonicParsing="false" onAction="#startQuiz" prefHeight="60.0" prefWidth="150.0" text="Start">
+               </HBox.margin>
+            </Button>
+            <Button fx:id="start" disable="true" mnemonicParsing="false" onAction="#startQuiz" prefHeight="60.0" prefWidth="150.0" text="Start">
                <HBox.margin>
                   <Insets top="10.0" />
-               </HBox.margin></Button>
+               </HBox.margin>
+            </Button>
          </children>
       </HBox>
    </children>
