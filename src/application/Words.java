@@ -45,7 +45,7 @@ public class Words {
 
         // scan through each line storing the word in that line to an array
         Scanner scanner = new Scanner(new File(wordsPath + topic));
-        while(scanner.hasNextLine()) {
+        while (scanner.hasNextLine()) {
             words.add(scanner.nextLine());
         }
 

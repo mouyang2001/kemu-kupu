@@ -73,7 +73,7 @@ public class Quiz {
 		// 1: Correct
 		// 2: Incorrect, try again
 		// 3: Incorrect, next word
-		switch(quiz.checkSpelling(spelling)) {
+		switch (quiz.checkSpelling(spelling)) {
 			case 1:
 				setPrompt("Correct", "#9AF1A3");
 
@@ -134,12 +134,13 @@ public class Quiz {
 	private void setPrompt(String message, String colour) {
 		System.out.println(message);
 		correct.setText(message);
-		correct.setStyle("-fx-text-fill: "+ colour);
+		correct.setStyle("-fx-text-fill: " + colour);
+		
         PauseTransition wait = new PauseTransition(Duration.seconds(2));
-        wait.setOnFinished((e) -> {
-            /*YOUR METHOD*/
+        wait.setOnFinished(e -> {
         	correct.setText(" ");
         });
+        
         wait.play();
 	}
 
@@ -147,8 +148,7 @@ public class Quiz {
 	 * Helper method to set a hint to the hint label.
 	 */
 	private void giveHint() {
-		String letter = quiz.getHintLetterAtIndex(1);
-		hint.setText("Hint: second letter is " + letter);
+		hint.setText("Hint: second letter is " + quiz.getHintLetterAtIndex(1));
 	}
 
 	/**
@@ -166,8 +166,9 @@ public class Quiz {
 	 */
 	private void nextWord() throws IOException {
 		// If NUMBER_OF_ROUNDS reached then switch to finish.
-		if (currentRound == NUMBER_OF_ROUNDS) SceneManager.switchToFinishScene();
-		else {
+		if (currentRound == NUMBER_OF_ROUNDS) {
+			SceneManager.switchToFinishScene();
+		} else {
 			// Increase current round count.
 			currentRound++;
 

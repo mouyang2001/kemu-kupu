@@ -1,7 +1,6 @@
 package application.scene;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import application.Words;
 import javafx.event.ActionEvent;
@@ -24,12 +23,9 @@ public class Topic {
 	@FXML
 	private Button start;
 
-	ArrayList<String> topics;
-
 	@FXML
 	public void initialize() {
-		topics = Words.getTopics();
-		topicListView.getItems().addAll(topics);
+		topicListView.getItems().addAll(Words.getTopics());
 	}
 
 	/**

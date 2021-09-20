@@ -5,9 +5,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class QuizGame {
-
     private final ArrayList<String> words;
+
     private int index = 0;
+    
     private int attempts = 0;
 
     /**
@@ -18,8 +19,8 @@ public class QuizGame {
      */
     public QuizGame(String topic) throws FileNotFoundException {
         // read words from file then rearrange in random order
-        this.words = Words.getWords(topic);
-        Collections.shuffle(this.words);
+    	words = Words.getWords(topic);
+        Collections.shuffle(words);
     }
 
     /**
@@ -28,7 +29,7 @@ public class QuizGame {
      * @return all words as ArrayList.
      */
     public ArrayList<String> getWords() {
-        return this.words;
+        return words;
     }
 
     /**
@@ -37,17 +38,20 @@ public class QuizGame {
      * @return current word being tested as string.
      */
     public String getWord() {
-        return this.words.get(this.index);
+        return words.get(index);
     }
 
     /**
      * Method gets the next word in words
      */
     public void nextWord() {
-        if (index == this.words.size()-1) this.index = 0;
-        else this.index++;
+        if (index == words.size() - 1) {
+        	index = 0;
+        } else {
+        	index++;
+        }
 
-        this.attempts = 0;
+        attempts = 0;
     }
 
     /**
@@ -57,7 +61,7 @@ public class QuizGame {
      * @return hint letter.
      */
     public String getHintLetterAtIndex(int index) {
-        return String.valueOf(this.getWord().charAt(index));
+        return String.valueOf(getWord().charAt(index));
     }
 
     /**
@@ -77,11 +81,17 @@ public class QuizGame {
             attempts++;
 
             // Check spelling with current word, trimming white spaces on ends and ignoring case.
-            if (spelling.trim().equalsIgnoreCase(this.getWord())) return 1;
-            else return 2;
+            if (spelling.trim().equalsIgnoreCase(getWord())) {
+            	return 1;
+            } else {
+            	return 2;
+            }
         } else {
-            if (spelling.trim().equalsIgnoreCase(this.getWord())) return 1;
-            else return 3;
+            if (spelling.trim().equalsIgnoreCase(getWord())) {
+            	return 1;
+            } else {
+            	return 3;
+            }
         }
     }
 }
