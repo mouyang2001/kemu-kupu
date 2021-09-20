@@ -1,8 +1,8 @@
 package application;
 
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * State of a single spelling game.
@@ -17,7 +17,7 @@ public class QuizGame {
 		SecondIncorrect,
 	};
 	
-    private final ArrayList<String> words;
+    private final List<String> words;
 
     private int index = 0;
     
@@ -28,8 +28,9 @@ public class QuizGame {
      * Calls Words class to retrieve words ArrayList and shuffles them.
      *
      * @param topic filename of the specific topic file.
+     * @throws IOException If an I/O error occured.
      */
-    public QuizGame(String topic) throws FileNotFoundException {
+    public QuizGame(String topic) throws IOException {
         // read words from file then rearrange in random order
     	words = Words.getWords(topic);
         Collections.shuffle(words);
@@ -38,9 +39,9 @@ public class QuizGame {
     /**
      * Getter method for list of words.
      *
-     * @return all words as ArrayList.
+     * @return List of shuffled words.
      */
-    public ArrayList<String> getWords() {
+    public List<String> getWords() {
         return words;
     }
 

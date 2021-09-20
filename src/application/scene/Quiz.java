@@ -3,7 +3,6 @@ package application.scene;
 import application.Festival;
 import application.QuizGame;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javafx.animation.PauseTransition;
@@ -42,8 +41,9 @@ public class Quiz {
 	 * Also it's the entry point to start the quiz game.
 	 *
 	 * @param topic The chosen topic, file name.
+	 * @throws IOException If an I/O error occured.
 	 */
-	public void beginQuiz(String topic) throws FileNotFoundException {
+	public void beginQuiz(String topic) throws IOException {
 		// clear default labels on fxml
 		clearLabels();
 

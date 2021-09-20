@@ -23,9 +23,16 @@ public class Topic {
 	@FXML
 	private Button start;
 
+	/**
+	 * Called once the controller is loaded.
+	 */
 	@FXML
 	public void initialize() {
-		topicListView.getItems().addAll(Words.getTopics());
+		try {
+			topicListView.getItems().addAll(Words.getTopics());
+		} catch (IOException e) {
+			// TODO: Error handling.
+		}
 	}
 
 	/**
@@ -54,5 +61,4 @@ public class Topic {
 	public void leaveQuiz() throws IOException {
 		SceneManager.switchToMenuScene();
 	}
-
 }
