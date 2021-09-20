@@ -68,10 +68,8 @@ public class Quiz {
 	 */
 	@FXML
 	public void submit(ActionEvent e) throws IOException {
-		// Retrieve, clear input and return focus to it.
-		String spelling = input.getText();
-		input.clear();
-		input.requestFocus();
+		// Retrieve input in text field.
+		String spelling = fetchInput();
 
 		switch (quiz.checkSpelling(spelling)) {
 			case Correct:
@@ -128,7 +126,7 @@ public class Quiz {
 	 * Helper method to set prompt message.
 	 *
 	 * @param message of what we want to set in prompt
-	 * @param hex code of colour to set the message
+	 * @param colour hex code of colour to set the message
 	 */
 	private void setPrompt(String message, String colour) {
 		System.out.println(message);
@@ -138,6 +136,18 @@ public class Quiz {
 		PauseTransition wait = new PauseTransition(Duration.seconds(3));
         wait.setOnFinished(e -> correct.setText(""));
         wait.play();
+	}
+
+	/**
+	 * Helper method to get text from input TextField and reset it.
+	 *
+	 * @return text that player inputted into the TextField input.
+	 */
+	private String fetchInput() {
+		String text = input.getText();
+		input.clear();
+		input.requestFocus();
+		return text;
 	}
 
 	/**
