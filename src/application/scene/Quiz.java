@@ -1,14 +1,13 @@
 package application.scene;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
 import application.Festival;
 import application.QuizGame;
+
+import java.io.IOException;
+
 import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.util.Duration;
@@ -30,9 +29,13 @@ public class Quiz {
 	private Label hint;
 
 	private QuizGame quiz;
+	
 	private int scoreVal = 0;
+	
 	private int currentRound = 1;
+    
 	private String RED = "#E88787";
+    
 	private String GREEN = "#9AF1A3";
 
 	private final int NUMBER_OF_ROUNDS = 5;
@@ -42,11 +45,9 @@ public class Quiz {
 	 * Also it's the entry point to start the quiz game.
 	 *
 	 * @param topic The chosen topic, file name.
+	 * @throws IOException If an I/O error occured.
 	 */
-	public void beginQuiz(String topic) throws FileNotFoundException {
-		// clear default labels on fxml
-		clearLabels();
-
+	public void beginQuiz(String topic) throws IOException {
 		// begin new QuizGame instance
 		quiz = new QuizGame(topic);
 
@@ -72,21 +73,19 @@ public class Quiz {
 		input.clear();
 		input.requestFocus();
 
-		// The cases are:
-		// 1: Correct
-		// 2: Incorrect, try again
-		// 3: Incorrect, next word
-		switch(quiz.checkSpelling(spelling)) {
-			case 1:
+		switch (quiz.checkSpelling(spelling)) {
+			case Correct:
 				increaseScore();
 				nextWord();
 				setPrompt("Correct", GREEN);
 				break;
-			case 2:
+			
+			case FirstIncorrect:
 				setPrompt("Incorrect, try again", RED);
 				giveHint();
 				break;
-			case 3:
+			
+			case SecondIncorrect:
 				nextWord();
 				setPrompt("Incorrect :(", RED);
 				break;
@@ -134,24 +133,22 @@ public class Quiz {
 	private void setPrompt(String message, String colour) {
 		System.out.println(message);
 		correct.setText(message);
-		correct.setStyle("-fx-text-fill: "+ colour);
-        PauseTransition wait = new PauseTransition(Duration.seconds(3));
-        wait.setOnFinished((e) -> {
-        	correct.setText(" ");
-        });
+		correct.setStyle("-fx-text-fill: " + colour);
+		
+		PauseTransition wait = new PauseTransition(Duration.seconds(3));
+        wait.setOnFinished(e -> correct.setText(""));
         wait.play();
 	}
 
 	/**
-	 * Helper method to set a hint to the hint label.
+	 * Helper method to show the hint to the user.
 	 */
 	private void giveHint() {
-		String letter = quiz.getHintLetterAtIndex(1);
-		hint.setText("Hint: second letter is " + letter);
+		hint.setText("Hint: second letter is " + quiz.getHintLetterAtIndex(1));
 	}
 
 	/**
-	 * Helper method to clear all prompt labels (everything except score label).
+	 * Helper method to clear all prompt labels (except score label).
 	 */
 	private void clearLabels() {
 		hint.setText("");
@@ -165,21 +162,23 @@ public class Quiz {
 	 */
 	private void nextWord() throws IOException {
 		// If NUMBER_OF_ROUNDS reached then switch to finish.
-		if (currentRound == NUMBER_OF_ROUNDS) SceneManager.switchToFinishScene(scoreVal);
-		else {
-			// Increase current round count.
-			currentRound++;
-
-			// Clear labels and reset focus to input.
-			clearLabels();
-			input.requestFocus();
-
-			// Get next word.
-			quiz.nextWord();
-			System.out.println(quiz.getWord());
-
-			// Festival say word.
-			Festival.speak(quiz.getWord());
+		if (currentRound == NUMBER_OF_ROUNDS) {
+			SceneManager.switchToFinishScene(scoreVal);
+			return;
 		}
+		
+		// Increase current round count.
+		currentRound++;
+
+		// Clear labels and reset focus to input.
+		clearLabels();
+		input.requestFocus();
+
+		// Get next word.
+		quiz.nextWord();
+		System.out.println(quiz.getWord());
+
+		// Festival say word.
+		Festival.speak(quiz.getWord());
 	}
 }

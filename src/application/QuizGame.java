@@ -1,34 +1,48 @@
 package application;
 
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.Collections;
+import java.util.List;
 
+/**
+ * State of a single spelling game.
+ */
 public class QuizGame {
+	/**
+	 * Result of an attempt.
+	 */
+	public enum Result {
+		Correct,
+		FirstIncorrect,
+		SecondIncorrect,
+	};
+	
+    private final List<String> words;
 
-    private final ArrayList<String> words;
     private int index = 0;
-    private int attempts = 0;
+    
+    private boolean attempted = false;
 
     /**
      * QuizGame constructor.
      * Calls Words class to retrieve words ArrayList and shuffles them.
      *
      * @param topic filename of the specific topic file.
+     * @throws IOException If an I/O error occured.
      */
-    public QuizGame(String topic) throws FileNotFoundException {
+    public QuizGame(String topic) throws IOException {
         // read words from file then rearrange in random order
-        this.words = Words.getWords(topic);
-        Collections.shuffle(this.words);
+    	words = Words.getWords(topic);
+        Collections.shuffle(words);
     }
 
     /**
      * Getter method for list of words.
      *
-     * @return all words as ArrayList.
+     * @return List of shuffled words.
      */
-    public ArrayList<String> getWords() {
-        return this.words;
+    public List<String> getWords() {
+        return words;
     }
 
     /**
@@ -37,17 +51,15 @@ public class QuizGame {
      * @return current word being tested as string.
      */
     public String getWord() {
-        return this.words.get(this.index);
+        return words.get(index);
     }
 
     /**
-     * Method gets the next word in words
+     * Sets the state of the game to the next word.
      */
     public void nextWord() {
-        if (index == this.words.size()-1) this.index = 0;
-        else this.index++;
-
-        this.attempts = 0;
+    	index++;
+        attempted = false;
     }
 
     /**
@@ -57,31 +69,27 @@ public class QuizGame {
      * @return hint letter.
      */
     public String getHintLetterAtIndex(int index) {
-        return String.valueOf(this.getWord().charAt(index));
+        return String.valueOf(getWord().charAt(index));
     }
 
     /**
      * Method checks spelling of input word.
-     * Status codes are as follows:
-     * 1: Correct.
-     * 2: Incorrect, on second attempt.
-     * 3: Incorrect, on third or more attempts.
-     *
+     * 
      * @param spelling user inputted word.
-     * @return status code number
+     * @return attempt result.
      */
-    public int checkSpelling(String spelling) {
-        // Check if it is the first attempt
-        if (attempts == 0) {
-            // First attempt taken
-            attempts++;
-
-            // Check spelling with current word, trimming white spaces on ends and ignoring case.
-            if (spelling.trim().equalsIgnoreCase(this.getWord())) return 1;
-            else return 2;
-        } else {
-            if (spelling.trim().equalsIgnoreCase(this.getWord())) return 1;
-            else return 3;
-        }
+    public Result checkSpelling(String spelling) {
+    	boolean wasAttempted = attempted;
+    	
+    	attempted = true;
+    	
+    	// Check spelling with current word, trimming white spaces on ends and ignoring case.
+    	if (spelling.trim().equalsIgnoreCase(getWord())) {
+    		return Result.Correct;
+    	} else if (!wasAttempted) {
+    		return Result.FirstIncorrect;
+    	} else {
+    		return Result.SecondIncorrect;
+    	}
     }
 }

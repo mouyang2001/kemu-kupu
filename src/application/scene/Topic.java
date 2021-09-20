@@ -1,11 +1,8 @@
 package application.scene;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import application.Words;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -26,16 +23,16 @@ public class Topic {
 	@FXML
 	private Button start;
 
-	ArrayList<String> topics;
-
+	/**
+	 * Called once the controller is loaded.
+	 */
 	@FXML
 	public void initialize() {
-		topics = Words.getTopics();
-		topicListView.getItems().addAll(topics);
-
-		topicListView.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
-			String topic = topicListView.getSelectionModel().getSelectedItem();
-		});
+		try {
+			topicListView.getItems().addAll(Words.getTopics());
+		} catch (IOException e) {
+			// TODO: Error handling.
+		}
 	}
 
 	/**
@@ -64,5 +61,4 @@ public class Topic {
 	public void leaveQuiz() throws IOException {
 		SceneManager.switchToMenuScene();
 	}
-
 }

@@ -2,7 +2,6 @@ package application;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Arrays;
 
 /**
  * Controls the festival text to speech command.
