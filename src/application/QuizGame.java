@@ -4,7 +4,13 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * State of a single spelling game.
+ */
 public class QuizGame {
+	/**
+	 * Result of an attempt.
+	 */
 	public enum Result {
 		Correct,
 		FirstIncorrect,

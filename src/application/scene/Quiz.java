@@ -186,6 +186,11 @@ public class Quiz {
 		}
 	}
 	
+	/**
+	 * Gets the current score.
+	 * 
+	 * @return The current score.
+	 */
 	public int getScore() {
 		return scoreVal;
 	}
