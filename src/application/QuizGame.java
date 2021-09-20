@@ -8,15 +8,15 @@ import java.util.List;
  * State of a single spelling game.
  */
 public class QuizGame {
-	/**
-	 * Result of an attempt.
-	 */
-	public enum Result {
-		Correct,
-		FirstIncorrect,
-		SecondIncorrect,
-	};
-	
+    /**
+     * Result of an attempt.
+     */
+    public enum Result {
+        Correct,
+        FirstIncorrect,
+        SecondIncorrect,
+    };
+    
     private final List<String> words;
 
     private int index = 0;
