@@ -33,7 +33,11 @@ public class Quiz {
 	private int scoreVal = 0;
 	
 	private int currentRound = 1;
-	
+    
+	private String RED = "#E88787";
+    
+	private String GREEN = "#9AF1A3";
+
 	private final int NUMBER_OF_ROUNDS = 5;
 
 	/**
@@ -71,22 +75,19 @@ public class Quiz {
 
 		switch (quiz.checkSpelling(spelling)) {
 			case Correct:
-				setPrompt("Correct", "#9AF1A3");
-
 				increaseScore();
 				nextWord();
+				setPrompt("Correct", GREEN);
 				break;
 			
 			case FirstIncorrect:
-				setPrompt("Incorrect, try again", "#E88787");
-
+				setPrompt("Incorrect, try again", RED);
 				giveHint();
 				break;
 			
 			case SecondIncorrect:
-				setPrompt("Incorrect :(", "#E88787");
-
 				nextWord();
+				setPrompt("Incorrect :(", RED);
 				break;
 		}
 	}
@@ -100,8 +101,8 @@ public class Quiz {
 	 */
 	@FXML
 	public void skip(ActionEvent e) throws IOException {
-		setPrompt("Incorrect :(", "#E88787");
 		nextWord();
+		setPrompt("Incorrect :(", RED);
 	}
 	
 	/**
@@ -134,7 +135,7 @@ public class Quiz {
 		correct.setText(message);
 		correct.setStyle("-fx-text-fill: " + colour);
 		
-        PauseTransition wait = new PauseTransition(Duration.seconds(2));
+		PauseTransition wait = new PauseTransition(Duration.seconds(3));
         wait.setOnFinished(e -> correct.setText(""));
         wait.play();
 	}
@@ -162,7 +163,7 @@ public class Quiz {
 	private void nextWord() throws IOException {
 		// If NUMBER_OF_ROUNDS reached then switch to finish.
 		if (currentRound == NUMBER_OF_ROUNDS) {
-			SceneManager.switchToFinishScene();
+			SceneManager.switchToFinishScene(scoreVal);
 			return;
 		}
 		
@@ -179,14 +180,5 @@ public class Quiz {
 
 		// Festival say word.
 		Festival.speak(quiz.getWord());
-	}
-	
-	/**
-	 * Gets the current score.
-	 * 
-	 * @return The current score.
-	 */
-	public int getScore() {
-		return scoreVal;
 	}
 }

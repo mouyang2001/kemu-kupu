@@ -27,6 +27,15 @@ public class Finish {
 	@FXML
 	private Button playAgain;
 	
+	
+	/*
+	 * 
+	 */
+	public void initialise(int scoreVal) {
+		score.setText(String.valueOf(scoreVal));
+	}
+	
+	
 	/**
 	 * Click handler for the new quiz button.
 	 * 

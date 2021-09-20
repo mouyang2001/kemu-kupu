@@ -4,24 +4,24 @@
 
 #wellDone {
     -fx-text-fill: #FFFFFF;
-    -fx-font-size: 40;
+    -fx-font-size: 60;
     -fx-font-family: Verdana;
 }
 
 #scoreTitle {
 	-fx-text-fill: #FFFFFF;
-    -fx-font-size: 30;
+    -fx-font-size: 50;
 }
 
 #score {
-	-fx-text-fill: #FFFFFF;
-    -fx-font-size: 20;
+	-fx-text-fill: #7289DA;
+    -fx-font-size: 70;
 }
 
 #playAgain {
 	-fx-background-color: #7289DA;
 	-fx-text-fill: #FFFFFF;
-    -fx-font-size: 20;
+    -fx-font-size: 30;
     -fx-font-family: Play;
 }
 
@@ -36,7 +36,7 @@
 #quit {
 	-fx-background-color: #595959;
 	-fx-text-fill: #FFFFFF;
-    -fx-font-size: 20;
+    -fx-font-size: 30;
     -fx-font-family: Play;
 }
 
