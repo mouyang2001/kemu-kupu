@@ -163,21 +163,22 @@ public class Quiz {
 		// If NUMBER_OF_ROUNDS reached then switch to finish.
 		if (currentRound == NUMBER_OF_ROUNDS) {
 			SceneManager.switchToFinishScene();
-		} else {
-			// Increase current round count.
-			currentRound++;
-
-			// Clear labels and reset focus to input.
-			clearLabels();
-			input.requestFocus();
-
-			// Get next word.
-			quiz.nextWord();
-			System.out.println(quiz.getWord());
-
-			// Festival say word.
-			Festival.speak(quiz.getWord());
+			return;
 		}
+		
+		// Increase current round count.
+		currentRound++;
+
+		// Clear labels and reset focus to input.
+		clearLabels();
+		input.requestFocus();
+
+		// Get next word.
+		quiz.nextWord();
+		System.out.println(quiz.getWord());
+
+		// Festival say word.
+		Festival.speak(quiz.getWord());
 	}
 	
 	/**

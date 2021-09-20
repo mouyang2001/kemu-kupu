@@ -21,7 +21,7 @@ public class QuizGame {
 
     private int index = 0;
     
-    private int attempts = 0;
+    private boolean attempted = false;
 
     /**
      * QuizGame constructor.
@@ -55,16 +55,11 @@ public class QuizGame {
     }
 
     /**
-     * Method gets the next word in words
+     * Sets the state of the game to the next word.
      */
     public void nextWord() {
-        if (index == words.size() - 1) {
-        	index = 0;
-        } else {
-        	index++;
-        }
-
-        attempts = 0;
+    	index++;
+        attempted = false;
     }
 
     /**
@@ -84,23 +79,17 @@ public class QuizGame {
      * @return attempt result.
      */
     public Result checkSpelling(String spelling) {
-        // Check if it is the first attempt
-        if (attempts == 0) {
-            // First attempt taken
-            attempts++;
-
-            // Check spelling with current word, trimming white spaces on ends and ignoring case.
-            if (spelling.trim().equalsIgnoreCase(getWord())) {
-            	return Result.Correct;
-            } else {
-            	return Result.FirstIncorrect;
-            }
-        } else {
-            if (spelling.trim().equalsIgnoreCase(getWord())) {
-            	return Result.Correct;
-            } else {
-            	return Result.SecondIncorrect;
-            }
-        }
+    	boolean wasAttempted = attempted;
+    	
+    	attempted = true;
+    	
+    	// Check spelling with current word, trimming white spaces on ends and ignoring case.
+    	if (spelling.trim().equalsIgnoreCase(getWord())) {
+    		return Result.Correct;
+    	} else if (!wasAttempted) {
+    		return Result.FirstIncorrect;
+    	} else {
+    		return Result.SecondIncorrect;
+    	}
     }
 }
