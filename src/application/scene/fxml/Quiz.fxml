@@ -18,7 +18,7 @@
             <Insets bottom="50.0" />
          </VBox.margin>
       </Label>
-      <Label fx:id="correct" layoutX="235.0" layoutY="89.0" text="*Correct!*">
+      <Label fx:id="correct" layoutX="235.0" layoutY="89.0">
          <font>
             <Font size="30.0" />
          </font>
@@ -35,7 +35,7 @@
                </HBox.margin></Button>
          </children>
       </HBox>
-      <Label fx:id="hint" layoutX="126.0" layoutY="235.0" text="*Hint:*" />
+      <Label fx:id="hint" layoutX="126.0" layoutY="235.0" />
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
          <children>
             <Button fx:id="skip" mnemonicParsing="false" onAction="#skip" prefHeight="70.0" prefWidth="200.0" text="Don't know">

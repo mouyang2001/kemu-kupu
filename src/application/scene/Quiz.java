@@ -44,9 +44,6 @@ public class Quiz {
 	 * @throws IOException If an I/O error occured.
 	 */
 	public void beginQuiz(String topic) throws IOException {
-		// clear default labels on fxml
-		clearLabels();
-
 		// begin new QuizGame instance
 		quiz = new QuizGame(topic);
 
@@ -138,22 +135,19 @@ public class Quiz {
 		correct.setStyle("-fx-text-fill: " + colour);
 		
         PauseTransition wait = new PauseTransition(Duration.seconds(2));
-        wait.setOnFinished(e -> {
-        	correct.setText("");
-        });
-        
+        wait.setOnFinished(e -> correct.setText(""));
         wait.play();
 	}
 
 	/**
-	 * Helper method to set a hint to the hint label.
+	 * Helper method to show the hint to the user.
 	 */
 	private void giveHint() {
 		hint.setText("Hint: second letter is " + quiz.getHintLetterAtIndex(1));
 	}
 
 	/**
-	 * Helper method to clear all prompt labels (everything except score label).
+	 * Helper method to clear all prompt labels (except score label).
 	 */
 	private void clearLabels() {
 		hint.setText("");
