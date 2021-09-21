@@ -1,16 +1,14 @@
 package application.scene;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import application.Words;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.input.MouseEvent;
 
 /**
  * Topic selection screen for the user
@@ -26,15 +24,21 @@ public class Topic {
 	@FXML
 	private Button start;
 
-	ArrayList<String> topics;
-
+	/**
+	 * Called once the controller is loaded.
+	 */
 	@FXML
 	public void initialize() {
-		topics = Words.getTopics();
-		topicListView.getItems().addAll(topics);
-
-		topicListView.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
-			String topic = topicListView.getSelectionModel().getSelectedItem();
+		// Add items to table view.
+		try {
+			topicListView.getItems().addAll(Words.getTopics());
+		} catch (IOException e) {
+			// TODO: Error handling.
+		}
+		
+		// Enable start button once an item is selected.
+		topicListView.addEventHandler(MouseEvent.MOUSE_PRESSED, e -> {
+			start.setDisable(topicListView.getSelectionModel().getSelectedItem() == null);
 		});
 	}
 
@@ -46,13 +50,7 @@ public class Topic {
 	 */
 	@FXML
 	public void startQuiz(ActionEvent e) throws IOException {
-		String topic = topicListView.getSelectionModel().getSelectedItem();
-		if (topic == null) {
-			// TODO: add a prompt to user to select an option?
-			System.out.println("Please select an option");
-		} else {
-			SceneManager.switchToQuizScene(topic);
-		}
+		SceneManager.switchToQuizScene(topicListView.getSelectionModel().getSelectedItem());
 	}
 
 	/**
@@ -64,5 +62,4 @@ public class Topic {
 	public void leaveQuiz() throws IOException {
 		SceneManager.switchToMenuScene();
 	}
-
 }

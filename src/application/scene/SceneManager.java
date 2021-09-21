@@ -57,26 +57,8 @@ public class SceneManager {
      * @throws IOException If FXML or CSS resources fail to load.
      */
     public static void switchToQuizScene(String topic) throws IOException {
-        // TODO: this code here is kinda duplicating changeScene method, so idk if we can make it better?
-        // Load resources.
-        FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource("fxml/Quiz.fxml"));
-        String css = SceneManager.class.getResource("css/" + "Quiz" + ".css").toExternalForm();
-
-        // load calls initialize() method within Quiz scene controller. Must occur before we use beginQuiz();
-        Parent root = loader.load();
-
-        // Create instance of Quiz scene controller, then begin a new Quiz.
-        Quiz quizController = loader.getController();
-        quizController.beginQuiz(topic);
-
-        // Show new scene.
-        Scene scene = stage.getScene();
-        scene.setRoot(root);
-
-        // Apply CSS.
-        scene.getStylesheets().clear();
-        scene.getStylesheets().add(css);
-
+    	Quiz controller = changeScene("Quiz").getController();
+    	controller.beginQuiz(topic);
     }
     
     /**
@@ -110,11 +92,13 @@ public class SceneManager {
      * Changes the currently displayed scene to the user.
      * 
      * @param name The name of the FXML and CSS files without the file extension.
+     * @returns The FXMLLoader to allow access to the controller instance.
      * @throws IOException If FXML or CSS resources fail to load.
      */
-    private static void changeScene(String name) throws IOException {
+    private static FXMLLoader changeScene(String name) throws IOException {
     	// Load resources.
-    	Parent root = FXMLLoader.load(SceneManager.class.getResource("fxml/" + name + ".fxml"));
+    	FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource("fxml/" + name + ".fxml"));
+    	Parent root = loader.load();
     	String css = SceneManager.class.getResource("css/" + name + ".css").toExternalForm();
     	
     	// Show new scene.
@@ -124,6 +108,8 @@ public class SceneManager {
     	// Apply CSS.
     	scene.getStylesheets().clear();
     	scene.getStylesheets().add(css);
+    	
+    	return loader;
     }
     
     /**

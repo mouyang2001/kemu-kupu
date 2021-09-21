@@ -1,16 +1,16 @@
 package application.scene;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
 import application.Festival;
 import application.QuizGame;
+
+import java.io.IOException;
+
 import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.util.Duration;
 
 /**
@@ -30,9 +30,13 @@ public class Quiz {
 	private Label hint;
 
 	private QuizGame quiz;
+	
 	private int scoreVal = 0;
+	
 	private int currentRound = 1;
+    
 	private String RED = "#E88787";
+    
 	private String GREEN = "#9AF1A3";
 
 	private final int NUMBER_OF_ROUNDS = 5;
@@ -42,11 +46,9 @@ public class Quiz {
 	 * Also it's the entry point to start the quiz game.
 	 *
 	 * @param topic The chosen topic, file name.
+	 * @throws IOException If an I/O error occured.
 	 */
-	public void beginQuiz(String topic) throws FileNotFoundException {
-		// clear default labels on fxml
-		clearLabels();
-
+	public void beginQuiz(String topic) throws IOException {
 		// begin new QuizGame instance
 		quiz = new QuizGame(topic);
 
@@ -58,6 +60,23 @@ public class Quiz {
 		System.out.println(quiz.getWords());
 		System.out.println(quiz.getWord());
 	}
+
+	/**
+	 * Scene initializer, for setting unique listener events on elements.
+	 */
+	@FXML
+	public void initialize() {
+		// Input TextField will listen to enter button pressed event.
+		input.setOnKeyReleased(e -> {
+			if (e.getCode() == KeyCode.ENTER) {
+				try {
+					checkSpelling();
+				} catch (IOException ioException) {
+					ioException.printStackTrace();
+				}
+			}
+		});
+	}
 	
 	/**
 	 * Click handler for the submit button.
@@ -67,30 +86,7 @@ public class Quiz {
 	 */
 	@FXML
 	public void submit(ActionEvent e) throws IOException {
-		// Retrieve, clear input and return focus to it.
-		String spelling = input.getText();
-		input.clear();
-		input.requestFocus();
-
-		// The cases are:
-		// 1: Correct
-		// 2: Incorrect, try again
-		// 3: Incorrect, next word
-		switch(quiz.checkSpelling(spelling)) {
-			case 1:
-				increaseScore();
-				nextWord();
-				setPrompt("Correct", GREEN);
-				break;
-			case 2:
-				setPrompt("Incorrect, try again", RED);
-				giveHint();
-				break;
-			case 3:
-				nextWord();
-				setPrompt("Incorrect :(", RED);
-				break;
-		}
+		checkSpelling();
 	}
 
 	/**
@@ -102,8 +98,8 @@ public class Quiz {
 	 */
 	@FXML
 	public void skip(ActionEvent e) throws IOException {
-		nextWord();
 		setPrompt("Incorrect :(", RED);
+		nextWord();
 	}
 	
 	/**
@@ -118,6 +114,35 @@ public class Quiz {
 	}
 
 	/**
+	 * Method performs check spelling routine.
+	 *
+	 * @throws IOException If FXML or CSS resources fail to load.
+	 */
+	private void checkSpelling() throws IOException {
+		// Retrieve input in text field.
+		String spelling = fetchInput();
+
+		// Check spelling of word and proceed according to the case.
+		switch (quiz.checkSpelling(spelling)) {
+			case Correct:
+				increaseScore();
+				setPrompt("Correct", GREEN);
+				nextWord();
+				break;
+
+			case FirstIncorrect:
+				setPrompt("Incorrect, try again", RED);
+				giveHint();
+				break;
+
+			case SecondIncorrect:
+				setPrompt("Incorrect :(", RED);
+				nextWord();
+				break;
+		}
+	}
+
+	/**
 	 * Helper method to increase score and update label.
 	 */
 	private void increaseScore() {
@@ -129,33 +154,42 @@ public class Quiz {
 	 * Helper method to set prompt message.
 	 *
 	 * @param message of what we want to set in prompt
-	 * @param hex code of colour to set the message
+	 * @param colour hex code of colour to set the message
 	 */
 	private void setPrompt(String message, String colour) {
 		System.out.println(message);
 		correct.setText(message);
-		correct.setStyle("-fx-text-fill: "+ colour);
-        PauseTransition wait = new PauseTransition(Duration.seconds(3));
-        wait.setOnFinished((e) -> {
-        	correct.setText(" ");
-        });
+		correct.setStyle("-fx-text-fill: " + colour);
+		
+		PauseTransition wait = new PauseTransition(Duration.seconds(3));
+        wait.setOnFinished(e -> correct.setText(""));
         wait.play();
 	}
 
 	/**
-	 * Helper method to set a hint to the hint label.
+	 * Helper method to get text from input TextField and reset it.
+	 *
+	 * @return text that player inputted into the TextField input.
 	 */
-	private void giveHint() {
-		String letter = quiz.getHintLetterAtIndex(1);
-		hint.setText("Hint: second letter is " + letter);
+	private String fetchInput() {
+		String text = input.getText();
+		input.clear();
+		input.requestFocus();
+		return text;
 	}
 
 	/**
-	 * Helper method to clear all prompt labels (everything except score label).
+	 * Helper method to show the hint to the user.
 	 */
-	private void clearLabels() {
+	private void giveHint() {
+		hint.setText("Hint: second letter is " + quiz.getHintLetterAtIndex(1));
+	}
+
+	/**
+	 * Helper method to clear hint label.
+	 */
+	private void clearHint() {
 		hint.setText("");
-		correct.setText("");
 	}
 
 	/**
@@ -165,21 +199,23 @@ public class Quiz {
 	 */
 	private void nextWord() throws IOException {
 		// If NUMBER_OF_ROUNDS reached then switch to finish.
-		if (currentRound == NUMBER_OF_ROUNDS) SceneManager.switchToFinishScene(scoreVal);
-		else {
-			// Increase current round count.
-			currentRound++;
-
-			// Clear labels and reset focus to input.
-			clearLabels();
-			input.requestFocus();
-
-			// Get next word.
-			quiz.nextWord();
-			System.out.println(quiz.getWord());
-
-			// Festival say word.
-			Festival.speak(quiz.getWord());
+		if (currentRound == NUMBER_OF_ROUNDS) {
+			SceneManager.switchToFinishScene(scoreVal);
+			return;
 		}
+		
+		// Increase current round count.
+		currentRound++;
+
+		// Clear hint and reset focus to input.
+		clearHint();
+		input.requestFocus();
+
+		// Get next word.
+		quiz.nextWord();
+		System.out.println(quiz.getWord());
+
+		// Festival say word.
+		Festival.speak(quiz.getWord());
 	}
 }
