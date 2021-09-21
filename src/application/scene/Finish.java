@@ -29,7 +29,8 @@ public class Finish {
 	
 	
 	/*
-	 * 
+	 * Shows current score
+	 * @param score at end of quiz
 	 */
 	public void initialise(int scoreVal) {
 		score.setText(String.valueOf(scoreVal));
