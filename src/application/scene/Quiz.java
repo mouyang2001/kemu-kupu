@@ -34,6 +34,10 @@ public class Quiz {
 	private int scoreVal = 0;
 	
 	private int currentRound = 1;
+	
+	private String message;
+	
+	private String colour;
     
 	private String RED = "#E88787";
     
@@ -55,10 +59,6 @@ public class Quiz {
 		// start off with the first word
 		Festival.speak(quiz.getWord());
 
-		// TODO: delete these outputs later
-		System.out.println("Quiz topic is: " + topic);
-		System.out.println(quiz.getWords());
-		System.out.println(quiz.getWord());
 	}
 
 	/**
@@ -98,7 +98,9 @@ public class Quiz {
 	 */
 	@FXML
 	public void skip(ActionEvent e) throws IOException {
-		setPrompt("Incorrect :(", RED);
+		message = "Incorrect :(";
+		colour = RED;
+		setPrompt();
 		nextWord();
 	}
 	
@@ -126,17 +128,24 @@ public class Quiz {
 		switch (quiz.checkSpelling(spelling)) {
 			case Correct:
 				increaseScore();
-				setPrompt("Correct", GREEN);
+				message = "Correct";
+				colour = GREEN;
+				setPrompt();
 				nextWord();
 				break;
 
 			case FirstIncorrect:
-				setPrompt("Incorrect, try again", RED);
+				message = "Incorrect, try again";
+				colour = RED;
+				setPrompt();
 				giveHint();
+				Festival.speak(quiz.getWord());
 				break;
 
 			case SecondIncorrect:
-				setPrompt("Incorrect :(", RED);
+				message = "Incorrect :(";
+				colour = RED;
+				setPrompt();
 				nextWord();
 				break;
 		}
@@ -156,15 +165,16 @@ public class Quiz {
 	 * @param message of what we want to set in prompt
 	 * @param colour hex code of colour to set the message
 	 */
-	private void setPrompt(String message, String colour) {
-		System.out.println(message);
+	private void setPrompt() {
 		correct.setText(message);
 		correct.setStyle("-fx-text-fill: " + colour);
 		
 		PauseTransition wait = new PauseTransition(Duration.seconds(3));
-        wait.setOnFinished(e -> correct.setText(""));
+	    wait.setOnFinished(e -> correct.setText(""));
         wait.play();
 	}
+	
+	
 
 	/**
 	 * Helper method to get text from input TextField and reset it.
@@ -199,10 +209,26 @@ public class Quiz {
 	 */
 	private void nextWord() throws IOException {
 		// If NUMBER_OF_ROUNDS reached then switch to finish.
-		if (currentRound == NUMBER_OF_ROUNDS) {
-			SceneManager.switchToFinishScene(scoreVal);
-			return;
+
+
+		if (currentRound == NUMBER_OF_ROUNDS) { 
+			correct.setText(message); 
+		correct.setStyle("-fx-text-fill: " + colour);
+
+		PauseTransition wait = new PauseTransition(Duration.seconds(3));
+		wait.setOnFinished(e -> {
+			try {
+				SceneManager.switchToFinishScene(scoreVal);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
+
+		wait.play();
+		return;
 		}
+		 
 		
 		// Increase current round count.
 		currentRound++;
