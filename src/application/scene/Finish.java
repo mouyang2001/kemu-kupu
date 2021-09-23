@@ -27,7 +27,6 @@ public class Finish {
 	@FXML
 	private Button playAgain;
 	
-	
 	/*
 	 * Shows current score
 	 * @param score at end of quiz
@@ -35,7 +34,6 @@ public class Finish {
 	public void initialise(int scoreVal) {
 		score.setText(String.valueOf(scoreVal));
 	}
-	
 	
 	/**
 	 * Click handler for the new quiz button.

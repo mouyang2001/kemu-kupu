@@ -34,14 +34,10 @@ public class Quiz {
 	private int scoreVal = 0;
 	
 	private int currentRound = 1;
-	
-	private String message;
-	
-	private String colour;
     
-	private String RED = "#E88787";
+	private final String RED = "#E88787";
     
-	private String GREEN = "#9AF1A3";
+	private final String GREEN = "#9AF1A3";
 
 	private final int NUMBER_OF_ROUNDS = 5;
 
@@ -58,7 +54,6 @@ public class Quiz {
 
 		// start off with the first word
 		Festival.speak(quiz.getWord());
-
 	}
 
 	/**
@@ -98,9 +93,7 @@ public class Quiz {
 	 */
 	@FXML
 	public void skip(ActionEvent e) throws IOException {
-		message = "Incorrect :(";
-		colour = RED;
-		setPrompt();
+		setPrompt("Incorrect :(", RED);
 		nextWord();
 	}
 	
@@ -128,24 +121,18 @@ public class Quiz {
 		switch (quiz.checkSpelling(spelling)) {
 			case Correct:
 				increaseScore();
-				message = "Correct";
-				colour = GREEN;
-				setPrompt();
+				setPrompt("Correct", GREEN);
 				nextWord();
 				break;
 
 			case FirstIncorrect:
-				message = "Incorrect, try again";
-				colour = RED;
-				setPrompt();
+				setPrompt("Incorrect, try again", RED);
 				giveHint();
 				Festival.speak(quiz.getWord());
 				break;
 
 			case SecondIncorrect:
-				message = "Incorrect :(";
-				colour = RED;
-				setPrompt();
+				setPrompt("Incorrect :(", RED);
 				nextWord();
 				break;
 		}
@@ -165,7 +152,7 @@ public class Quiz {
 	 * @param message of what we want to set in prompt
 	 * @param colour hex code of colour to set the message
 	 */
-	private void setPrompt() {
+	private void setPrompt(String message, String colour) {
 		correct.setText(message);
 		correct.setStyle("-fx-text-fill: " + colour);
 		
@@ -173,8 +160,6 @@ public class Quiz {
 	    wait.setOnFinished(e -> correct.setText(""));
         wait.play();
 	}
-	
-	
 
 	/**
 	 * Helper method to get text from input TextField and reset it.
@@ -196,37 +181,25 @@ public class Quiz {
 	}
 
 	/**
-	 * Helper method to clear hint label.
-	 */
-	private void clearHint() {
-		hint.setText("");
-	}
-
-	/**
 	 * Helper method to jump to next word and reset UI elements.
 	 *
 	 * @throws IOException If FXML or CSS resources fail to load.
 	 */
 	private void nextWord() throws IOException {
 		// If NUMBER_OF_ROUNDS reached then switch to finish.
-
-
 		if (currentRound == NUMBER_OF_ROUNDS) { 
-			correct.setText(message); 
-		correct.setStyle("-fx-text-fill: " + colour);
-
-		PauseTransition wait = new PauseTransition(Duration.seconds(3));
-		wait.setOnFinished(e -> {
-			try {
-				SceneManager.switchToFinishScene(scoreVal);
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		});
-
-		wait.play();
-		return;
+			PauseTransition wait = new PauseTransition(Duration.seconds(3));
+			wait.setOnFinished(e -> {
+				try {
+					SceneManager.switchToFinishScene(scoreVal);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			});
+	
+			wait.play();
+			return;
 		}
 		 
 		
@@ -234,7 +207,7 @@ public class Quiz {
 		currentRound++;
 
 		// Clear hint and reset focus to input.
-		clearHint();
+		hint.setText("");
 		input.requestFocus();
 
 		// Get next word.
