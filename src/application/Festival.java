@@ -48,6 +48,9 @@ public class Festival {
 	 * @throws InterruptedException If festival is interrupted while blocking.
 	 */
 	public synchronized static void speakInternal(String text) throws IOException, InterruptedException {
+		// Festival has issues with hyphens and upper case.
+		text = text.replaceAll("-", " ").toLowerCase();
+
 		// Start festival.
 		ProcessBuilder builder = new ProcessBuilder("festival", "--pipe");
 		Process process = builder.start();
