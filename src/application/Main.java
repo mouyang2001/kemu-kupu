@@ -1,7 +1,5 @@
 package application;
 
-import java.io.IOException;
-
 import application.scene.SceneManager;
 
 import javafx.application.Application;
@@ -13,7 +11,7 @@ public class Main extends Application {
 	}
 
 	@Override
-	public void start(Stage stage) throws IOException {
+	public void start(Stage stage) {
 		// Set window options.
 		stage.setTitle("Spelling Whiz");
 		stage.setMaximized(true);

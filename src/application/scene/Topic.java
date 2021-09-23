@@ -29,11 +29,11 @@ public class Topic {
 	 */
 	@FXML
 	public void initialize() {
-		// Add items to table view.
 		try {
+			// Add items to table view.
 			topicListView.getItems().addAll(Words.getTopics());
 		} catch (IOException e) {
-			// TODO: Error handling.
+			SceneManager.alert("Could not load topics.");
 		}
 		
 		// Enable start button once an item is selected.
@@ -46,20 +46,17 @@ public class Topic {
 	 * Click handler for the start quiz button.
 	 * 
 	 * @param e Event action information.
-	 * @throws IOException If FXML or CSS resources fail to load.
 	 */
 	@FXML
-	public void startQuiz(ActionEvent e) throws IOException {
+	public void startQuiz(ActionEvent e) {
 		SceneManager.switchToQuizScene(topicListView.getSelectionModel().getSelectedItem());
 	}
 
 	/**
 	 * Click handler for backing out of topic selection to main menu again.
-	 *
-	 * @throws IOException If FXML or CSS resources fail to load.
 	 */
 	@FXML
-	public void leaveQuiz() throws IOException {
+	public void leaveQuiz() {
 		SceneManager.switchToMenuScene();
 	}
 }

@@ -4,6 +4,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -20,9 +22,8 @@ public class SceneManager {
 	 * This must be called before any switch... methods.
 	 * 
 	 * @param stage The JavaFX stage to use.
-	 * @throws IOException If FXML or CSS resources fail to load.
 	 */
-    public static void show(Stage stage) throws IOException {
+    public static void show(Stage stage) {
     	SceneManager.stage = stage;
     	
     	// Load empty to allow scene switch.
@@ -35,38 +36,30 @@ public class SceneManager {
     
     /**
      * Show the menu scene to the user.
-     * 
-     * @throws IOException If FXML or CSS resources fail to load.
      */
-    public static void switchToMenuScene() throws IOException {
+    public static void switchToMenuScene() {
         changeScene("Menu");
     }
     
     /**
      * Show the topic scene to the user.
-     * 
-     * @throws IOException If FXML or CSS resources fail to load.
      */
-    public static void switchToTopicScene() throws IOException {
+    public static void switchToTopicScene() {
         changeScene("Topic");
     }
     
     /**
      * Show the quiz scene to the user and transfer topic selection data.
-     * 
-     * @throws IOException If FXML or CSS resources fail to load.
      */
-    public static void switchToQuizScene(String topic) throws IOException {
+    public static void switchToQuizScene(String topic) {
     	Quiz controller = changeScene("Quiz").getController();
     	controller.beginQuiz(topic);
     }
     
     /**
      * Show the finish scene to the user.
-     * 
-     * @throws IOException If FXML or CSS resources fail to load.
      */
-    public static void switchToFinishScene(int score) throws IOException {
+    public static void switchToFinishScene(int score) {
     	Finish controller = changeScene("Finish").getController();
     	controller.initialise(score);
     }
@@ -78,21 +71,39 @@ public class SceneManager {
      * @returns The FXMLLoader to allow access to the controller instance.
      * @throws IOException If FXML or CSS resources fail to load.
      */
-    private static FXMLLoader changeScene(String name) throws IOException {
-    	// Load resources.
-    	FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource("fxml/" + name + ".fxml"));
-    	Parent root = loader.load();
-    	String css = SceneManager.class.getResource("css/" + name + ".css").toExternalForm();
-    	
-    	// Show new scene.
-    	Scene scene = stage.getScene();
-    	scene.setRoot(root);
-    	
-    	// Apply CSS.
-    	scene.getStylesheets().clear();
-    	scene.getStylesheets().add(css);
-    	
-    	return loader;
+    private static FXMLLoader changeScene(String name) {
+    	try {
+	    	// Load resources.
+	    	FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource("fxml/" + name + ".fxml"));
+    		Parent root = loader.load();
+    		
+	    	String css = SceneManager.class.getResource("css/" + name + ".css").toExternalForm();
+	    	
+	    	// Show new scene.
+	    	Scene scene = stage.getScene();
+	    	scene.setRoot(root);
+	    	
+	    	// Apply CSS.
+	    	scene.getStylesheets().clear();
+	    	scene.getStylesheets().add(css);
+	    	
+	    	return loader;
+    	} catch (IOException e) {
+    		alert("Could not load FXML or CSS resources.");
+    		return null;
+    	}
+    }
+    
+    /**
+     * Show an alert dialog box to the user.
+     * 
+     * @param message The message to show in the dialog box.
+     */
+    public static void alert(String message) {
+    	Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Error");
+		alert.setHeaderText(message);
+		alert.showAndWait();
     }
     
     /**
