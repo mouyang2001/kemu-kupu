@@ -3,6 +3,7 @@ package application;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import application.scene.SceneManager;
 import javafx.application.Platform;
 
 /**
@@ -28,9 +29,12 @@ public class Festival {
 		BackgroundExecutor.execute(() -> {
 			try {
 				speakInternal(text);
+				
+				// Run callback on GUI thread.
 				Platform.runLater(callback);
 			} catch (IOException | InterruptedException e) {
-				// TODO: Error handling.
+				// Alert must be called from the GUI thread.
+				Platform.runLater(() -> SceneManager.alert("Could not launch festival."));
 			}
 		});
 	}
