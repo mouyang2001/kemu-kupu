@@ -19,4 +19,6 @@ We were having a bit of difficulty creating the quiz functionality, so we decide
 Monday 20/09
 I finished implementing the design functionality, including having correct/incorrect pop up for a few seconds after submitting a question, an image button to click to replay the sound and some general fix-ups in positioning and sizing. 
 
+Wednesday 22/09
+On reviewing the project I found that you did not get a correct/incorrect message on the final question you entered, and festival didn't automatically re-say the word on your second attempt, so I corrected both of these issues.
 
