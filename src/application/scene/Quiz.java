@@ -1,18 +1,20 @@
 package application.scene;
 
+import application.BackgroundExecutor;
 import application.Festival;
 import application.QuizGame;
 
 import java.io.IOException;
+import java.time.Duration;
 
-import javafx.animation.PauseTransition;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
-import javafx.util.Duration;
 
 /**
  * Quiz screen that quizzes the users spelling.
@@ -38,6 +40,8 @@ public class Quiz {
 	private int scoreVal = 0;
 	
 	private int currentRound = 1;
+	
+	private Task<Void> delayedTask;
     
 	private final String RED = "#E88787";
     
@@ -58,6 +62,9 @@ public class Quiz {
 
 		// start off with the first word
 		Festival.speak(quiz.getWord());
+		
+		// DEBUG
+		System.out.println(quiz.getWord());
 	}
 
 	/**
@@ -161,9 +168,7 @@ public class Quiz {
 		correct.setText(message);
 		correct.setStyle("-fx-text-fill: " + colour);
 		
-		PauseTransition wait = new PauseTransition(Duration.seconds(3));
-	    wait.setOnFinished(e -> correct.setText(""));
-        wait.play();
+		delayTask(Duration.ofSeconds(3), () -> correct.setText(""));
 	}
 
 	/**
@@ -193,8 +198,7 @@ public class Quiz {
 	private void nextWord() throws IOException {
 		// If NUMBER_OF_ROUNDS reached then switch to finish.
 		if (currentRound == NUMBER_OF_ROUNDS) { 
-			PauseTransition wait = new PauseTransition(Duration.seconds(3));
-			wait.setOnFinished(e -> {
+			delayTask(Duration.ofSeconds(3), () -> {
 				try {
 					SceneManager.switchToFinishScene(scoreVal);
 				} catch (IOException e1) {
@@ -202,8 +206,7 @@ public class Quiz {
 					e1.printStackTrace();
 				}
 			});
-	
-			wait.play();
+			
 			return;
 		}
 		 
@@ -221,5 +224,35 @@ public class Quiz {
 
 		// Festival say word.
 		Festival.speak(quiz.getWord());
+	}
+	
+	/**
+	 * Runs a task after the specified delay.
+	 * Only one task will be in-flight, prioritising newer tasks.
+	 * 
+	 * @param duration The duration to delay by.
+	 * @param task The task to run after the delay.
+	 */
+	private void delayTask(Duration duration, Runnable task) {
+		// Cancel the in-flight task.
+		if (delayedTask != null && !delayedTask.isDone()) {
+			delayedTask.cancel();
+		}
+		
+		// Create the new task.
+		delayedTask = new Task<Void>() {
+			@Override
+			protected Void call() {
+				if (!isCancelled()) {
+					// Run on the GUI thread.
+					Platform.runLater(task);
+				}
+				
+				return null;
+			}
+		};
+		
+		// Schedule the task for execution.
+		BackgroundExecutor.executeDelayed(duration, delayedTask);
 	}
 }
