@@ -1,7 +1,5 @@
 package application.scene;
 
-import java.io.IOException;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -25,10 +23,9 @@ public class Menu {
 	 * Click handler for the new quiz button.
 	 * 
 	 * @param e Event action information.
-	 * @throws IOException If FXML or CSS resources fail to load.
 	 */
 	@FXML
-	public void newQuiz(ActionEvent e) throws IOException {
+	public void newQuiz(ActionEvent e) {
 		SceneManager.switchToTopicScene();
 	}
 	

@@ -54,11 +54,14 @@ public class Quiz {
 	 * Also it's the entry point to start the quiz game.
 	 *
 	 * @param topic The chosen topic, file name.
-	 * @throws IOException If an I/O error occured.
 	 */
-	public void beginQuiz(String topic) throws IOException {
-		// begin new QuizGame instance
-		quiz = new QuizGame(topic);
+	public void beginQuiz(String topic) {
+		try {
+			// begin new QuizGame instance
+			quiz = new QuizGame(topic);
+		} catch (IOException e) {
+			SceneManager.alert("Could not load word list.");
+		}
 
 		// start off with the first word
 		Festival.speak(quiz.getWord());
@@ -75,11 +78,7 @@ public class Quiz {
 		// Input TextField will listen to enter button pressed event.
 		input.setOnKeyReleased(e -> {
 			if (e.getCode() == KeyCode.ENTER) {
-				try {
-					checkSpelling();
-				} catch (IOException ioException) {
-					ioException.printStackTrace();
-				}
+				checkSpelling();
 			}
 		});
 	}
@@ -91,7 +90,7 @@ public class Quiz {
 	 * @throws IOException If FXML or CSS resources fail to load.
 	 */
 	@FXML
-	public void submit(ActionEvent e) throws IOException {
+	public void submit(ActionEvent e) {
 		checkSpelling();
 	}
 
@@ -100,10 +99,9 @@ public class Quiz {
 	 * Tells quiz object to go to the next word.
 	 * 
 	 * @param e Event action information.
-	 * @throws IOException If FXML or CSS resources fail to load.
 	 */
 	@FXML
-	public void skip(ActionEvent e) throws IOException {
+	public void skip(ActionEvent e) {
 		setPrompt("Incorrect :(", RED);
 		nextWord();
 	}
@@ -122,10 +120,8 @@ public class Quiz {
 
 	/**
 	 * Method performs check spelling routine.
-	 *
-	 * @throws IOException If FXML or CSS resources fail to load.
 	 */
-	private void checkSpelling() throws IOException {
+	private void checkSpelling() {
 		// Retrieve input in text field.
 		String spelling = fetchInput();
 
@@ -192,21 +188,14 @@ public class Quiz {
 
 	/**
 	 * Helper method to jump to next word and reset UI elements.
-	 *
-	 * @throws IOException If FXML or CSS resources fail to load.
 	 */
-	private void nextWord() throws IOException {
+	private void nextWord() {
 		// If NUMBER_OF_ROUNDS reached then switch to finish.
 		if (currentRound == NUMBER_OF_ROUNDS) { 
-			delayTask(Duration.ofSeconds(3), () -> {
-				try {
-					SceneManager.switchToFinishScene(scoreVal);
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			});
-			
+			delayTask(
+				Duration.ofSeconds(3),
+				() -> SceneManager.switchToFinishScene(scoreVal)
+			);
 			return;
 		}
 		 
