@@ -8,6 +8,7 @@ import java.io.IOException;
 import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -28,6 +29,9 @@ public class Quiz {
 	
 	@FXML
 	private Label hint;
+	
+	@FXML
+	private Button sound;
 
 	private QuizGame quiz;
 	
@@ -105,7 +109,8 @@ public class Quiz {
 	 */
 	@FXML
 	public void sound(ActionEvent e) {
-		Festival.speak(quiz.getWord());
+		sound.setDisable(true);
+		Festival.speak(quiz.getWord(), () -> sound.setDisable(false));
 	}
 
 	/**
