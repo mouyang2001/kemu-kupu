@@ -88,7 +88,7 @@ public class Quiz {
   /** Click handler for the skip button. Tells quiz object to go to the next word. */
   @FXML
   private void skip() {
-    setPrompt("Incorrect :(", RED);
+    setPrompt("Skipped", RED);
     nextWord();
   }
 
@@ -108,18 +108,18 @@ public class Quiz {
     switch (quiz.checkSpelling(spelling)) {
       case Correct:
         increaseScore();
-        setPrompt("Correct", GREEN);
+        setPrompt("Correct!", GREEN);
         nextWord();
         break;
 
       case FirstIncorrect:
-        setPrompt("Incorrect, try again", RED);
+        setPrompt("Incorrect, try again...", RED);
         giveHint();
         Festival.speak(quiz.getWord());
         break;
 
       case SecondIncorrect:
-        setPrompt("Incorrect :(", RED);
+        setPrompt("Incorrect, but good effort.", RED);
         nextWord();
         break;
     }
