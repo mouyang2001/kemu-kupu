@@ -23,13 +23,13 @@ public class Quiz {
   @FXML private TextField input;
 
   @FXML private Button sound;
-  
+
   @FXML private ImageView image;
-  
+
   @FXML private Label hint;
-  
+
   @FXML private Button skip;
-  
+
   @FXML private Button submit;
 
   private QuizGame quiz;
@@ -79,26 +79,20 @@ public class Quiz {
         });
   }
 
-  /**
-   * Click handler for the submit button.
-   */
+  /** Click handler for the submit button. */
   @FXML
   private void submit() {
     checkSpelling();
   }
 
-  /**
-   * Click handler for the skip button. Tells quiz object to go to the next word.
-   */
+  /** Click handler for the skip button. Tells quiz object to go to the next word. */
   @FXML
   private void skip() {
     setPrompt("Incorrect :(", RED);
     nextWord();
   }
 
-  /**
-   * Click handler for the sound button. Gets festival to say the word.
-   */
+  /** Click handler for the sound button. Gets festival to say the word. */
   @FXML
   private void sound() {
     sound.setDisable(true);

@@ -12,7 +12,7 @@ public class Topic {
   @FXML private Label title;
 
   @FXML private ListView<String> topicListView;
-  
+
   @FXML private Button back;
 
   @FXML private Button start;
@@ -35,9 +35,7 @@ public class Topic {
         });
   }
 
-  /**
-   * Click handler for the start quiz button.
-   */
+  /** Click handler for the start quiz button. */
   @FXML
   private void startQuiz() {
     SceneManager.switchToQuizScene(topicListView.getSelectionModel().getSelectedItem());

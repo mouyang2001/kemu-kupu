@@ -1,6 +1,5 @@
 package application.scene;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -26,17 +25,13 @@ public class Finish {
     score.setText(String.valueOf(scoreVal));
   }
 
-  /**
-   * Click handler for the new quiz button.
-   */
+  /** Click handler for the new quiz button. */
   @FXML
   private void newQuiz() {
     SceneManager.switchToTopicScene();
   }
 
-  /**
-   * Click handler for the quit button.
-   */
+  /** Click handler for the quit button. */
   @FXML
   private void quit() {
     SceneManager.closeWindow();

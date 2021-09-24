@@ -9,22 +9,18 @@ import javafx.scene.control.Label;
  */
 public class Menu {
   @FXML private Label title;
-  
+
   @FXML private Button newQuiz;
-  
+
   @FXML private Button quit;
-	
-  /**
-   * Click handler for the new quiz button.
-   */
+
+  /** Click handler for the new quiz button. */
   @FXML
   private void newQuiz() {
     SceneManager.switchToTopicScene();
   }
 
-  /**
-   * Click handler for the quit button.
-   */
+  /** Click handler for the quit button. */
   @FXML
   private void quit() {
     SceneManager.closeWindow();
