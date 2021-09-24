@@ -1,5 +1,6 @@
 package application.scene;
 
+import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Parent;
@@ -7,8 +8,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
-
-import java.io.IOException;
 
 /** Controls which scene is displayed to the user through changing the JavaFX stage. */
 public class SceneManager {

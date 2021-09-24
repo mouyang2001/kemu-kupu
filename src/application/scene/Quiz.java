@@ -3,10 +3,8 @@ package application.scene;
 import application.BackgroundExecutor;
 import application.Festival;
 import application.QuizGame;
-
 import java.io.IOException;
 import java.time.Duration;
-
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
