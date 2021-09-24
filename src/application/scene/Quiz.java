@@ -5,9 +5,6 @@ import application.Festival;
 import application.QuizGame;
 import java.io.IOException;
 import java.time.Duration;
-import java.util.ArrayList;
-import java.util.Arrays;
-
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
@@ -117,7 +114,7 @@ public class Quiz {
 
     // Vowels character arrays setup.
     char[] vowelsCharacters = "aeiou".toCharArray();
-    char[] macronVowels= "āēīōū".toCharArray();
+    char[] macronVowels = "āēīōū".toCharArray();
 
     // Look for index of vowel.
     for (int i = 0; i < vowelsCharacters.length; i++) {
