@@ -5,7 +5,6 @@ import application.Festival;
 import application.QuizGame;
 import java.io.IOException;
 import java.time.Duration;
-
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
@@ -62,7 +61,7 @@ public class Quiz {
     } catch (IOException e) {
       SceneManager.alert("Could not load word list.");
     }
-    
+
     // Put the cursor in the text field.
     input.requestFocus();
 
@@ -111,7 +110,7 @@ public class Quiz {
     // Grab input if empty just return.
     String text = input.getText();
     if (text.isEmpty()) {
-    	return;
+      return;
     }
 
     // Split input up into first substring and last letter, eg "welcome" -> "welcom" + "e".
@@ -121,16 +120,16 @@ public class Quiz {
     // Vowels character arrays setup.
     final String vowelsCharacters = "aeiou";
     final String macronVowels = "āēīōū";
-    
+
     // Check if the last character is a vowel.
     int index = vowelsCharacters.indexOf(lastLetter);
     if (index == -1) {
-    	return;
+      return;
     }
-    
+
     // Replace the last character with the macronised vowel.
     input.setText(substring + macronVowels.charAt(index));
-    
+
     // Return cursor to the end of the text field.
     input.requestFocus();
     input.end();

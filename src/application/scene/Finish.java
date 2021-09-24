@@ -42,7 +42,7 @@ public class Finish {
 
   /**
    * Helper method to adjust wellDone label message depending on score
-   * 
+   *
    * @param score Score to base the message off.
    */
   public void setDynamicMessage(int score) {
