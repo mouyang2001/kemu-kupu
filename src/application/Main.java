@@ -12,7 +12,7 @@ public class Main extends Application {
   @Override
   public void start(Stage stage) {
     // Set window options.
-    stage.setTitle("Spelling Whiz");
+    stage.setTitle("Kēmu Kupu");
     stage.setMaximized(true);
 
     SceneManager.show(stage);
