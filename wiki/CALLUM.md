@@ -51,3 +51,8 @@
 - Fixed a few bugs that allowed the user to submit after the last question was answered but before the finish screen.
 - This was introduced when we decided to not show the finish screen straight away so the user would know if they got the word correct. It may help us to think about the possible side effects of our changes in the future to avoid more bugs.
 - The client meeting slots were opened and I took initiative to book a slot quickly so we could get a good time.
+
+### 25/09
+- After extensively testing our application I found that we could not type macrons into our application as we expected.
+- I notified my teammates and we discussed how we could modify our application to better support the user.
+- A solution was discovered and we decided to add setup instructions for a Māori keyboard and keep our macronise button for not so tech savvy users.
