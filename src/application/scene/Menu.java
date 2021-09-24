@@ -1,6 +1,5 @@
 package application.scene;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -10,28 +9,24 @@ import javafx.scene.control.Label;
  */
 public class Menu {
   @FXML private Label title;
-
+  
   @FXML private Button newQuiz;
-
+  
   @FXML private Button quit;
-
+	
   /**
    * Click handler for the new quiz button.
-   *
-   * @param e Event action information.
    */
   @FXML
-  public void newQuiz(ActionEvent e) {
+  private void newQuiz() {
     SceneManager.switchToTopicScene();
   }
 
   /**
    * Click handler for the quit button.
-   *
-   * @param e Event action information.
    */
   @FXML
-  public void quit(ActionEvent e) {
+  private void quit() {
     SceneManager.closeWindow();
   }
 }

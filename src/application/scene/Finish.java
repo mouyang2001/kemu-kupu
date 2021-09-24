@@ -28,21 +28,17 @@ public class Finish {
 
   /**
    * Click handler for the new quiz button.
-   *
-   * @param e Event action information.
    */
   @FXML
-  public void newQuiz(ActionEvent e) {
+  private void newQuiz() {
     SceneManager.switchToTopicScene();
   }
 
   /**
    * Click handler for the quit button.
-   *
-   * @param e Event action information.
    */
   @FXML
-  public void quit(ActionEvent e) {
+  private void quit() {
     SceneManager.closeWindow();
   }
 }

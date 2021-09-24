@@ -9,11 +9,11 @@ import java.time.Duration;
 
 import javafx.application.Platform;
 import javafx.concurrent.Task;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 
 /** Quiz screen that quizzes the users spelling. */
@@ -24,9 +24,15 @@ public class Quiz {
 
   @FXML private TextField input;
 
-  @FXML private Label hint;
-
   @FXML private Button sound;
+  
+  @FXML private ImageView image;
+  
+  @FXML private Label hint;
+  
+  @FXML private Button skip;
+  
+  @FXML private Button submit;
 
   private QuizGame quiz;
 
@@ -77,33 +83,26 @@ public class Quiz {
 
   /**
    * Click handler for the submit button.
-   *
-   * @param e Event action information.
-   * @throws IOException If FXML or CSS resources fail to load.
    */
   @FXML
-  public void submit(ActionEvent e) {
+  private void submit() {
     checkSpelling();
   }
 
   /**
    * Click handler for the skip button. Tells quiz object to go to the next word.
-   *
-   * @param e Event action information.
    */
   @FXML
-  public void skip(ActionEvent e) {
+  private void skip() {
     setPrompt("Incorrect :(", RED);
     nextWord();
   }
 
   /**
    * Click handler for the sound button. Gets festival to say the word.
-   *
-   * @param e Event action information.
    */
   @FXML
-  public void sound(ActionEvent e) {
+  private void sound() {
     sound.setDisable(true);
     Festival.speak(quiz.getWord(), () -> sound.setDisable(false));
   }
