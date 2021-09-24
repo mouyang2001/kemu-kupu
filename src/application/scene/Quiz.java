@@ -163,9 +163,23 @@ public class Quiz {
 
   /** Helper method to jump to next word and reset UI elements. */
   private void nextWord() {
-    // If NUMBER_OF_ROUNDS reached then switch to finish.
-    if (currentRound == NUMBER_OF_ROUNDS) {
+	// If NUMBER_OF_ROUNDS reached then switch to finish.
+	if (currentRound == NUMBER_OF_ROUNDS) {
+      // Automatically switch to finish after timeout.
       delayTask(Duration.ofSeconds(3), () -> SceneManager.switchToFinishScene(scoreVal));
+
+      // Allow the user to click to finish before the timeout.
+      submit.setText("Finish");
+      submit.setOnAction(e -> {
+    	  delayedTask.cancel();
+    	  SceneManager.switchToFinishScene(scoreVal);
+      });
+
+      // Only allow the finish button.
+      sound.setDisable(true);
+      skip.setDisable(true);
+      input.setDisable(true);
+            
       return;
     }
 
