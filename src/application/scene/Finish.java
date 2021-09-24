@@ -4,8 +4,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
-import java.time.Duration;
-
 /** Finish screen that shows the users score after the quiz. */
 public class Finish {
   @FXML private Label wellDone;
@@ -42,7 +40,7 @@ public class Finish {
     SceneManager.closeWindow();
   }
 
-  /** Helper method to adjust wellDone label message depending on score*/
+  /** Helper method to adjust wellDone label message depending on score */
   public void setDynamicMessage(int score) {
     double percentage = score / MAX_SCORE;
     wellDone.setStyle("-fx-text-fill: " + "#9AF1A3");
