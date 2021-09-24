@@ -40,7 +40,11 @@ public class Finish {
     SceneManager.closeWindow();
   }
 
-  /** Helper method to adjust wellDone label message depending on score */
+  /**
+   * Helper method to adjust wellDone label message depending on score
+   * 
+   * @param score Score to base the message off.
+   */
   public void setDynamicMessage(int score) {
     double percentage = score / MAX_SCORE;
     wellDone.setStyle("-fx-text-fill: " + "#9AF1A3");
