@@ -5,6 +5,7 @@ import application.Festival;
 import application.QuizGame;
 import java.io.IOException;
 import java.time.Duration;
+
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
@@ -61,6 +62,9 @@ public class Quiz {
     } catch (IOException e) {
       SceneManager.alert("Could not load word list.");
     }
+    
+    // Put the cursor in the text field.
+    input.requestFocus();
 
     // start off with the first word
     Festival.speak(quiz.getWord());
@@ -101,31 +105,35 @@ public class Quiz {
     Festival.speak(quiz.getWord(), () -> sound.setDisable(false));
   }
 
-  /** Click handler for the macronize button. Converts the latest character to macron. */
+  /** Click handler for the macronise button. Converts the latest character to macron. */
   @FXML
-  private void macronize() {
+  private void macronise() {
     // Grab input if empty just return.
     String text = input.getText();
-    if (text.equals("")) return;
+    if (text.isEmpty()) {
+    	return;
+    }
 
     // Split input up into first substring and last letter, eg "welcome" -> "welcom" + "e".
     String substring = text.substring(0, text.length() - 1);
-    char lastLetter = text.substring(text.length() - 1).charAt(0);
+    char lastLetter = text.charAt(text.length() - 1);
 
     // Vowels character arrays setup.
-    char[] vowelsCharacters = "aeiou".toCharArray();
-    char[] macronVowels = "āēīōū".toCharArray();
-
-    // Look for index of vowel.
-    for (int i = 0; i < vowelsCharacters.length; i++) {
-      if (vowelsCharacters[i] == lastLetter) {
-        // change input text field and reset focus
-        input.setText(substring + macronVowels[i]);
-        input.requestFocus();
-        input.end();
-        return;
-      }
+    final String vowelsCharacters = "aeiou";
+    final String macronVowels = "āēīōū";
+    
+    // Check if the last character is a vowel.
+    int index = vowelsCharacters.indexOf(lastLetter);
+    if (index == -1) {
+    	return;
     }
+    
+    // Replace the last character with the macronised vowel.
+    input.setText(substring + macronVowels.charAt(index));
+    
+    // Return cursor to the end of the text field.
+    input.requestFocus();
+    input.end();
   }
 
   /** Method performs check spelling routine. */
