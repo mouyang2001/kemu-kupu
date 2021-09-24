@@ -16,7 +16,8 @@
             <Button fx:id="quit" mnemonicParsing="false" onAction="#quit" prefHeight="70.0" prefWidth="200.0" text="Quit">
                <HBox.margin>
                   <Insets right="40.0" />
-               </HBox.margin></Button>
+               </HBox.margin>
+            </Button>
             <Button fx:id="playAgain" mnemonicParsing="false" onAction="#newQuiz" prefHeight="70.0" prefWidth="200.0" text="Play again" />
          </children>
       </HBox>

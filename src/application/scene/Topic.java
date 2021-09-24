@@ -1,8 +1,6 @@
 package application.scene;
 
 import application.Words;
-import java.io.IOException;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -14,6 +12,8 @@ public class Topic {
   @FXML private Label title;
 
   @FXML private ListView<String> topicListView;
+  
+  @FXML private Button back;
 
   @FXML private Button start;
 
@@ -37,17 +37,15 @@ public class Topic {
 
   /**
    * Click handler for the start quiz button.
-   *
-   * @param e Event action information.
    */
   @FXML
-  public void startQuiz(ActionEvent e) {
+  private void startQuiz() {
     SceneManager.switchToQuizScene(topicListView.getSelectionModel().getSelectedItem());
   }
 
   /** Click handler for backing out of topic selection to main menu again. */
   @FXML
-  public void leaveQuiz() {
+  private void leaveQuiz() {
     SceneManager.switchToMenuScene();
   }
 }
