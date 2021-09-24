@@ -1,7 +1,5 @@
 package application.scene;
 
-import java.io.IOException;
-
 import application.Words;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

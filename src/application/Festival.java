@@ -1,9 +1,8 @@
 package application;
 
+import application.scene.SceneManager;
 import java.io.IOException;
 import java.io.PrintWriter;
-
-import application.scene.SceneManager;
 import javafx.application.Platform;
 
 /** Controls the festival text to speech command. */

@@ -1,7 +1,6 @@
 package application;
 
 import application.scene.SceneManager;
-
 import javafx.application.Application;
 import javafx.stage.Stage;
 
