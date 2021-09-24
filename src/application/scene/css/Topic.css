@@ -2,6 +2,30 @@
     -fx-background-color: #1E2124;
 }
 
+.list-cell {
+    -fx-text-fill: #cacbce;
+    -fx-alignment: center;
+    -fx-font-size: 24;
+}
+
+.list-cell:even {
+    -fx-background-color: #36393e;
+}
+
+.list-cell:odd {
+    -fx-background-color: #36393e;
+}
+
+.list-cell:filled:hover {
+    -fx-background-color: #474b52;
+    -fx-text-fill: #b0b1b5;
+}
+
+.list-cell:filled:selected:focused, .list-cell:filled:selected {
+    -fx-background-color: #7289da;
+    -fx-text-fill: white;
+}
+
 #title {
     -fx-text-fill: #FFFFFF;
     -fx-font-size: 50;
