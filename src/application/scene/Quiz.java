@@ -118,8 +118,8 @@ public class Quiz {
     char lastLetter = text.charAt(text.length() - 1);
 
     // Vowels character arrays setup.
-    final String vowelsCharacters = "aeiou";
-    final String macronVowels = "āēīōū";
+    final String vowelsCharacters = "AEIOUaeiou";
+    final String macronVowels = "ĀĒĪŌŪāēīōū";
 
     // Check if the last character is a vowel.
     int index = vowelsCharacters.indexOf(lastLetter);
