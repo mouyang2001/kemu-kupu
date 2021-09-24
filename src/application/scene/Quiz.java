@@ -62,6 +62,9 @@ public class Quiz {
     } catch (IOException e) {
       SceneManager.alert("Could not load word list.");
     }
+    
+    // Put the cursor in the text field.
+    input.requestFocus();
 
     // start off with the first word
     Festival.speak(quiz.getWord());
