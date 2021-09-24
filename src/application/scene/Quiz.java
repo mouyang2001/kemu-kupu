@@ -5,6 +5,9 @@ import application.Festival;
 import application.QuizGame;
 import java.io.IOException;
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
@@ -23,6 +26,8 @@ public class Quiz {
   @FXML private TextField input;
 
   @FXML private Button sound;
+
+  @FXML private Button macronButton;
 
   @FXML private ImageView image;
 
@@ -97,6 +102,33 @@ public class Quiz {
   private void sound() {
     sound.setDisable(true);
     Festival.speak(quiz.getWord(), () -> sound.setDisable(false));
+  }
+
+  /** Click handler for the macronize button. Converts the latest character to macron. */
+  @FXML
+  private void macronize() {
+    // Grab input if empty just return.
+    String text = input.getText();
+    if (text.equals("")) return;
+
+    // Split input up into first substring and last letter, eg "welcome" -> "welcom" + "e".
+    String substring = text.substring(0, text.length() - 1);
+    char lastLetter = text.substring(text.length() - 1).charAt(0);
+
+    // Vowels character arrays setup.
+    char[] vowelsCharacters = "aeiou".toCharArray();
+    char[] macronVowels= "āēīōū".toCharArray();
+
+    // Look for index of vowel.
+    for (int i = 0; i < vowelsCharacters.length; i++) {
+      if (vowelsCharacters[i] == lastLetter) {
+        // change input text field and reset focus
+        input.setText(substring + macronVowels[i]);
+        input.requestFocus();
+        input.end();
+        return;
+      }
+    }
   }
 
   /** Method performs check spelling routine. */
