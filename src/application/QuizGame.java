@@ -53,6 +53,8 @@ public class QuizGame {
   /** Sets the state of the game to the next word. */
   public void nextWord() {
     index++;
+    // If word list size reached, flip over to beginning again.
+    if (index == words.size()) index = 0;
     attempted = false;
   }
 
