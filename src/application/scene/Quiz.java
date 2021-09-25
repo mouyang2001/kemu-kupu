@@ -228,6 +228,8 @@ public class Quiz {
     skip.setDisable(state);
     submit.setDisable(state);
     sound.setDisable(state);
+    input.setDisable(state);
+    input.requestFocus();
   }
   /** End of game subroutine. */
   public void endGame() {
