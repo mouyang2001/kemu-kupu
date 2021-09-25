@@ -72,11 +72,12 @@ public class Quiz {
   @FXML
   public void initialize() {
     // Input TextField will listen to enter button pressed event.
-    input.setOnKeyReleased(e -> {
+    input.setOnKeyReleased(
+        e -> {
           if (e.getCode() == KeyCode.ENTER) {
             checkSpelling();
           }
-      });
+        });
   }
 
   /** Click handler for the submit button. */
@@ -228,9 +229,7 @@ public class Quiz {
     submit.setDisable(state);
     sound.setDisable(state);
   }
-  /**
-   * End of game subroutine.
-   */
+  /** End of game subroutine. */
   public void endGame() {
     // Automatically switch to finish after timeout.
     delayTask(Duration.ofSeconds(DELAY), () -> SceneManager.switchToFinishScene(scoreVal));
@@ -238,10 +237,10 @@ public class Quiz {
     // Allow the user to click to finish before the timeout.
     submit.setText("Finish");
     submit.setOnAction(
-            e -> {
-              delayedTask.cancel();
-              SceneManager.switchToFinishScene(scoreVal);
-            });
+        e -> {
+          delayedTask.cancel();
+          SceneManager.switchToFinishScene(scoreVal);
+        });
 
     // Only allow the finish button.
     submit.setDisable(false);
@@ -264,17 +263,18 @@ public class Quiz {
     }
 
     // Create the new task.
-    delayedTask = new Task<Void>() {
-      @Override
-      protected Void call() {
-        if (!isCancelled()) {
-          // Run on the GUI thread.
-          Platform.runLater(task);
-        }
+    delayedTask =
+        new Task<Void>() {
+          @Override
+          protected Void call() {
+            if (!isCancelled()) {
+              // Run on the GUI thread.
+              Platform.runLater(task);
+            }
 
-        return null;
-      }
-    };
+            return null;
+          }
+        };
 
     // Schedule the task for execution.
     BackgroundExecutor.executeDelayed(duration, delayedTask);
