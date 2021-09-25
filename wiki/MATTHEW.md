@@ -20,3 +20,6 @@ Completed some scene fxml layouts. Implement list view so that we can select fro
 
 ### Mon 20/09/2021
 I added a enter button key released listener on the input textfield to run the spell check routine. This enables both submit and enter buttons to work in place of each other, so you don't have to use the mouse. I now await for stakeholder information in tommorrows tuesday lecture.
+
+### Fri 25/09/2021
+I improved the feedback prompt messages. Then I added a dynamically altering final message on the finish scene. I was then tasked by the group to implement a macron button for people who aren't tech savvy to macronize the letters without the need of installing a maori keyboard. Finally I improved the layout and styling of the topic scene, improving it's color scheme.
