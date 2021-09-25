@@ -38,7 +38,7 @@ public class Quiz {
 
   private int scoreVal = 0;
 
-  private int currentRound = 1;
+  private int currentRound = 0;
 
   private Task<Void> delayedTask;
 
@@ -48,6 +48,8 @@ public class Quiz {
 
   private final int NUMBER_OF_ROUNDS = 5;
 
+  private final int DELAY = 2;
+
   /**
    * Method allows SceneManager to access and transfer data topic selection data. Also it's the
    * entry point to start the quiz game.
@@ -55,33 +57,26 @@ public class Quiz {
    * @param topic The chosen topic, file name.
    */
   public void beginQuiz(String topic) {
+    // Begin new QuizGame instance.
     try {
-      // begin new QuizGame instance
       quiz = new QuizGame(topic);
     } catch (IOException e) {
       SceneManager.alert("Could not load word list.");
     }
 
-    // Put the cursor in the text field.
-    input.requestFocus();
-
-    // start off with the first word
-    Festival.speak(quiz.getWord());
-
-    // DEBUG
-    System.out.println(quiz.getWord());
+    // Kick off the first word.
+    nextWord();
   }
 
   /** Scene initializer, for setting unique listener events on elements. */
   @FXML
   public void initialize() {
     // Input TextField will listen to enter button pressed event.
-    input.setOnKeyReleased(
-        e -> {
+    input.setOnKeyReleased(e -> {
           if (e.getCode() == KeyCode.ENTER) {
             checkSpelling();
           }
-        });
+      });
   }
 
   /** Click handler for the submit button. */
@@ -100,8 +95,8 @@ public class Quiz {
   /** Click handler for the sound button. Gets festival to say the word. */
   @FXML
   private void sound() {
-    sound.setDisable(true);
-    Festival.speak(quiz.getWord(), () -> sound.setDisable(false));
+    disableButtons(true);
+    Festival.speak(quiz.getWord(), () -> disableButtons(false));
   }
 
   /** Click handler for the macronise button. Converts the latest character to macron. */
@@ -151,7 +146,6 @@ public class Quiz {
       case FirstIncorrect:
         setPrompt("Incorrect, try again...", RED);
         giveHint();
-        Festival.speak(quiz.getWord());
         break;
 
       case SecondIncorrect:
@@ -177,7 +171,7 @@ public class Quiz {
     correct.setText(message);
     correct.setStyle("-fx-text-fill: " + colour);
 
-    delayTask(Duration.ofSeconds(3), () -> correct.setText(""));
+    delayTask(Duration.ofSeconds(DELAY), () -> correct.setText(""));
   }
 
   /**
@@ -199,24 +193,11 @@ public class Quiz {
 
   /** Helper method to jump to next word and reset UI elements. */
   private void nextWord() {
+    disableButtons(true);
+
     // If NUMBER_OF_ROUNDS reached then switch to finish.
     if (currentRound == NUMBER_OF_ROUNDS) {
-      // Automatically switch to finish after timeout.
-      delayTask(Duration.ofSeconds(3), () -> SceneManager.switchToFinishScene(scoreVal));
-
-      // Allow the user to click to finish before the timeout.
-      submit.setText("Finish");
-      submit.setOnAction(
-          e -> {
-            delayedTask.cancel();
-            SceneManager.switchToFinishScene(scoreVal);
-          });
-
-      // Only allow the finish button.
-      sound.setDisable(true);
-      skip.setDisable(true);
-      input.setDisable(true);
-
+      endGame();
       return;
     }
 
@@ -229,10 +210,44 @@ public class Quiz {
 
     // Get next word.
     quiz.nextWord();
+
+    // DEBUG
     System.out.println(quiz.getWord());
 
-    // Festival say word.
-    Festival.speak(quiz.getWord());
+    // After festival says the word, enable the buttons again.
+    Festival.speak(quiz.getWord(), () -> disableButtons(false));
+  }
+
+  /**
+   * Helper method to Toggle buttons
+   *
+   * @param state boolean value on or off button.
+   */
+  public void disableButtons(Boolean state) {
+    skip.setDisable(state);
+    submit.setDisable(state);
+    sound.setDisable(state);
+  }
+  /**
+   * End of game subroutine.
+   */
+  public void endGame() {
+    // Automatically switch to finish after timeout.
+    delayTask(Duration.ofSeconds(DELAY), () -> SceneManager.switchToFinishScene(scoreVal));
+
+    // Allow the user to click to finish before the timeout.
+    submit.setText("Finish");
+    submit.setOnAction(
+            e -> {
+              delayedTask.cancel();
+              SceneManager.switchToFinishScene(scoreVal);
+            });
+
+    // Only allow the finish button.
+    submit.setDisable(false);
+    sound.setDisable(true);
+    skip.setDisable(true);
+    input.setDisable(true);
   }
 
   /**
@@ -249,18 +264,17 @@ public class Quiz {
     }
 
     // Create the new task.
-    delayedTask =
-        new Task<Void>() {
-          @Override
-          protected Void call() {
-            if (!isCancelled()) {
-              // Run on the GUI thread.
-              Platform.runLater(task);
-            }
+    delayedTask = new Task<Void>() {
+      @Override
+      protected Void call() {
+        if (!isCancelled()) {
+          // Run on the GUI thread.
+          Platform.runLater(task);
+        }
 
-            return null;
-          }
-        };
+        return null;
+      }
+    };
 
     // Schedule the task for execution.
     BackgroundExecutor.executeDelayed(duration, delayedTask);
