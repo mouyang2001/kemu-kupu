@@ -22,6 +22,11 @@ Add a Māori keyboard to Elementary OS by going to:
 
 Add macrons to vowels by pressing `<Alt> + <Vowel>`.
 
+### Images
+
+Download all contents of folder 'assets' to have correct images
+The program will still function without this
+
 ## Run
 
 Run the project with the following command.
