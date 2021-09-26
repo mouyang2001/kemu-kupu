@@ -20,7 +20,7 @@ Add a Māori keyboard to Elementary OS by going to:
 4. Maori
 5. Add Layout
 
-Add macrons to vowels by pressing `<Alt> + <Vowel>`.
+Add macrons to vowels by pressing `<Right Alt> + <Vowel>`.
 
 ## Run
 

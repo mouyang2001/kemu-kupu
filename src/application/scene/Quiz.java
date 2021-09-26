@@ -212,9 +212,6 @@ public class Quiz {
     // Get next word.
     quiz.nextWord();
 
-    // DEBUG
-    System.out.println(quiz.getWord());
-
     // After festival says the word, enable the buttons again.
     Festival.speak(quiz.getWord(), () -> disableButtons(false));
   }
@@ -231,6 +228,7 @@ public class Quiz {
     input.setDisable(state);
     input.requestFocus();
   }
+
   /** End of game subroutine. */
   public void endGame() {
     // Automatically switch to finish after timeout.
