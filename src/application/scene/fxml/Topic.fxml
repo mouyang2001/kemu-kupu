@@ -14,18 +14,23 @@
       <ListView fx:id="topicListView" maxWidth="640.0" prefHeight="400.0" prefWidth="640.0">
          
       </ListView>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="200.0">
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
          <children>
             <Button fx:id="back" mnemonicParsing="false" onAction="#leaveQuiz" prefHeight="60.0" prefWidth="150.0" text="Back">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
             </Button>
-            <Button fx:id="start" disable="true" mnemonicParsing="false" onAction="#startQuiz" prefHeight="60.0" prefWidth="150.0" text="Start">
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-            </Button>
+            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="490.0" spacing="20.0">
+               <children>
+                  <Button fx:id="practice" disable="true" mnemonicParsing="false" onAction="#startPractice" prefHeight="60.0" prefWidth="150.0" text="Practice">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="start" disable="true" mnemonicParsing="false" onAction="#startQuiz" prefHeight="60.0" prefWidth="150.0" text="Quiz" />
+               </children>
+            </HBox>
          </children>
       </HBox>
    </children>

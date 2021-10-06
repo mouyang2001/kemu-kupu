@@ -47,6 +47,21 @@
 	-fx-background-color : #3B3B3C;
 }
 
+#practice {
+	-fx-background-color: #43B581;
+	-fx-text-fill: #FFFFFF;
+    -fx-font-size: 30;
+    -fx-font-family: Play;
+}
+
+#practice:hover {
+	-fx-background-color : #36966b;
+}
+
+#practice:pressed {
+	-fx-background-color : #235e44;
+}
+
 #start {
 	-fx-background-color: #7289DA;
 	-fx-text-fill: #FFFFFF;
