@@ -5,17 +5,17 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" stylesheets="@../css/Menu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.scene.Menu">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" spacing="20.0" stylesheets="@../css/Menu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.scene.Menu">
    <children>
       <Label fx:id="title" alignment="CENTER" contentDisplay="CENTER" prefHeight="46.0" prefWidth="1092.0" stylesheets="@../css/Menu.css" text="Welcome to Kēmu Kupu">
          <font>
             <Font size="80.0" />
          </font>
          <VBox.margin>
-            <Insets bottom="100.0" />
+            <Insets />
          </VBox.margin>
       </Label>
-      <Button fx:id="newQuiz" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#newQuiz" prefHeight="150.0" prefWidth="600.0" stylesheets="@../css/Menu.css" text="New Quiz" textFill="WHITE">
+      <Button fx:id="newQuiz" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#newQuiz" prefHeight="120.0" prefWidth="600.0" stylesheets="@../css/Menu.css" text="Play" textFill="WHITE">
          <font>
             <Font size="50.0" />
          </font>
@@ -23,12 +23,12 @@
             <Insets />
          </VBox.margin>
       </Button>
-      <Button fx:id="quit" mnemonicParsing="false" onAction="#quit" prefHeight="150.0" prefWidth="600.0" stylesheets="@../css/Menu.css" text="Quit" textFill="WHITE">
+      <Button fx:id="quit" mnemonicParsing="false" onAction="#quit" prefHeight="120.0" prefWidth="600.0" stylesheets="@../css/Menu.css" text="Quit" textFill="WHITE">
          <font>
             <Font size="50.0" />
          </font>
          <VBox.margin>
-            <Insets top="60.0" />
+            <Insets />
          </VBox.margin>
       </Button>
    </children>

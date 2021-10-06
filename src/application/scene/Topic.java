@@ -18,6 +18,8 @@ public class Topic {
 
   @FXML private Button start;
 
+  @FXML private Button practice;
+
   /** Called once the controller is loaded. */
   @FXML
   public void initialize() {
@@ -33,6 +35,7 @@ public class Topic {
         MouseEvent.MOUSE_PRESSED,
         e -> {
           start.setDisable(topicListView.getSelectionModel().getSelectedItem() == null);
+          practice.setDisable(topicListView.getSelectionModel().getSelectedItem() == null);
         });
   }
 
@@ -41,6 +44,12 @@ public class Topic {
   private void startQuiz() {
     SceneManager.switchToQuizScene(topicListView.getSelectionModel().getSelectedItem());
   }
+
+  @FXML
+  private void startPractice() {
+    // TODO: create practice module
+  };
+
 
   /** Click handler for backing out of topic selection to main menu again. */
   @FXML
