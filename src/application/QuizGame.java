@@ -9,8 +9,7 @@ public class QuizGame {
   /** Result of an attempt. */
   public enum Result {
     Correct,
-    FirstIncorrect,
-    SecondIncorrect,
+    Incorrect,
   };
 
   private final List<String> words;
@@ -84,10 +83,8 @@ public class QuizGame {
     // case.
     if (spelling.trim().equalsIgnoreCase(getWord())) {
       return Result.Correct;
-    } else if (!wasAttempted) {
-      return Result.FirstIncorrect;
     } else {
-      return Result.SecondIncorrect;
+      return Result.Incorrect;
     }
   }
 }

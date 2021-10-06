@@ -21,14 +21,14 @@ public class Quiz {
   @FXML private Label correct;
 
   @FXML private TextField input;
+  
+  @FXML private Label showLetters;
 
   @FXML private Button sound;
 
   @FXML private Button macronButton;
 
   @FXML private ImageView image;
-
-  @FXML private Label hint;
 
   @FXML private Button skip;
 
@@ -144,16 +144,27 @@ public class Quiz {
         nextWord();
         break;
 
-      case FirstIncorrect:
-        setPrompt("Incorrect, try again...", RED);
-        giveHint();
-        break;
-
-      case SecondIncorrect:
+      case Incorrect:
         setPrompt("Incorrect, but good effort.", RED);
         nextWord();
         break;
     }
+  }
+  
+  /** Helper method to show number of letters in word**/
+  private void showLetters() {
+	  String word = quiz.getWord();
+	  StringBuilder stringBuilder = new StringBuilder();
+	  for (int i = 0; i < word.length(); i++) {
+		  if (quiz.getHintLetterAtIndex(i).equals(" ")) {
+			  stringBuilder.append(" ");
+		  } else {
+			  stringBuilder.append("-");
+		  }
+	  }
+	  String promptLetters = stringBuilder.toString();
+	  //input.setPromptText(promptLetters);
+	  showLetters.setText(promptLetters);
   }
 
   /** Helper method to increase score and update label. */
@@ -187,11 +198,6 @@ public class Quiz {
     return text;
   }
 
-  /** Helper method to show the hint to the user. */
-  private void giveHint() {
-    hint.setText("Hint: second letter is " + quiz.getHintLetterAtIndex(1));
-  }
-
   /** Helper method to jump to next word and reset UI elements. */
   private void nextWord() {
     disableButtons(true);
@@ -206,14 +212,15 @@ public class Quiz {
     currentRound++;
 
     // Clear hint and reset focus to input.
-    hint.setText("");
     input.requestFocus();
 
     // Get next word.
     quiz.nextWord();
+    
 
     // After festival says the word, enable the buttons again.
     Festival.speak(quiz.getWord(), () -> disableButtons(false));
+    showLetters();
   }
 
   /**

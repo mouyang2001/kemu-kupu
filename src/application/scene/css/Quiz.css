@@ -48,6 +48,13 @@
 	-fx-background-color : #3B3B3C;
 }
 
+#input {
+	-fx-font-size: 30;
+}
+
+#showLetters {
+	-fx-font-size: 40;
+}
 
 
 
