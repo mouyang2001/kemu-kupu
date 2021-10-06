@@ -48,8 +48,8 @@ public class Topic {
   @FXML
   private void startPractice() {
     // TODO: create practice module
-  };
-
+  }
+  ;
 
   /** Click handler for backing out of topic selection to main menu again. */
   @FXML
