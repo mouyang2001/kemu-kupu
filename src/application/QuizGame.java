@@ -1,6 +1,7 @@
 package application;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -14,9 +15,9 @@ public class QuizGame {
 
   private final List<String> words;
   
-  private int[] correct = new int[5];
+  private List<Integer> correct;
   
-  private int[] time = new int[5];
+  private List<Long> time;
 
   private int index = 0;
 
@@ -33,6 +34,9 @@ public class QuizGame {
     // order
     words = Words.getWords(topic);
     Collections.shuffle(words);
+    
+    correct = new ArrayList<Integer>();
+    time = new ArrayList<Long>();
   }
 
   /**
@@ -52,9 +56,8 @@ public class QuizGame {
    * 		1 if correct
    * 		-1 if skipped
    */
-  
   public void isCorrect(int score) {
-	  correct[index] = score;
+	  correct.add(score);
   }
   
   /**
@@ -63,7 +66,7 @@ public class QuizGame {
    * @param time taken to answer question
    */
   public void timeTaken(long timeTaken) {
-	  time[index] = (int)timeTaken;
+	  time.add(timeTaken);
   }
 
   /**

@@ -45,6 +45,8 @@ public class Quiz {
   private long timeStart;
   
   private long timeEnd;
+  
+  private long timeElapsed;
 
   private final String RED = "#E88787";
 
@@ -180,9 +182,21 @@ public class Quiz {
     showLetters.setText(promptLetters);
   }
 
-  /** Helper method to increase score and update label. */
+  /**
+   *  Helper method to increase score and update label. 
+   */
   private void increaseScore() {
-    scoreVal++;
+	if (timeElapsed < 3000000) {
+		scoreVal+=5;
+	} else if (timeElapsed < 4000000) {
+		scoreVal+=4;
+	} else if (timeElapsed < 5000000) {
+		scoreVal+=3;
+	} else if (timeElapsed < 6000000) {
+		scoreVal+=2;
+	} else {
+		scoreVal+=1;
+	}
     score.setText(String.valueOf(scoreVal));
   }
 
@@ -203,7 +217,9 @@ public class Quiz {
    * Helper method to calculate time taken to answer question
    */
   private void calculateTime() {
-	  long timeElapsed = timeEnd - timeStart;
+	  long time = timeEnd - timeStart;
+	  timeElapsed = time/1000;
+	  System.out.println(timeElapsed);
 	  quiz.timeTaken(timeElapsed);
   }
 
