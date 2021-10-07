@@ -22,3 +22,14 @@ I finished implementing the design functionality, including having correct/incor
 Wednesday 22/09
 On reviewing the project I found that you did not get a correct/incorrect message on the final question you entered, and festival didn't automatically re-say the word on your second attempt, so I corrected both of these issues.
 
+
+
+
+Wednesday 6/10
+We had a group meeting to discuss how we would take the project further. We identified several key features to implement, and each took a few to work on. I will be working on showing the numbers of letters in the word to spell, and on improving the finish screen with time based scoring and statistics.
+
+Thursday 7/10
+I implemented the functionality for showing how many letters are in the word in the quiz module. This is currently done by having a label overlaying the textfield input. If I have time I would like to improve this by having the underscores dissapear as you type each letter so that it is more intuitive. I will also need to implement this functionality in the practice module, but I had to wait for Matthew to do the bulk of the set up for that class.
+
+Friday 8/10
+I started implementing the stats. I started by adding some lists in the quiz game class to record whether you got each word right or wrong. I then added functionality to record how long you took to answer the question, and changed the scoring system based on this time (i.e. the faster you answer, the better your score). 
