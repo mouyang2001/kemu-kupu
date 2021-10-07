@@ -14,9 +14,9 @@ public class QuizGame {
   };
 
   private final List<String> words;
-  
+
   private List<Integer> correct;
-  
+
   private List<Long> time;
 
   private int index = 0;
@@ -34,7 +34,7 @@ public class QuizGame {
     // order
     words = Words.getWords(topic);
     Collections.shuffle(words);
-    
+
     correct = new ArrayList<Integer>();
     time = new ArrayList<Long>();
   }
@@ -54,7 +54,7 @@ public class QuizGame {
    * @param score of word just tested 0 if incorrect 1 if correct -1 if skipped
    */
   public void isCorrect(int score) {
-	  correct.add(score);
+    correct.add(score);
   }
 
   /**
@@ -63,7 +63,7 @@ public class QuizGame {
    * @param time taken to answer question
    */
   public void timeTaken(long timeTaken) {
-	  time.add(timeTaken);
+    time.add(timeTaken);
   }
 
   /**
