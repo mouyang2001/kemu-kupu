@@ -41,9 +41,9 @@ public class Quiz {
   private int currentRound = 0;
 
   private Task<Void> delayedTask;
-  
+
   private long timeStart;
-  
+
   private long timeEnd;
 
   private final String RED = "#E88787";
@@ -79,8 +79,8 @@ public class Quiz {
     input.setOnKeyReleased(
         e -> {
           if (e.getCode() == KeyCode.ENTER) {
-        	timeEnd = System.nanoTime();
-        	calculateTime();
+            timeEnd = System.nanoTime();
+            calculateTime();
             checkSpelling();
           }
         });
@@ -89,8 +89,8 @@ public class Quiz {
   /** Click handler for the submit button. */
   @FXML
   private void submit() {
-	timeEnd = System.nanoTime();
-	calculateTime();
+    timeEnd = System.nanoTime();
+    calculateTime();
     checkSpelling();
   }
 
@@ -198,13 +198,11 @@ public class Quiz {
 
     delayTask(Duration.ofSeconds(DELAY), () -> correct.setText(""));
   }
-  
-  /**
-   * Helper method to calculate time taken to answer question
-   */
+
+  /** Helper method to calculate time taken to answer question */
   private void calculateTime() {
-	  long timeElapsed = timeEnd - timeStart;
-	  quiz.timeTaken(timeElapsed);
+    long timeElapsed = timeEnd - timeStart;
+    quiz.timeTaken(timeElapsed);
   }
 
   /**
