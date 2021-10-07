@@ -13,6 +13,10 @@ public class QuizGame {
   };
 
   private final List<String> words;
+  
+  private int[] correct = new int[5];
+  
+  private int[] time = new int[5];
 
   private int index = 0;
 
@@ -38,6 +42,28 @@ public class QuizGame {
    */
   public List<String> getWords() {
     return words;
+  }
+  
+  /**
+   * method to store scores of words tested
+   * 
+   * @param score of word just tested
+   * 		0 if incorrect
+   * 		1 if correct
+   * 		-1 if skipped
+   */
+  
+  public void isCorrect(int score) {
+	  correct[index] = score;
+  }
+  
+  /**
+   * method to store time taken to answer each question
+   * 
+   * @param time taken to answer question
+   */
+  public void timeTaken(long timeTaken) {
+	  time[index] = (int)timeTaken;
   }
 
   /**

@@ -41,6 +41,10 @@ public class Quiz {
   private int currentRound = 0;
 
   private Task<Void> delayedTask;
+  
+  private long timeStart;
+  
+  private long timeEnd;
 
   private final String RED = "#E88787";
 
@@ -75,6 +79,8 @@ public class Quiz {
     input.setOnKeyReleased(
         e -> {
           if (e.getCode() == KeyCode.ENTER) {
+        	timeEnd = System.nanoTime();
+        	calculateTime();
             checkSpelling();
           }
         });
@@ -83,6 +89,8 @@ public class Quiz {
   /** Click handler for the submit button. */
   @FXML
   private void submit() {
+	timeEnd = System.nanoTime();
+	calculateTime();
     checkSpelling();
   }
 
@@ -90,6 +98,9 @@ public class Quiz {
   @FXML
   private void skip() {
     setPrompt("Skipped", RED);
+    timeEnd = System.nanoTime();
+    calculateTime();
+    quiz.isCorrect(-1);
     nextWord();
   }
 
@@ -141,11 +152,13 @@ public class Quiz {
       case Correct:
         increaseScore();
         setPrompt("Correct!", GREEN);
+        quiz.isCorrect(1);
         nextWord();
         break;
 
       case Incorrect:
         setPrompt("Incorrect, but good effort.", RED);
+        quiz.isCorrect(0);
         nextWord();
         break;
     }
@@ -185,6 +198,14 @@ public class Quiz {
 
     delayTask(Duration.ofSeconds(DELAY), () -> correct.setText(""));
   }
+  
+  /**
+   * Helper method to calculate time taken to answer question
+   */
+  private void calculateTime() {
+	  long timeElapsed = timeEnd - timeStart;
+	  quiz.timeTaken(timeElapsed);
+  }
 
   /**
    * Helper method to get text from input TextField and reset it.
@@ -220,6 +241,7 @@ public class Quiz {
     // After festival says the word, enable the buttons again.
     Festival.speak(quiz.getWord(), () -> disableButtons(false));
     showLetters();
+    timeStart = System.nanoTime();
   }
 
   /**
