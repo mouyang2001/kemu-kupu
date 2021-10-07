@@ -48,6 +48,21 @@
 	-fx-background-color : #3B3B3C;
 }
 
+#quit {
+    -fx-background-color: #f04747;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 30;
+    -fx-font-family: Play;
+}
+
+#quit:hover {
+    -fx-background-color: #c93e3e;
+}
+
+#quit:pressed {
+    -fx-background-color: #a03131;
+}
+
 
 
 

@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.*?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@../css/Practice.css" fx:controller="application.scene.Practice">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="16.0" stylesheets="@../css/Practice.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.scene.Practice">
     <children>
-        <Label fx:id="score" alignment="CENTER" contentDisplay="CENTER" layoutX="268.0" layoutY="23.0" prefHeight="50.0" prefWidth="65.0" text="0">
-            <font>
-                <Font size="20.0" />
-            </font>
-            <VBox.margin>
-                <Insets bottom="50.0" />
-            </VBox.margin>
-        </Label>
+      <HBox alignment="CENTER" prefWidth="200.0" spacing="150.0">
+         <children>
+              <Label fx:id="score" alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="65.0" text="0">
+                  <font>
+                      <Font size="20.0" />
+                  </font>
+              </Label>
+         </children>
+      </HBox>
         <Label fx:id="correct" layoutX="235.0" layoutY="89.0">
             <font>
                 <Font size="30.0" />
             </font>
             <VBox.margin>
-                <Insets bottom="10.0" />
+                <Insets />
             </VBox.margin>
         </Label>
-        <HBox alignment="CENTER" prefHeight="82.0" prefWidth="600.0" spacing="10.0">
+        <HBox alignment="CENTER" spacing="10.0">
             <children>
-                <Button fx:id="macronButton" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="Āā" onAction="#macronise"/>
+                <Button fx:id="macronButton" mnemonicParsing="false" onAction="#macronise" prefHeight="45.0" prefWidth="45.0" text="Āā" />
                 <TextField fx:id="input" prefHeight="45.0" prefWidth="246.0" />
                 <Button fx:id="sound" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#sound" prefHeight="45.0" prefWidth="45.0" text="*image*">
                     <HBox.margin>
@@ -44,11 +44,12 @@
             </children>
         </HBox>
         <Label fx:id="hint" layoutX="126.0" layoutY="235.0" />
-        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+        <HBox alignment="CENTER" prefWidth="200.0" spacing="20.0">
             <children>
+            <Button fx:id="quit" mnemonicParsing="false" onAction="#quit" prefHeight="70.0" prefWidth="200.0" text="Quit" />
                 <Button fx:id="skip" mnemonicParsing="false" onAction="#skip" prefHeight="70.0" prefWidth="200.0" text="Don't know">
                     <HBox.margin>
-                        <Insets right="70.0" />
+                        <Insets />
                     </HBox.margin>
                 </Button>
                 <Button fx:id="submit" mnemonicParsing="false" onAction="#submit" prefHeight="70.0" prefWidth="200.0" text="Submit" />
