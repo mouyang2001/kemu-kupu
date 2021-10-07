@@ -87,4 +87,30 @@ public class QuizGame {
       return Result.Incorrect;
     }
   }
+
+  /**
+   * Method randomly builds and returns a hint with a random mix of characters and '_' (blanks).
+   * NOTE it will show at least one letter by default because of the nature of randomness, we don't want blanks.
+   *
+   * @param percentage specifies percentage of letters to blank out.
+   * @return hint as a string.
+   */
+  public String getHint(double percentage) {
+    StringBuilder hint = new StringBuilder();
+
+    for (int i = 0; i < getWord().length(); i++) {
+      // Chance of being a blank. But must show second letter at least.
+      if (Math.random() > percentage && i != 1) {
+        hint.append("_");
+      } else {
+        String currentLetter = getHintLetterAtIndex(i);
+        hint.append(currentLetter);
+      }
+
+      // Give some spacing so you can see the '_' more clearly.
+      hint.append(" ");
+    }
+
+    return hint.toString();
+  }
 }

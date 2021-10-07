@@ -48,6 +48,8 @@ public class Practice {
 
     private final int NUMBER_OF_ROUNDS = 5;
 
+    private final double HINT_REVEAL_PERCENTAGE = 0.3;
+
     private final int DELAY = 2;
 
     private Boolean firstAttempt = true;
@@ -148,7 +150,8 @@ public class Practice {
             case Incorrect:
                 if (firstAttempt) {
                     firstAttempt = false;
-                    setPrompt("Try again, hint:", RED);
+                    setPrompt("Try once more", RED);
+                    giveHint();
                     break;
                 }
                 setPrompt("Incorrect", RED);
@@ -190,7 +193,7 @@ public class Practice {
 
     /** Helper method to show the hint to the user. */
     private void giveHint() {
-        hint.setText("Hint: second letter is " + quiz.getHintLetterAtIndex(1));
+        hint.setText("Hint: " + quiz.getHint(HINT_REVEAL_PERCENTAGE));
     }
 
     /** Helper method to jump to next word and reset UI elements. */
