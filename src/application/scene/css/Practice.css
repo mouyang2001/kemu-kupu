@@ -1,0 +1,53 @@
+.root {
+    -fx-background-color: #1E2124;
+}
+
+#score {
+    -fx-text-fill: #7289DA;
+    -fx-font-size: 50;
+    -fx-font-family: Verdana;
+}
+
+#correct {
+	-fx-text-fill: #FFFFFF;
+    -fx-font-size: 40;
+}
+
+#hint {
+	-fx-text-fill: #FFFFFF;
+    -fx-font-size: 20;
+}
+
+#submit {
+	-fx-background-color: #7289DA;
+	-fx-text-fill: #FFFFFF;
+    -fx-font-size: 30;
+    -fx-font-family: Play;
+}
+
+#submit:hover {
+	-fx-background-color : #6076C4;
+}
+
+#submit:pressed {
+	-fx-background-color : #475B9F;
+}
+
+#skip {
+	-fx-background-color: #595959;
+	-fx-text-fill: #FFFFFF;
+    -fx-font-size: 30;
+    -fx-font-family: Play;
+}
+
+#skip:hover {
+	-fx-background-color : #4A4A4A;
+}
+
+#skip:pressed {
+	-fx-background-color : #3B3B3C;
+}
+
+
+
+

@@ -47,7 +47,7 @@ public class Topic {
 
   @FXML
   private void startPractice() {
-    // TODO: create practice module
+    SceneManager.switchToPracticeScene(topicListView.getSelectionModel().getSelectedItem());
   }
   ;
 

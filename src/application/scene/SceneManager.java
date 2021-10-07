@@ -45,6 +45,12 @@ public class SceneManager {
     controller.beginQuiz(topic);
   }
 
+  /** Show the practice scene to the user and transfer topic selection data. */
+  public static void switchToPracticeScene(String topic) {
+    Practice controller = changeScene("Practice").getController();
+    controller.beginPractice(topic);
+  }
+
   /** Show the finish scene to the user. */
   public static void switchToFinishScene(int score) {
     Finish controller = changeScene("Finish").getController();
