@@ -33,6 +33,8 @@ public class Practice {
 
   @FXML private Button submit;
 
+  @FXML private Button quit;
+
   private QuizGame quiz;
 
   private int scoreVal = 0;
@@ -44,8 +46,6 @@ public class Practice {
   private final String RED = "#E88787";
 
   private final String GREEN = "#9AF1A3";
-
-  private final int NUMBER_OF_ROUNDS = 5;
 
   private final double HINT_REVEAL_PERCENTAGE = 0.3;
 
@@ -94,6 +94,11 @@ public class Practice {
   private void skip() {
     setPrompt("Skipped", RED);
     nextWord();
+  }
+
+  @FXML
+  private void quit() {
+    SceneManager.switchToTopicScene();
   }
 
   /** Click handler for the sound button. Gets festival to say the word. */
@@ -154,6 +159,7 @@ public class Practice {
           break;
         }
         setPrompt("Incorrect", RED);
+        revealAnswer();
         nextWord();
         break;
     }
@@ -192,7 +198,14 @@ public class Practice {
 
   /** Helper method to show the hint to the user. */
   private void giveHint() {
-    hint.setText("Hint: " + quiz.getHint(HINT_REVEAL_PERCENTAGE));
+      hint.setText(quiz.getWord().length() + " letters: " + quiz.getHint(HINT_REVEAL_PERCENTAGE));
+  }
+
+  /** Helper method to reveal the answer to the user. */
+  private void revealAnswer() {
+      System.out.println("answer");
+      hint.setText("Answer: " + quiz.getWord());
+      delayTask(Duration.ofSeconds(DELAY), () -> hint.setText(""));
   }
 
   /** Helper method to jump to next word and reset UI elements. */
@@ -201,17 +214,7 @@ public class Practice {
 
     disableButtons(true);
 
-    // If NUMBER_OF_ROUNDS reached then switch to finish.
-    if (currentRound == NUMBER_OF_ROUNDS) {
-      endGame();
-      return;
-    }
-
-    // Increase current round count.
-    currentRound++;
-
-    // Clear hint and reset focus to input.
-    hint.setText("");
+    // Reset focus to input.
     input.requestFocus();
 
     // Get next word.
@@ -229,6 +232,7 @@ public class Practice {
   public void disableButtons(Boolean state) {
     skip.setDisable(state);
     submit.setDisable(state);
+    quit.setDisable(state);
     sound.setDisable(state);
     input.setDisable(state);
     input.requestFocus();
