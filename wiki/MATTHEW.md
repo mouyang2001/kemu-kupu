@@ -23,3 +23,13 @@ I added a enter button key released listener on the input textfield to run the s
 
 ### Fri 25/09/2021
 I improved the feedback prompt messages. Then I added a dynamically altering final message on the finish scene. I was then tasked by the group to implement a macron button for people who aren't tech savvy to macronize the letters without the need of installing a maori keyboard. Finally I improved the layout and styling of the topic scene, improving it's color scheme.
+
+### Wed 29/09/2021
+Team met up to prepare for client presentations. We formuated a plan of what features we had to show. Then split the time each one of us spoke to 2 min max. This ensured we met the 6 min speaking time. 
+
+### Wed 06/10/2021
+After a much deserved short break over the weekends it was back to work. We met up and decided on how to proceed with the project. We firstly made reforms to our team agreement so fit our workstyle which we have gotten to understand better over time. Then we carefully read the project brief, creating issues using Github Issue tracker to list out what we have left to work on.
+
+### Thu 07/10/2021
+I created the new practice module. This reused alot of code from prototype quiz we had before. I also added buttons to acces the practice module. I then also decided to reform the hint engine. Before it only reveals 1 letter, which we felt wasn't enough. Now it relies of a bit of randomness revealing multiple lettesr so it's easier for people to practice. 
+
