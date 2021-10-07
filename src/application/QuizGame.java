@@ -90,7 +90,8 @@ public class QuizGame {
 
   /**
    * Method randomly builds and returns a hint with a random mix of characters and '_' (blanks).
-   * NOTE it will show at least one letter by default because of the nature of randomness, we don't want blanks.
+   * NOTE it will show at least one letter by default because of the nature of randomness, we don't
+   * want blanks.
    *
    * @param percentage specifies percentage of letters to blank out.
    * @return hint as a string.
