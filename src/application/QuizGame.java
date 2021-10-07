@@ -47,22 +47,19 @@ public class QuizGame {
   public List<String> getWords() {
     return words;
   }
-  
+
   /**
    * method to store scores of words tested
-   * 
-   * @param score of word just tested
-   * 		0 if incorrect
-   * 		1 if correct
-   * 		-1 if skipped
+   *
+   * @param score of word just tested 0 if incorrect 1 if correct -1 if skipped
    */
   public void isCorrect(int score) {
 	  correct.add(score);
   }
-  
+
   /**
    * method to store time taken to answer each question
-   * 
+   *
    * @param time taken to answer question
    */
   public void timeTaken(long timeTaken) {
