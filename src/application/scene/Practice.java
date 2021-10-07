@@ -199,14 +199,14 @@ public class Practice {
 
   /** Helper method to show the hint to the user. */
   private void giveHint() {
-      hint.setText(quiz.getWord().length() + " letters: " + quiz.getHint(HINT_REVEAL_PERCENTAGE));
+    hint.setText(quiz.getWord().length() + " letters: " + quiz.getHint(HINT_REVEAL_PERCENTAGE));
   }
 
   /** Helper method to reveal the answer to the user. */
   private void revealAnswer() {
-      System.out.println("answer");
-      hint.setText("Answer: " + quiz.getWord());
-      delayTask(Duration.ofSeconds(DELAY), () -> hint.setText(""));
+    System.out.println("answer");
+    hint.setText("Answer: " + quiz.getWord());
+    delayTask(Duration.ofSeconds(DELAY), () -> hint.setText(""));
   }
 
   /** Helper method to jump to next word and reset UI elements. */
