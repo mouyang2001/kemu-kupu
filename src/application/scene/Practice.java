@@ -93,6 +93,7 @@ public class Practice {
   @FXML
   private void skip() {
     setPrompt("Skipped", RED);
+    revealAnswer();
     nextWord();
   }
 
