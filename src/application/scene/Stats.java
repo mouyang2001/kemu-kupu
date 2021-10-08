@@ -1,6 +1,5 @@
 package application.scene;
 
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
@@ -20,9 +19,6 @@ public class Stats {
   private void back() {
     SceneManager.switchToFinishScene(score);
   }
-  
-  private void table() {
-	 
-	  
-  }
+
+  private void table() {}
 }
