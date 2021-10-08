@@ -17,7 +17,7 @@ public class Finish {
   @FXML private Button playAgain;
 
   private final double MAX_SCORE = 25.0;
-  
+
   private int scoreValue;
 
   /**
@@ -26,7 +26,7 @@ public class Finish {
    * @param scoreVal Score at end of quiz.
    */
   public void initialise(int scoreVal) {
-	scoreValue = scoreVal;
+    scoreValue = scoreVal;
     setDynamicMessage(scoreVal);
     score.setText(String.valueOf(scoreVal));
   }
@@ -36,7 +36,7 @@ public class Finish {
   private void newQuiz() {
     SceneManager.switchToTopicScene();
   }
-  
+
   /** Click handler for the stats button. */
   @FXML
   private void showStats() {
