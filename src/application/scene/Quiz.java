@@ -4,7 +4,6 @@ import application.BackgroundExecutor;
 import application.Festival;
 import application.QuizGame;
 import application.Statistics;
-
 import java.io.IOException;
 import java.time.Duration;
 import javafx.application.Platform;
@@ -37,7 +36,7 @@ public class Quiz {
   @FXML private Button submit;
 
   private QuizGame quiz;
-  
+
   private Statistics stats;
 
   private int scoreVal = 0;
