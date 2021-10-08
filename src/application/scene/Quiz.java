@@ -66,6 +66,7 @@ public class Quiz {
     // Begin new QuizGame instance.
     try {
       quiz = new QuizGame(topic);
+      //stats = new Statistics();
     } catch (IOException e) {
       SceneManager.alert("Could not load word list.");
     }
@@ -102,7 +103,7 @@ public class Quiz {
     setPrompt("Skipped", RED);
     timeEnd = System.nanoTime();
     calculateTime();
-    quiz.isCorrect(-1);
+    //stats.setScore(-1);
     nextWord();
   }
 
@@ -154,13 +155,12 @@ public class Quiz {
       case Correct:
         increaseScore();
         setPrompt("Correct!", GREEN);
-        quiz.isCorrect(1);
         nextWord();
         break;
 
       case Incorrect:
         setPrompt("Incorrect, but good effort.", RED);
-        quiz.isCorrect(0);
+        //quiz.score(0);
         nextWord();
         break;
     }
@@ -184,18 +184,21 @@ public class Quiz {
 
   /** Helper method to increase score and update label. */
   private void increaseScore() {
-    if (timeElapsed < 3000000) {
-      scoreVal += 5;
-    } else if (timeElapsed < 4000000) {
-      scoreVal += 4;
-    } else if (timeElapsed < 5000000) {
-      scoreVal += 3;
-    } else if (timeElapsed < 6000000) {
-      scoreVal += 2;
-    } else {
-      scoreVal += 1;
-    }
-    score.setText(String.valueOf(scoreVal));
+	  int thisScore;
+	  if (timeElapsed < 3000000) {
+		  thisScore = 5;
+	  } else if (timeElapsed < 4000000) {
+		  thisScore = 4;
+	  } else if (timeElapsed < 5000000) {
+		  thisScore = 3;
+	  } else if (timeElapsed < 6000000) {
+		  thisScore = 2;
+	  } else {
+		  thisScore = 1;
+	  }
+	  scoreVal += thisScore;
+	  //quiz.score(thisScore);
+	  score.setText(String.valueOf(scoreVal));
   }
 
   /**
@@ -215,7 +218,7 @@ public class Quiz {
   private void calculateTime() {
     long time = timeEnd - timeStart;
     timeElapsed = time / 1000;
-    quiz.timeTaken(timeElapsed);
+    //quiz.timeTaken(timeElapsed);
   }
 
   /**
