@@ -3,6 +3,8 @@ package application.scene;
 import application.BackgroundExecutor;
 import application.Festival;
 import application.QuizGame;
+import application.Statistics;
+
 import java.io.IOException;
 import java.time.Duration;
 import javafx.application.Platform;
@@ -35,6 +37,8 @@ public class Quiz {
   @FXML private Button submit;
 
   private QuizGame quiz;
+  
+  private Statistics stats;
 
   private int scoreVal = 0;
 
@@ -66,7 +70,7 @@ public class Quiz {
     // Begin new QuizGame instance.
     try {
       quiz = new QuizGame(topic);
-      // stats = new Statistics();
+      stats = new Statistics();
     } catch (IOException e) {
       SceneManager.alert("Could not load word list.");
     }
@@ -103,7 +107,7 @@ public class Quiz {
     setPrompt("Skipped", RED);
     timeEnd = System.nanoTime();
     calculateTime();
-    // stats.setScore(-1);
+    stats.setScore(-1);
     nextWord();
   }
 
@@ -160,7 +164,7 @@ public class Quiz {
 
       case Incorrect:
         setPrompt("Incorrect, but good effort.", RED);
-        // quiz.score(0);
+        stats.setScore(0);
         nextWord();
         break;
     }
@@ -178,7 +182,6 @@ public class Quiz {
       }
     }
     String promptLetters = stringBuilder.toString();
-    // input.setPromptText(promptLetters);
     showLetters.setText(promptLetters);
   }
 
@@ -197,7 +200,7 @@ public class Quiz {
       thisScore = 1;
     }
     scoreVal += thisScore;
-    // quiz.score(thisScore);
+    stats.setScore(thisScore);
     score.setText(String.valueOf(scoreVal));
   }
 
@@ -218,7 +221,7 @@ public class Quiz {
   private void calculateTime() {
     long time = timeEnd - timeStart;
     timeElapsed = time / 1000;
-    // quiz.timeTaken(timeElapsed);
+    stats.setTime(timeElapsed);
   }
 
   /**
@@ -251,6 +254,7 @@ public class Quiz {
 
     // Get next word.
     quiz.nextWord();
+    stats.increaseIndex();
 
     // After festival says the word, enable the buttons again.
     Festival.speak(quiz.getWord(), () -> disableButtons(false));
