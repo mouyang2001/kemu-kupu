@@ -56,6 +56,12 @@ public class SceneManager {
     Finish controller = changeScene("Finish").getController();
     controller.initialise(score);
   }
+  
+  /** Show the stats scene to the user. */
+  public static void switchToStatsScene(int score) {
+    Finish controller = changeScene("Stats").getController();
+    controller.initialise(score);
+  }
 
   /**
    * Changes the currently displayed scene to the user.

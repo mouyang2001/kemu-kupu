@@ -1,0 +1,18 @@
+.root {
+    -fx-background-color: #1E2124;
+}
+
+#back {
+	-fx-background-color: #595959;
+	-fx-text-fill: #FFFFFF;
+    -fx-font-size: 30;
+    -fx-font-family: Play;
+}
+
+#back:hover {
+	-fx-background-color : #4A4A4A;
+}
+
+#back:pressed {
+	-fx-background-color : #3B3B3C;
+}

@@ -33,6 +33,21 @@
 	-fx-background-color : #475B9F;
 }
 
+#stats {
+	-fx-background-color: #7289DA;
+	-fx-text-fill: #FFFFFF;
+    -fx-font-size: 30;
+    -fx-font-family: Play;
+}
+
+#stats:hover {
+	-fx-background-color : #6076C4;
+}
+
+#stats:pressed {
+	-fx-background-color : #475B9F;
+}
+
 #quit {
 	-fx-background-color: #595959;
 	-fx-text-fill: #FFFFFF;
