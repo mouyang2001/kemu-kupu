@@ -4,7 +4,6 @@ import application.BackgroundExecutor;
 import application.Festival;
 import application.QuizGame;
 import application.Statistics;
-
 import java.io.IOException;
 import java.time.Duration;
 import javafx.application.Platform;
@@ -54,7 +53,7 @@ public class Practice {
   private final int DELAY = 2;
 
   private Boolean firstAttempt = true;
-  
+
   private Statistics stats;
 
   /**

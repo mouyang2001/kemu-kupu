@@ -1,6 +1,5 @@
 package application.scene;
 
-import application.QuizGame;
 import application.Statistics;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -37,7 +36,7 @@ public class Stats {
     numCorrect = 0;
     timeTotal = 0;
     score = scoreVal;
-    //stats = new Statistics();
+    // stats = new Statistics();
     scores = stats.getScores();
     times = stats.getTimes();
     words = stats.getWords();

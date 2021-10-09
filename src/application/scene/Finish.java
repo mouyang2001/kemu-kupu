@@ -1,6 +1,5 @@
 package application.scene;
 
-import application.QuizGame;
 import application.Statistics;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -21,7 +20,7 @@ public class Finish {
   private final double MAX_SCORE = 25.0;
 
   private int scoreValue;
-  
+
   private Statistics stats;
 
   /**

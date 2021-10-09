@@ -1,9 +1,7 @@
 package application.scene;
 
-import java.io.IOException;
-
-import application.QuizGame;
 import application.Statistics;
+import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Parent;
