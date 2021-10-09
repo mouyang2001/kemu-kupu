@@ -116,7 +116,7 @@ public class QuizGame {
   }
 
   /**
-   *  Calculates the score taking into account time decay using linear model.
+   *  Calculates the score taking into account time decay using linear model: y = c - mx.
    *
    * @param maxScore maximum possible score.
    * @param minScore minimum possible score to prevent negative values.
@@ -125,7 +125,6 @@ public class QuizGame {
    * @return
    */
   public int calculateScore(int maxScore, int minScore, int timeLimit, float elapsedTime) {
-    // F(x) = c - mx
     int calScore = (int) (maxScore -(maxScore / timeLimit) * elapsedTime);
     return Math.max(minScore, calScore);
   }
