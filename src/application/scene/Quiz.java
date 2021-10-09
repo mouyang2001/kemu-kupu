@@ -256,7 +256,7 @@ public class Quiz {
     // Get next word.
     quiz.nextWord();
 
-    //System.out.println(quiz.getWord());
+    // System.out.println(quiz.getWord());
 
     // After festival says the word, enable the buttons again.
     Festival.speak(quiz.getWord(), () -> disableButtons(false));
