@@ -32,7 +32,14 @@
 .grid {
     -fx-text-fill: #cacbce;
     -fx-alignment: center;
-    -fx-font-size: 24;
-    -fx-background-color: white;
+    -fx-font-size: 30;
+    -fx-background-color: #36393e;
+}
+
+#table {
+	-fx-text-fill: #cacbce;
+    -fx-alignment: center;
+    -fx-font-size: 30;
+    -fx-background-color: #36393e;
 }
 

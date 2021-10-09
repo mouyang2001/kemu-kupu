@@ -63,7 +63,7 @@ public class Quiz {
 
   private final int MIN_SCORE = 100;
 
-  private final int MAX_TIME = 15;
+  private final int MAX_TIME = 10;
 
   /**
    * Method allows SceneManager to access and transfer data topic selection data. Also it's the
@@ -92,7 +92,7 @@ public class Quiz {
     input.setOnKeyReleased(
         e -> {
           if (e.getCode() == KeyCode.ENTER) {
-            timeEnd = System.currentTimeMillis();
+            timeEnd = System.nanoTime();
             calculateTime();
             checkSpelling();
           }
@@ -102,7 +102,7 @@ public class Quiz {
   /** Click handler for the submit button. */
   @FXML
   private void submit() {
-    timeEnd = System.currentTimeMillis();
+    timeEnd = System.nanoTime();
     calculateTime();
     checkSpelling();
   }
@@ -111,7 +111,7 @@ public class Quiz {
   @FXML
   private void skip() {
     setPrompt("Skipped", RED);
-    timeEnd = System.currentTimeMillis();
+    timeEnd = System.nanoTime();
     calculateTime();
     stats.setScore(-1);
     nextWord();
@@ -213,10 +213,9 @@ public class Quiz {
 
   /** Helper method to calculate time taken to answer question */
   private void calculateTime() {
-    long timeElapsedMilliseconds = timeEnd - timeStart;
-
-    stats.setTime(timeElapsedMilliseconds);
-    timeElapsed = (float) timeElapsedMilliseconds / 1000;
+    long timeElapsedNanoseconds = timeEnd - timeStart;
+    stats.setTime(timeElapsedNanoseconds);
+    timeElapsed = (float) timeElapsedNanoseconds / 1000000000;
   }
 
   /**
@@ -257,7 +256,7 @@ public class Quiz {
     // Get next word.
     quiz.nextWord();
 
-    System.out.println(quiz.getWord());
+    //System.out.println(quiz.getWord());
 
     // After festival says the word, enable the buttons again.
     Festival.speak(quiz.getWord(), () -> disableButtons(false));
