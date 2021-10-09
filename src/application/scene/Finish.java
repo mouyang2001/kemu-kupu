@@ -21,14 +21,12 @@ public class Finish {
 
   private int scoreValue;
 
-  private Statistics stats;
-
   /**
    * Shows current score and sets feedback message.
    *
    * @param scoreVal Score at end of quiz.
    */
-  public void initialise(int scoreVal, Statistics stats) {
+  public void initialise(int scoreVal) {
     scoreValue = scoreVal;
     setDynamicMessage(scoreVal);
     score.setText(String.valueOf(scoreVal));
@@ -43,7 +41,7 @@ public class Finish {
   /** Click handler for the stats button. */
   @FXML
   private void showStats() {
-    SceneManager.switchToStatsScene(scoreValue, stats);
+    SceneManager.switchToStatsScene(scoreValue);
   }
 
   /** Click handler for the quit button. */

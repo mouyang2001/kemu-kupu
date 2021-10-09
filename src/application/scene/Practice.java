@@ -245,14 +245,14 @@ public class Practice {
   /** End of game subroutine. */
   public void endGame() {
     // Automatically switch to finish after timeout.
-    delayTask(Duration.ofSeconds(DELAY), () -> SceneManager.switchToFinishScene(scoreVal, stats));
+    delayTask(Duration.ofSeconds(DELAY), () -> SceneManager.switchToFinishScene(scoreVal));
 
     // Allow the user to click to finish before the timeout.
     submit.setText("Finish");
     submit.setOnAction(
         e -> {
           delayedTask.cancel();
-          SceneManager.switchToFinishScene(scoreVal, stats);
+          SceneManager.switchToFinishScene(scoreVal);
         });
 
     // Only allow the finish button.

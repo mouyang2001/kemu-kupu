@@ -53,15 +53,15 @@ public class SceneManager {
   }
 
   /** Show the finish scene to the user. */
-  public static void switchToFinishScene(int score, Statistics stats) {
+  public static void switchToFinishScene(int score) {
     Finish controller = changeScene("Finish").getController();
-    controller.initialise(score, stats);
+    controller.initialise(score);
   }
 
   /** Show the stats scene to the user. */
-  public static void switchToStatsScene(int score, Statistics stats) {
+  public static void switchToStatsScene(int score) {
     Stats controller = changeScene("Stats").getController();
-    controller.initialise(score, stats);
+    controller.initialise(score);
   }
 
   /**

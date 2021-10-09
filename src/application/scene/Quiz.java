@@ -70,6 +70,7 @@ public class Quiz {
     try {
       quiz = new QuizGame(topic);
       stats = new Statistics();
+      stats.makeFiles();
     } catch (IOException e) {
       SceneManager.alert("Could not load word list.");
     }
@@ -233,11 +234,19 @@ public class Quiz {
     input.clear();
     input.requestFocus();
     return text;
-  }
+  }   
 
   /** Helper method to jump to next word and reset UI elements. */
   private void nextWord() {
     disableButtons(true);
+    if (currentRound != 0) {
+        try {
+    		stats.append();
+    	} catch (IOException e) {
+    		// TODO Auto-generated catch block
+    		e.printStackTrace();
+    	}
+    }
     // If NUMBER_OF_ROUNDS reached then switch to finish.
     if (currentRound == NUMBER_OF_ROUNDS) {
       endGame();
@@ -252,11 +261,12 @@ public class Quiz {
 
     // Get next word.
     quiz.nextWord();
-    stats.increaseIndex();
+
 
     // After festival says the word, enable the buttons again.
     Festival.speak(quiz.getWord(), () -> disableButtons(false));
     showLetters();
+    stats.setWord(quiz.getWord());
     timeStart = System.nanoTime();
   }
 
@@ -276,14 +286,14 @@ public class Quiz {
   /** End of game subroutine. */
   public void endGame() {
     // Automatically switch to finish after timeout.
-    delayTask(Duration.ofSeconds(DELAY), () -> SceneManager.switchToFinishScene(scoreVal, stats));
+    delayTask(Duration.ofSeconds(DELAY), () -> SceneManager.switchToFinishScene(scoreVal));
 
     // Allow the user to click to finish before the timeout.
     submit.setText("Finish");
     submit.setOnAction(
         e -> {
           delayedTask.cancel();
-          SceneManager.switchToFinishScene(scoreVal, stats);
+          SceneManager.switchToFinishScene(scoreVal);
         });
 
     // Only allow the finish button.
