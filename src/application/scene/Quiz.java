@@ -49,7 +49,7 @@ public class Quiz {
 
   private long timeEnd;
 
-  private long timeElapsed;
+  private float timeElapsed;
 
   private final String RED = "#E88787";
 
@@ -58,6 +58,12 @@ public class Quiz {
   private final int NUMBER_OF_ROUNDS = 5;
 
   private final int DELAY = 2;
+
+  private final int MAX_SCORE = 1000;
+
+  private final int MIN_SCORE = 100;
+
+  private final int MAX_TIME = 15;
 
   /**
    * Method allows SceneManager to access and transfer data topic selection data. Also it's the
@@ -86,7 +92,7 @@ public class Quiz {
     input.setOnKeyReleased(
         e -> {
           if (e.getCode() == KeyCode.ENTER) {
-            timeEnd = System.nanoTime();
+            timeEnd = System.currentTimeMillis();
             calculateTime();
             checkSpelling();
           }
@@ -96,7 +102,7 @@ public class Quiz {
   /** Click handler for the submit button. */
   @FXML
   private void submit() {
-    timeEnd = System.nanoTime();
+    timeEnd = System.currentTimeMillis();
     calculateTime();
     checkSpelling();
   }
@@ -105,7 +111,7 @@ public class Quiz {
   @FXML
   private void skip() {
     setPrompt("Skipped", RED);
-    timeEnd = System.nanoTime();
+    timeEnd = System.currentTimeMillis();
     calculateTime();
     stats.setScore(-1);
     nextWord();
@@ -187,21 +193,9 @@ public class Quiz {
 
   /** Helper method to increase score and update label. */
   private void increaseScore() {
-    int thisScore;
-    if (timeElapsed < 3000000) {
-      thisScore = 5;
-    } else if (timeElapsed < 4000000) {
-      thisScore = 4;
-    } else if (timeElapsed < 5000000) {
-      thisScore = 3;
-    } else if (timeElapsed < 6000000) {
-      thisScore = 2;
-    } else {
-      thisScore = 1;
-    }
-    scoreVal += thisScore;
-    stats.setScore(thisScore);
+    scoreVal += quiz.calculateScore(MAX_SCORE, MIN_SCORE, MAX_TIME, timeElapsed);
     score.setText(String.valueOf(scoreVal));
+    stats.setScore(scoreVal);
   }
 
   /**
@@ -219,9 +213,10 @@ public class Quiz {
 
   /** Helper method to calculate time taken to answer question */
   private void calculateTime() {
-    long time = timeEnd - timeStart;
-    timeElapsed = time / 1000;
-    stats.setTime(timeElapsed);
+    long timeElapsedMilliseconds = timeEnd - timeStart;
+
+    stats.setTime(timeElapsedMilliseconds);
+    timeElapsed = (float) timeElapsedMilliseconds / 1000;
   }
 
   /**
@@ -263,11 +258,14 @@ public class Quiz {
     quiz.nextWord();
 
 
+    System.out.println(quiz.getWord());
+
     // After festival says the word, enable the buttons again.
     Festival.speak(quiz.getWord(), () -> disableButtons(false));
     showLetters();
     stats.setWord(quiz.getWord());
     timeStart = System.nanoTime();
+
   }
 
   /**
