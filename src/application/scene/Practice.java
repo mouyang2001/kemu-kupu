@@ -3,6 +3,8 @@ package application.scene;
 import application.BackgroundExecutor;
 import application.Festival;
 import application.QuizGame;
+import application.Statistics;
+
 import java.io.IOException;
 import java.time.Duration;
 import javafx.application.Platform;
@@ -52,6 +54,8 @@ public class Practice {
   private final int DELAY = 2;
 
   private Boolean firstAttempt = true;
+  
+  private Statistics stats;
 
   /**
    * Method allows SceneManager to access and transfer data topic selection data. Also it's the
@@ -242,14 +246,14 @@ public class Practice {
   /** End of game subroutine. */
   public void endGame() {
     // Automatically switch to finish after timeout.
-    delayTask(Duration.ofSeconds(DELAY), () -> SceneManager.switchToFinishScene(scoreVal));
+    delayTask(Duration.ofSeconds(DELAY), () -> SceneManager.switchToFinishScene(scoreVal, stats));
 
     // Allow the user to click to finish before the timeout.
     submit.setText("Finish");
     submit.setOnAction(
         e -> {
           delayedTask.cancel();
-          SceneManager.switchToFinishScene(scoreVal);
+          SceneManager.switchToFinishScene(scoreVal, stats);
         });
 
     // Only allow the finish button.

@@ -1,5 +1,7 @@
 package application.scene;
 
+import application.QuizGame;
+import application.Statistics;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -19,13 +21,15 @@ public class Finish {
   private final double MAX_SCORE = 25.0;
 
   private int scoreValue;
+  
+  private Statistics stats;
 
   /**
    * Shows current score and sets feedback message.
    *
    * @param scoreVal Score at end of quiz.
    */
-  public void initialise(int scoreVal) {
+  public void initialise(int scoreVal, Statistics stats) {
     scoreValue = scoreVal;
     setDynamicMessage(scoreVal);
     score.setText(String.valueOf(scoreVal));
@@ -40,7 +44,7 @@ public class Finish {
   /** Click handler for the stats button. */
   @FXML
   private void showStats() {
-    SceneManager.switchToStatsScene(scoreValue);
+    SceneManager.switchToStatsScene(scoreValue, stats);
   }
 
   /** Click handler for the quit button. */

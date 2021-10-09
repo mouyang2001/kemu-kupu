@@ -238,7 +238,6 @@ public class Quiz {
   /** Helper method to jump to next word and reset UI elements. */
   private void nextWord() {
     disableButtons(true);
-
     // If NUMBER_OF_ROUNDS reached then switch to finish.
     if (currentRound == NUMBER_OF_ROUNDS) {
       endGame();
@@ -277,14 +276,14 @@ public class Quiz {
   /** End of game subroutine. */
   public void endGame() {
     // Automatically switch to finish after timeout.
-    delayTask(Duration.ofSeconds(DELAY), () -> SceneManager.switchToFinishScene(scoreVal));
+    delayTask(Duration.ofSeconds(DELAY), () -> SceneManager.switchToFinishScene(scoreVal, stats));
 
     // Allow the user to click to finish before the timeout.
     submit.setText("Finish");
     submit.setOnAction(
         e -> {
           delayedTask.cancel();
-          SceneManager.switchToFinishScene(scoreVal);
+          SceneManager.switchToFinishScene(scoreVal, stats);
         });
 
     // Only allow the finish button.

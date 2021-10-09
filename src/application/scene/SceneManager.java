@@ -1,6 +1,9 @@
 package application.scene;
 
 import java.io.IOException;
+
+import application.QuizGame;
+import application.Statistics;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Parent;
@@ -52,15 +55,15 @@ public class SceneManager {
   }
 
   /** Show the finish scene to the user. */
-  public static void switchToFinishScene(int score) {
+  public static void switchToFinishScene(int score, Statistics stats) {
     Finish controller = changeScene("Finish").getController();
-    controller.initialise(score);
+    controller.initialise(score, stats);
   }
 
   /** Show the stats scene to the user. */
-  public static void switchToStatsScene(int score) {
-    Finish controller = changeScene("Stats").getController();
-    controller.initialise(score);
+  public static void switchToStatsScene(int score, Statistics stats) {
+    Stats controller = changeScene("Stats").getController();
+    controller.initialise(score, stats);
   }
 
   /**

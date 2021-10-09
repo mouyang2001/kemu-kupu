@@ -16,7 +16,7 @@ public class Statistics {
     scores = new int[5];
     times = new long[5];
     words = new String[5];
-    index = 0;
+    index = -1;
   }
 
   /** increase index position */

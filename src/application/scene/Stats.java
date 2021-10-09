@@ -1,5 +1,6 @@
 package application.scene;
 
+import application.QuizGame;
 import application.Statistics;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -32,11 +33,11 @@ public class Stats {
   private Statistics stats;
 
   /** @param scoreVal Score at end of quiz. */
-  public void initialise(int scoreVal) {
+  public void initialise(int scoreVal, Statistics stats) {
     numCorrect = 0;
     timeTotal = 0;
     score = scoreVal;
-    stats = new Statistics();
+    //stats = new Statistics();
     scores = stats.getScores();
     times = stats.getTimes();
     words = stats.getWords();
@@ -48,7 +49,7 @@ public class Stats {
   /** click handler to go back to finish screen */
   @FXML
   private void back() {
-    SceneManager.switchToFinishScene(score);
+    SceneManager.switchToFinishScene(score, stats);
   }
 
   /** function to populate tableview */
