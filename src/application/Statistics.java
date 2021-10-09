@@ -10,116 +10,111 @@ import java.io.InputStreamReader;
 /** Stats from single spelling quiz * */
 public class Statistics {
 
-	private int score;
+  private int score;
 
-	private long time;
+  private long time;
 
-	private String word;
-	
-	private String type;
+  private String word;
 
-	private File statsFile;
+  private String type;
 
-	/**
-	 * set word currently being tested
-	 *
-	 * @param word
-	 */
-	public void setWord(String word) {
-		this.word = word;
+  private File statsFile;
 
-	}
+  /**
+   * set word currently being tested
+   *
+   * @param word
+   */
+  public void setWord(String word) {
+    this.word = word;
+  }
 
-	/**
-	 * set score of word just tested
-	 *
-	 * @param score
-	 */
-	public void setScore(int score) {
-		this.score = score;
-		setType();
-	}
+  /**
+   * set score of word just tested
+   *
+   * @param score
+   */
+  public void setScore(int score) {
+    this.score = score;
+    setType();
+  }
 
-	/**
-	 * set time taken to answer word just tested
-	 *
-	 * @param time
-	 */
-	public void setTime(long time) {
-		this.time = time;
-	}
-	
-	/**
-	 * helper method to identify if word was correct, incorrect or skipped
-	 */
-	public void setType() {
-		if (score < 0) {
-			type = "Skipped";
-		} else if (score == 0) {
-			type = "Incorrect";
-		} else {
-			type = "Correct";
-		}
-	}
+  /**
+   * set time taken to answer word just tested
+   *
+   * @param time
+   */
+  public void setTime(long time) {
+    this.time = time;
+  }
 
-	/**
-	 * creates files used to store stats
-	 */
-	public void makeFiles() {
-		bash("mkdir -p .stats");
-		bash("rm ./.stats/.words.txt");
-		bash("touch .stats/.words.txt");
-		statsFile = new File("./.stats/.words.txt");
-		
-	}
-	
-	/**
-	 * helper function for executing bash commands 
-	 * @param command to execute
-	 */
-	public void bash(String command) {
-		try {
-			ProcessBuilder builder = new ProcessBuilder("bash", "-c", command);
-			Process process = builder.start();
+  /** helper method to identify if word was correct, incorrect or skipped */
+  public void setType() {
+    if (score < 0) {
+      type = "Skipped";
+    } else if (score == 0) {
+      type = "Incorrect";
+    } else {
+      type = "Correct";
+    }
+  }
 
-			BufferedReader stdout = new BufferedReader(new InputStreamReader(process.getInputStream()));
-			BufferedReader stderr = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+  /** creates files used to store stats */
+  public void makeFiles() {
+    bash("mkdir -p .stats");
+    bash("rm ./.stats/.words.txt");
+    bash("touch .stats/.words.txt");
+    statsFile = new File("./.stats/.words.txt");
+  }
 
-			int exitStatus = process.waitFor();
+  /**
+   * helper function for executing bash commands
+   *
+   * @param command to execute
+   */
+  public void bash(String command) {
+    try {
+      ProcessBuilder builder = new ProcessBuilder("bash", "-c", command);
+      Process process = builder.start();
 
-			if (exitStatus == 0) {
-				String line;
-				while ((line = stdout.readLine()) != null) {
-					System.out.println(line);
-				}
-			} else {
-				String line;
-				while ((line = stderr.readLine()) != null) {
-					System.err.println(line);
-				}
-			}
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-	}
+      BufferedReader stdout = new BufferedReader(new InputStreamReader(process.getInputStream()));
+      BufferedReader stderr = new BufferedReader(new InputStreamReader(process.getErrorStream()));
 
-	/**
-	 * Append a word to a statistic file.
-	 *
-	 * @param file The file to add the word to.
-	 * @param word The word to add into the file.
-	 * @throws IOException If an I/O error occurs.
-	 */
-	public void append() throws IOException {
-		FileWriter fw = new FileWriter(statsFile, true);
-		BufferedWriter bw = new BufferedWriter(fw);
+      int exitStatus = process.waitFor();
 
-		// Write the word to its own line.
-		bw.write(word + System.lineSeparator());
-		bw.write(type + System.lineSeparator());
-		bw.write(String.valueOf(time) + System.lineSeparator());
-		bw.write(String.valueOf(score) + System.lineSeparator());
+      if (exitStatus == 0) {
+        String line;
+        while ((line = stdout.readLine()) != null) {
+          System.out.println(line);
+        }
+      } else {
+        String line;
+        while ((line = stderr.readLine()) != null) {
+          System.err.println(line);
+        }
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
 
-		bw.close();
-	}
+  /**
+   * Append a word to a statistic file.
+   *
+   * @param file The file to add the word to.
+   * @param word The word to add into the file.
+   * @throws IOException If an I/O error occurs.
+   */
+  public void append() throws IOException {
+    FileWriter fw = new FileWriter(statsFile, true);
+    BufferedWriter bw = new BufferedWriter(fw);
+
+    // Write the word to its own line.
+    bw.write(word + System.lineSeparator());
+    bw.write(type + System.lineSeparator());
+    bw.write(String.valueOf(time) + System.lineSeparator());
+    bw.write(String.valueOf(score) + System.lineSeparator());
+
+    bw.close();
+  }
 }

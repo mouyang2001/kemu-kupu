@@ -3,8 +3,6 @@ package application.scene;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-
-import application.Statistics;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -33,11 +31,11 @@ public class Stats {
     timeTotal = 0;
     score = scoreVal;
     try {
-		table();
-	} catch (FileNotFoundException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
+      table();
+    } catch (FileNotFoundException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
     numCorrectLabel.setText("You got " + numCorrect + " out of 5 correct");
     avTime.setText("You took " + timeTotal + " milliseconds");
   }
@@ -48,8 +46,11 @@ public class Stats {
     SceneManager.switchToFinishScene(score);
   }
 
-  /** function to populate tableview 
- * @throws FileNotFoundException */
+  /**
+   * function to populate tableview
+   *
+   * @throws FileNotFoundException
+   */
   private void table() throws FileNotFoundException {
     Label wordLabel = new Label("Word");
     Label isCorrectLabel = new Label("Result");
@@ -62,20 +63,20 @@ public class Stats {
     table.add(scoreLabel, 3, 0);
 
     File statsFile = new File("./.stats/.words.txt");
-	Scanner scanner = new Scanner(statsFile);
-	int lines = 1;
+    Scanner scanner = new Scanner(statsFile);
+    int lines = 1;
 
-	while (scanner.hasNext()) {
-		lines++;
-		Text word = new Text(scanner.next());
-		Text type = new Text(scanner.next());
-		Text time = new Text(scanner.next());
-		Text score = new Text(scanner.next());
+    while (scanner.hasNext()) {
+      lines++;
+      Text word = new Text(scanner.next());
+      Text type = new Text(scanner.next());
+      Text time = new Text(scanner.next());
+      Text score = new Text(scanner.next());
 
-		table.add(word, 0, lines);
-		table.add(type, 1, lines);
-		table.add(time, 2, lines);
-		table.add(score, 3, lines);
-	}
+      table.add(word, 0, lines);
+      table.add(type, 1, lines);
+      table.add(time, 2, lines);
+      table.add(score, 3, lines);
+    }
   }
 }

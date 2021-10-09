@@ -1,6 +1,5 @@
 package application.scene;
 
-import application.Statistics;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;

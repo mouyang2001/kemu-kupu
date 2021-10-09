@@ -229,18 +229,18 @@ public class Quiz {
     input.clear();
     input.requestFocus();
     return text;
-  }   
+  }
 
   /** Helper method to jump to next word and reset UI elements. */
   private void nextWord() {
     disableButtons(true);
     if (currentRound != 0) {
-        try {
-    		stats.append();
-    	} catch (IOException e) {
-    		// TODO Auto-generated catch block
-    		e.printStackTrace();
-    	}
+      try {
+        stats.append();
+      } catch (IOException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
     }
     // If NUMBER_OF_ROUNDS reached then switch to finish.
     if (currentRound == NUMBER_OF_ROUNDS) {
@@ -257,7 +257,6 @@ public class Quiz {
     // Get next word.
     quiz.nextWord();
 
-
     System.out.println(quiz.getWord());
 
     // After festival says the word, enable the buttons again.
@@ -265,7 +264,6 @@ public class Quiz {
     showLetters();
     stats.setWord(quiz.getWord());
     timeStart = System.nanoTime();
-
   }
 
   /**
