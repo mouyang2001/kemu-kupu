@@ -19,21 +19,20 @@
 
 #avTime {
 	-fx-text-fill: #FFFFFF;
-    -fx-font-size: 20;
+    -fx-font-size: 40;
+    -fx-font-family: Verdana;
+}
+
+#scoreLabel {
+	-fx-text-fill: #7289DA;
+    -fx-font-size: 70;
     -fx-font-family: Verdana;
 }
 
 #numCorrectLabel {
 	-fx-text-fill: #FFFFFF;
-    -fx-font-size: 20;
+    -fx-font-size: 40;
     -fx-font-family: Verdana;
-}
-
-.grid {
-    -fx-text-fill: #cacbce;
-    -fx-alignment: center;
-    -fx-font-size: 30;
-    -fx-background-color: #36393e;
 }
 
 #table {
@@ -42,4 +41,10 @@
     -fx-font-size: 30;
     -fx-background-color: #36393e;
 }
+
+.label {
+	-fx-text-fill: #cacbce;
+	fx-font-size: 30;
+}
+
 

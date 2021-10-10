@@ -12,7 +12,7 @@ public class Statistics {
 
   private int score;
 
-  private long time;
+  private float time;
 
   private String word;
 
@@ -44,7 +44,7 @@ public class Statistics {
    *
    * @param time
    */
-  public void setTime(long time) {
+  public void setTime(float time) {
     this.time = time;
   }
 

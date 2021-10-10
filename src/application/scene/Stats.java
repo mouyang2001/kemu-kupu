@@ -2,6 +2,7 @@ package application.scene;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.text.DecimalFormat;
 import java.util.Scanner;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -18,17 +19,19 @@ public class Stats {
   @FXML private Label numCorrectLabel;
 
   @FXML private Label avTime;
+  
+  @FXML private Label scoreLabel;
 
   private int score;
 
   private int numCorrect;
 
-  private long timeTotal;
+  private double timeTotal;
 
   /** @param scoreVal Score at end of quiz. */
   public void initialise(int scoreVal) {
     numCorrect = 0;
-    timeTotal = 0;
+    timeTotal = 0.0;
     score = scoreVal;
     try {
       table();
@@ -36,8 +39,10 @@ public class Stats {
       // TODO Auto-generated catch block
       e.printStackTrace();
     }
+    DecimalFormat df = new DecimalFormat("#.##");
+    scoreLabel.setText(String.valueOf(score));
     numCorrectLabel.setText("You got " + numCorrect + " out of 5 correct");
-    avTime.setText("You took " + timeTotal + " milliseconds");
+    avTime.setText("You took " + df.format(timeTotal) + " seconds");
   }
 
   /** click handler to go back to finish screen */
@@ -54,13 +59,13 @@ public class Stats {
   private void table() throws FileNotFoundException {
     Label wordLabel = new Label("Word");
     Label isCorrectLabel = new Label("Result");
-    Label timeLabel = new Label("Time (ms)");
+    Label timeLabel = new Label("Time (s)");
     Label scoreLabel = new Label("Score");
 
-    table.add(wordLabel, 0, 0);
-    table.add(isCorrectLabel, 1, 0);
-    table.add(timeLabel, 2, 0);
-    table.add(scoreLabel, 3, 0);
+    table.add(wordLabel, 1, 0);
+    table.add(isCorrectLabel, 2, 0);
+    table.add(timeLabel, 3, 0);
+    table.add(scoreLabel, 4, 0);
 
     File statsFile = new File("./.stats/.words.txt");
     Scanner scanner = new Scanner(statsFile);
@@ -68,15 +73,23 @@ public class Stats {
 
     while (scanner.hasNext()) {
       lines++;
-      Text word = new Text(scanner.next());
-      Text type = new Text(scanner.next());
-      Text time = new Text(scanner.next());
-      Text score = new Text(scanner.next());
+      Label word = new Label(scanner.next());
+      String typeString = scanner.next();
+      if (typeString.equals("Correct")) {
+    	  numCorrect++;
+      }
+      Label type = new Label(typeString);
+      String timeString = scanner.next();
+      Label time = new Label(timeString);
+      timeTotal+= Float.parseFloat(timeString);
+      Label score = new Label(scanner.next());
 
-      table.add(word, 0, lines);
-      table.add(type, 1, lines);
-      table.add(time, 2, lines);
-      table.add(score, 3, lines);
+      table.add(word, 1, lines);
+      table.add(type, 2, lines);
+      table.add(time, 3, lines);
+      table.add(score, 4, lines);
+
     }
+    scanner.close();
   }
 }

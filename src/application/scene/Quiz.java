@@ -214,8 +214,8 @@ public class Quiz {
   /** Helper method to calculate time taken to answer question */
   private void calculateTime() {
     long timeElapsedNanoseconds = timeEnd - timeStart;
-    stats.setTime(timeElapsedNanoseconds);
     timeElapsed = (float) timeElapsedNanoseconds / 1000000000;
+    stats.setTime(timeElapsed);
   }
 
   /**
