@@ -8,7 +8,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
-import javafx.scene.text.Text;
 
 public class Stats {
 
@@ -19,7 +18,7 @@ public class Stats {
   @FXML private Label numCorrectLabel;
 
   @FXML private Label avTime;
-  
+
   @FXML private Label scoreLabel;
 
   private int score;
@@ -76,19 +75,18 @@ public class Stats {
       Label word = new Label(scanner.next());
       String typeString = scanner.next();
       if (typeString.equals("Correct")) {
-    	  numCorrect++;
+        numCorrect++;
       }
       Label type = new Label(typeString);
       String timeString = scanner.next();
       Label time = new Label(timeString);
-      timeTotal+= Float.parseFloat(timeString);
+      timeTotal += Float.parseFloat(timeString);
       Label score = new Label(scanner.next());
 
       table.add(word, 1, lines);
       table.add(type, 2, lines);
       table.add(time, 3, lines);
       table.add(score, 4, lines);
-
     }
     scanner.close();
   }
