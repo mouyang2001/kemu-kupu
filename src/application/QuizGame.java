@@ -114,8 +114,10 @@ public class QuizGame {
 
     return hint.toString();
   }
-  
-  /** Helper method to show number of letters in word* */
+
+  /** Helper method to show number of letters in word* 
+   * @return letter spaces as string
+  */
   public String showLetters() {
     String word = getWord();
     StringBuilder stringBuilder = new StringBuilder();

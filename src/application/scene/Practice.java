@@ -21,7 +21,7 @@ public class Practice {
   @FXML private Label correct;
 
   @FXML private TextField input;
-  
+
   @FXML private Label showLetters;
 
   @FXML private Button sound;
