@@ -1,8 +1,11 @@
 package application.scene;
 
+import java.io.File;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.media.AudioClip;
 
 /** Finish screen that shows the users score after the quiz. */
 public class Finish {
@@ -29,6 +32,7 @@ public class Finish {
     scoreValue = scoreVal;
     setDynamicMessage(scoreVal);
     score.setText(String.valueOf(scoreVal));
+    playSound();
   }
 
   /** Click handler for the new quiz button. */
@@ -49,6 +53,14 @@ public class Finish {
     SceneManager.closeWindow();
   }
 
+  /**
+   * Helper method to play celebration song on scene change
+   */
+  public void playSound() {
+	  File file = new File("./src/application/scene/assets/complete.wav");
+	  AudioClip sound = new AudioClip(file.toURI().toString());
+	  sound.play();
+  }
   /**
    * Helper method to adjust wellDone label message depending on score
    *
