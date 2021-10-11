@@ -21,6 +21,8 @@ public class Practice {
   @FXML private Label correct;
 
   @FXML private TextField input;
+  
+  @FXML private Label showLetters;
 
   @FXML private Button sound;
 
@@ -207,7 +209,6 @@ public class Practice {
 
   /** Helper method to reveal the answer to the user. */
   private void revealAnswer() {
-    System.out.println("answer");
     hint.setText("Answer: " + quiz.getWord());
     delayTask(Duration.ofSeconds(DELAY), () -> hint.setText(""));
   }
@@ -221,8 +222,9 @@ public class Practice {
     // Reset focus to input.
     input.requestFocus();
 
-    // Get next word.
+    // Get next word and show number of letters in word
     quiz.nextWord();
+    showLetters.setText(quiz.showLetters());
 
     // After festival says the word, enable the buttons again.
     Festival.speak(quiz.getWord(), () -> disableButtons(false));

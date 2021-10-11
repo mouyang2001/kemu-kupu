@@ -63,6 +63,14 @@
     -fx-background-color: #a03131;
 }
 
+#input {
+	-fx-font-size: 30;
+}
+
+#showLetters {
+	-fx-font-size: 40;
+}
+
 
 
 

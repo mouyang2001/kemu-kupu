@@ -114,6 +114,20 @@ public class QuizGame {
 
     return hint.toString();
   }
+  
+  /** Helper method to show number of letters in word* */
+  public String showLetters() {
+    String word = getWord();
+    StringBuilder stringBuilder = new StringBuilder();
+    for (int i = 0; i < word.length(); i++) {
+      if (getHintLetterAtIndex(i).equals(" ")) {
+        stringBuilder.append(" ");
+      } else {
+        stringBuilder.append("-");
+      }
+    }
+    return stringBuilder.toString();
+  }
 
   /**
    * Calculates the score taking into account time decay using linear model: y = c - mx.

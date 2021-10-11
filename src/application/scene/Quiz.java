@@ -176,21 +176,6 @@ public class Quiz {
     }
   }
 
-  /** Helper method to show number of letters in word* */
-  private void showLetters() {
-    String word = quiz.getWord();
-    StringBuilder stringBuilder = new StringBuilder();
-    for (int i = 0; i < word.length(); i++) {
-      if (quiz.getHintLetterAtIndex(i).equals(" ")) {
-        stringBuilder.append(" ");
-      } else {
-        stringBuilder.append("-");
-      }
-    }
-    String promptLetters = stringBuilder.toString();
-    showLetters.setText(promptLetters);
-  }
-
   /** Helper method to increase score and update label. */
   private void increaseScore() {
     scoreVal += quiz.calculateScore(MAX_SCORE, MIN_SCORE, MAX_TIME, timeElapsed);
@@ -260,7 +245,7 @@ public class Quiz {
 
     // After festival says the word, enable the buttons again.
     Festival.speak(quiz.getWord(), () -> disableButtons(false));
-    showLetters();
+    showLetters.setText(quiz.showLetters());
     stats.setWord(quiz.getWord());
     timeStart = System.nanoTime();
   }
