@@ -114,7 +114,7 @@ public class QuizGame {
 
     return hint.toString();
   }
-  
+
   /** Helper method to show number of letters in word* */
   public String showLetters() {
     String word = getWord();
