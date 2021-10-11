@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
-
 import javafx.scene.media.AudioClip;
 
 /** State of a single spelling game. */
@@ -149,14 +148,15 @@ public class QuizGame {
     int calScore = (int) (maxScore - (maxScore / timeLimit) * elapsedTime);
     return Math.max(minScore, calScore);
   }
-  
+
   /**
-   * Plays in/correct sound 
+   * Plays in/correct sound
+   *
    * @param fileName of sound to play
    */
   public void playSound(String fileName) {
-	  File file = new File("./src/application/scene/assets/" + fileName + ".wav");
-	  AudioClip sound = new AudioClip(file.toURI().toString());
-	  sound.play();
+    File file = new File("./src/application/scene/assets/" + fileName + ".wav");
+    AudioClip sound = new AudioClip(file.toURI().toString());
+    sound.play();
   }
 }

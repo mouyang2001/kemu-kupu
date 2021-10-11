@@ -1,7 +1,6 @@
 package application.scene;
 
 import java.io.File;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -53,13 +52,11 @@ public class Finish {
     SceneManager.closeWindow();
   }
 
-  /**
-   * Helper method to play celebration song on scene change
-   */
+  /** Helper method to play celebration song on scene change */
   public void playSound() {
-	  File file = new File("./src/application/scene/assets/complete.wav");
-	  AudioClip sound = new AudioClip(file.toURI().toString());
-	  sound.play();
+    File file = new File("./src/application/scene/assets/complete.wav");
+    AudioClip sound = new AudioClip(file.toURI().toString());
+    sound.play();
   }
   /**
    * Helper method to adjust wellDone label message depending on score
