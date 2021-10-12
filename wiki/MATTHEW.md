@@ -33,3 +33,11 @@ After a much deserved short break over the weekends it was back to work. We met 
 ### Thu 07/10/2021
 I created the new practice module. This reused alot of code from prototype quiz we had before. I also added buttons to acces the practice module. I then also decided to reform the hint engine. Before it only reveals 1 letter, which we felt wasn't enough. Now it relies of a bit of randomness revealing multiple lettesr so it's easier for people to practice. 
 
+### Sat 09/10/2021
+I improved breanna's implementation of time decay scoring. I did this by creating a method within the QuizGame class since I felt it was appropriate as it's an integral quiz feature. The method decreases the score using a negative linear function based on the time elapsed when answering the word. The other parameters could be set to create the perfect score experience.
+
+### Tue 12/10/2021
+Took inspiration from the peer reviews I did on the implementation of a "help" feature on how to use different features of the app. So I created a help button on the main menu which would lead you to a scene displaying the instructions explaining different features of Kemu Kupu. Since our target audience is 18-25 I could write instructions with more words suitable for someone in that age range.
+
+
+
