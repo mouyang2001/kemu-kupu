@@ -4,12 +4,8 @@ import java.io.File;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.AudioClip;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaView;
 
 /** Finish screen that shows the users score after the quiz. */
 public class Finish {
@@ -22,7 +18,7 @@ public class Finish {
   @FXML private Button quit;
 
   @FXML private Button playAgain;
-  
+
   @FXML private ImageView image;
 
   private final double MAX_SCORE = 25.0;
@@ -65,7 +61,7 @@ public class Finish {
     AudioClip sound = new AudioClip(file.toURI().toString());
     sound.play();
   }
-  
+
   /**
    * Helper method to adjust wellDone label message depending on score
    *
