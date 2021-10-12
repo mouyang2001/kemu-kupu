@@ -2,8 +2,12 @@ package application.scene;
 
 import application.Words;
 import java.io.IOException;
+import java.util.List;
+import java.util.Random;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
@@ -20,38 +24,59 @@ public class Topic {
 
   @FXML private Button practice;
 
+  @FXML private CheckBox randomTopicCheck;
+
+  private List<String> topics;
+
   /** Called once the controller is loaded. */
   @FXML
   public void initialize() {
+    // Try populate ListView.
     try {
-      // Add items to table view.
-      topicListView.getItems().add(0, Words.getTopics().get(12));
-      topicListView.getItems().addAll(Words.getTopics());
-
+      topics = Words.getTopics();
+      topicListView.getItems().addAll(topics);
     } catch (IOException e) {
       SceneManager.alert("Could not load topics.");
     }
 
-    // Enable start button once an item is selected.
+    // Enable buttons once an item is selected.
+
     topicListView.addEventHandler(
         MouseEvent.MOUSE_PRESSED,
         e -> {
+          // Disable random check button.
+          randomTopicCheck.selectedProperty().set(false);
+
+          // Make sure a topic is selected.
           start.setDisable(topicListView.getSelectionModel().getSelectedItem() == null);
           practice.setDisable(topicListView.getSelectionModel().getSelectedItem() == null);
         });
+
+    randomTopicCheck.selectedProperty().addListener((observableValue, aBoolean, t1) -> {
+      // Disable select from topic listView.
+      topicListView.getSelectionModel().select(-1);
+
+      // Make sure random checkbox is ticked.
+      start.setDisable(!randomTopicCheck.isSelected());
+      practice.setDisable(!randomTopicCheck.isSelected());
+    });
   }
 
   /** Click handler for the start quiz button. */
   @FXML
   private void startQuiz() {
-    SceneManager.switchToQuizScene(topicListView.getSelectionModel().getSelectedItem());
+    String topic = (randomTopicCheck.isSelected()) ?
+            topics.get(new Random().nextInt(topics.size())) : topicListView.getSelectionModel().getSelectedItem();
+    SceneManager.switchToQuizScene(topic);
   }
 
+  /** Click handler for the start practice button. */
   @FXML
   private void startPractice() {
-    SceneManager.switchToPracticeScene(topicListView.getSelectionModel().getSelectedItem());
+    String topic = (randomTopicCheck.isSelected()) ?
+            topics.get(new Random().nextInt(topics.size())) : topicListView.getSelectionModel().getSelectedItem();
+    SceneManager.switchToPracticeScene(topic);
   }
-  ;
 
   /** Click handler for backing out of topic selection to main menu again. */
   @FXML

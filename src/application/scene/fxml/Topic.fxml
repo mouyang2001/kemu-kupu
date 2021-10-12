@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER" prefHeight="700.0" prefWidth="1200.0" spacing="20.0" stylesheets="@../css/Topic.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.scene.Topic">
+<VBox alignment="CENTER" prefHeight="700.0" prefWidth="1200.0" spacing="15.0" stylesheets="@../css/Topic.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.scene.Topic">
    <children>
       <Label fx:id="title" stylesheets="@../css/Topic.css" text="Choose your topic">
          <VBox.margin>
@@ -14,14 +14,19 @@
       <ListView fx:id="topicListView" maxWidth="640.0" prefHeight="400.0" prefWidth="640.0">
          
       </ListView>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+      <HBox alignment="CENTER_RIGHT" maxWidth="640.0" prefWidth="640.0">
+         <children>
+            <CheckBox fx:id="randomTopicCheck" maxWidth="400.0" mnemonicParsing="false" text="Random Topic" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefWidth="200.0" spacing="10.0">
          <children>
             <Button fx:id="back" mnemonicParsing="false" onAction="#leaveQuiz" prefHeight="60.0" prefWidth="150.0" text="Back">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
             </Button>
-            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="490.0" spacing="20.0">
+            <HBox alignment="CENTER_RIGHT" prefWidth="490.0" spacing="20.0">
                <children>
                   <Button fx:id="practice" disable="true" mnemonicParsing="false" onAction="#startPractice" prefHeight="60.0" prefWidth="150.0" text="Practice">
                      <HBox.margin>
