@@ -4,7 +4,6 @@ import application.Words;
 import java.io.IOException;
 import java.util.List;
 import java.util.Random;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -52,29 +51,36 @@ public class Topic {
           practice.setDisable(topicListView.getSelectionModel().getSelectedItem() == null);
         });
 
-    randomTopicCheck.selectedProperty().addListener((observableValue, aBoolean, t1) -> {
-      // Disable select from topic listView.
-      topicListView.getSelectionModel().select(-1);
+    randomTopicCheck
+        .selectedProperty()
+        .addListener(
+            (observableValue, aBoolean, t1) -> {
+              // Disable select from topic listView.
+              topicListView.getSelectionModel().select(-1);
 
-      // Make sure random checkbox is ticked.
-      start.setDisable(!randomTopicCheck.isSelected());
-      practice.setDisable(!randomTopicCheck.isSelected());
-    });
+              // Make sure random checkbox is ticked.
+              start.setDisable(!randomTopicCheck.isSelected());
+              practice.setDisable(!randomTopicCheck.isSelected());
+            });
   }
 
   /** Click handler for the start quiz button. */
   @FXML
   private void startQuiz() {
-    String topic = (randomTopicCheck.isSelected()) ?
-            topics.get(new Random().nextInt(topics.size())) : topicListView.getSelectionModel().getSelectedItem();
+    String topic =
+        (randomTopicCheck.isSelected())
+            ? topics.get(new Random().nextInt(topics.size()))
+            : topicListView.getSelectionModel().getSelectedItem();
     SceneManager.switchToQuizScene(topic);
   }
 
   /** Click handler for the start practice button. */
   @FXML
   private void startPractice() {
-    String topic = (randomTopicCheck.isSelected()) ?
-            topics.get(new Random().nextInt(topics.size())) : topicListView.getSelectionModel().getSelectedItem();
+    String topic =
+        (randomTopicCheck.isSelected())
+            ? topics.get(new Random().nextInt(topics.size()))
+            : topicListView.getSelectionModel().getSelectedItem();
     SceneManager.switchToPracticeScene(topic);
   }
 
