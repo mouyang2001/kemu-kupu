@@ -1,0 +1,34 @@
+.root {
+    -fx-background-color: #1E2124;
+}
+
+#title {
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 80;
+    -fx-font-family: Verdana;
+}
+
+#back {
+	-fx-background-color: #7289DA;
+	-fx-text-fill: #FFFFFF;
+    -fx-font-size: 50;
+    -fx-font-family: Play;
+}
+
+#back:hover {
+	-fx-background-color : #6076C4;
+}
+
+#back:pressed {
+	-fx-background-color : #475B9F;
+}
+
+#instructions {
+    -fx-font-family : Play;
+    -fx-font-size: 20;
+    -fx-text-fill: #FFFFFF;
+}
+
+#instructions .content {
+    -fx-background-color : #36393e;
+}

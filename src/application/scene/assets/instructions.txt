@@ -1,0 +1,27 @@
+1. On the main menu:
+    - Click "Play" to go to topic selection scene.
+    - Click "Help" on instructions on how to play.
+    - Click "Quit" to exit the game.
+
+2. On the topic selection screen:
+    - Select or search for your desired topic or check the random topic box.
+    - Then click on either practice or quiz modes.
+
+3. During the Quiz:
+    - listen to the pronunciation and spell it as quickly as possible.
+    - Click the sound icon to repeat the pronunciation.
+    - Type your answer into the text box in the center of the screen.
+    - Click the "Aā" macron button to macronize any vowels you type in.
+    - Mark your spelling by pressing "enter" on the keyboard or click the "submit" button.
+
+4. After 5 rounds you will be presented to the finish scene:
+    - Click on the stats button to view your performance.
+    - Click the "Play again" to return to topic selection scene.
+    - Click "Quit" to exit the Kēmu Kūpu.
+
+5. In the practice mode:
+    - You will be given an unlimited number of words to practice your spelling.
+    - Features will be similar to Quiz mode.
+    - Click "Quit" button to leave practice mode back to topic selection.
+
+Have fun!
