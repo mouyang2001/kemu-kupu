@@ -4,23 +4,28 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="488.0" prefWidth="600.0" spacing="30.0" stylesheets="@../css/Finish.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.scene.Finish">
+<StackPane xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.scene.Finish">
    <children>
-      <Label fx:id="wellDone" layoutX="258.0" layoutY="53.0" text="Well Done!" />
-      <Label fx:id="scoreTitle" layoutX="258.0" layoutY="107.0" text="Your score is" />
-      <Label fx:id="score" layoutX="268.0" layoutY="171.0" text="*score*" />
-      <Button fx:id="stats" mnemonicParsing="false" onAction="#showStats" prefHeight="70.0" prefWidth="200.0" text="View stats" />
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+      <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="488.0" prefWidth="600.0" spacing="30.0" stylesheets="@../css/Finish.css">
          <children>
-            <Button fx:id="quit" mnemonicParsing="false" onAction="#quit" prefHeight="70.0" prefWidth="200.0" text="Quit">
-               <HBox.margin>
-                  <Insets right="40.0" />
-               </HBox.margin>
-            </Button>
-            <Button fx:id="playAgain" mnemonicParsing="false" onAction="#newQuiz" prefHeight="70.0" prefWidth="200.0" text="Play again" />
+            <Label fx:id="wellDone" layoutX="258.0" layoutY="53.0" text="Well Done!" />
+            <Label fx:id="scoreTitle" layoutX="258.0" layoutY="107.0" text="Your score is" />
+            <Label fx:id="score" layoutX="268.0" layoutY="171.0" text="*score*" />
+            <Button fx:id="stats" mnemonicParsing="false" onAction="#showStats" prefHeight="70.0" prefWidth="200.0" text="View stats" />
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+               <children>
+                  <Button fx:id="quit" mnemonicParsing="false" onAction="#quit" prefHeight="70.0" prefWidth="200.0" text="Quit">
+                     <HBox.margin>
+                        <Insets right="40.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="playAgain" mnemonicParsing="false" onAction="#newQuiz" prefHeight="70.0" prefWidth="200.0" text="Play again" />
+               </children>
+            </HBox>
          </children>
-      </HBox>
+      </VBox>
    </children>
-</VBox>
+</StackPane>
