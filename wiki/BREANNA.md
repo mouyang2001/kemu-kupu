@@ -34,3 +34,8 @@ I implemented the functionality for showing how many letters are in the word in 
 Friday 8/10
 I started implementing the stats. I started by adding some lists in the quiz game class to record whether you got each word right or wrong. I then added functionality to record how long you took to answer the question, and changed the scoring system based on this time (i.e. the faster you answer, the better your score).
 
+Saturday 9/10
+Matthew improved the time based scoring using a linear decay function. I completed the stats implementation by storing the most recent quiz in a file and the information is then displayed in the table.
+
+Tuesday 12/10
+I added the show letters functionality to the practise module, and created a new word list that contains all words. I then found copyright free audio clips and added them to the app for getting questions correct, incorrect and finishing the quiz.
