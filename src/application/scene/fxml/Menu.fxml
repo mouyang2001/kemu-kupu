@@ -23,6 +23,14 @@
             <Insets />
          </VBox.margin>
       </Button>
+      <Button fx:id="help" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#help" prefHeight="120.0" prefWidth="600.0" stylesheets="@../css/Menu.css" text="Help" textFill="WHITE">
+         <font>
+            <Font size="50.0" />
+         </font>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </Button>
       <Button fx:id="quit" mnemonicParsing="false" onAction="#quit" prefHeight="120.0" prefWidth="600.0" stylesheets="@../css/Menu.css" text="Quit" textFill="WHITE">
          <font>
             <Font size="50.0" />
