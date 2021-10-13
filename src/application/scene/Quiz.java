@@ -1,9 +1,11 @@
 package application.scene;
 
+import application.AttemptResult.Type;
 import application.Festival;
 import application.QuizGame;
 import application.QuizGame.Mode;
 import application.SingleDelayedTask;
+
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -12,7 +14,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 
@@ -24,7 +25,6 @@ public class Quiz {
 
   @FXML private TextField input;
 
-  // Game Only.
   @FXML private Label showLetters;
 
   @FXML private Button sound;
@@ -35,16 +35,11 @@ public class Quiz {
   
   @FXML private Label hint;
 
-  @FXML private ImageView back_image;
-
+  @FXML private Button menu;
+  
   @FXML private Button skip;
 
   @FXML private Button submit;
-  
-  // Practice Only.
-  @FXML private Button quit;
-
-  @FXML private Button back;
 
   private QuizGame quiz;
 
@@ -82,27 +77,22 @@ public class Quiz {
         });
   }
 
-  /** Tooltip setup * */
-  private void buttonSetUp() {
-    Tooltip macron = new Tooltip("Click here to add a macron onto the last letter you typed");
-    macron.setStyle("-fx-font-size: 20");
-    macronButton.setTooltip(macron);
-  }
-
   /**
-   * Click handler for back button
-   *
-   * <p>Popup code inspired by https://code.makery.ch/blog/javafx-dialogs-official/
+   * Click handler for menu button
    */
   @FXML
-  private void back() {
+  private void menu() {
+	if (quiz.getMode() == Mode.Practice) {
+		SceneManager.switchToMenuScene();
+		return;
+	}
+	
     Alert alert = new Alert(AlertType.CONFIRMATION);
-    alert.setTitle(" ");
+    alert.setTitle("");
     alert.setHeaderText("Are you sure you want to leave the quiz?");
     alert.setContentText("You will lose all your hard word :(");
 
-    Optional<ButtonType> result = alert.showAndWait();
-    if (result.get() == ButtonType.OK) {
+    if (alert.showAndWait().get() == ButtonType.OK) {
       // quit and return to menu
       SceneManager.switchToMenuScene();
     } else {
@@ -121,8 +111,11 @@ public class Quiz {
   /** Click handler for the skip button. Tells quiz object to go to the next word. */
   @FXML
   private void skip() {
-	quiz.skip();
-    setPrompt("Skipped", RED);
+    Sound.play(Sound.Incorrect);
+	
+    quiz.skip();
+    
+	setPrompt("Skipped", RED);
     nextWord();
   }
 
@@ -172,33 +165,43 @@ public class Quiz {
 
   /** Method performs check spelling routine. */
   private void checkSpelling() {
-    // Retrieve input in text field.
-    String spelling = fetchInput();
+    Type result = quiz.submitAttempt(fetchInput()).getType();
     
-    switch (quiz.submitAttempt(spelling).getType()) {
+    // Play result sound.
+    if (result == Type.Correct) {
+    	Sound.play(Sound.Correct);
+    } else {
+    	Sound.play(Sound.Incorrect);
+    }
+    
+    // Update GUI.
+    switch (result) {
 	    case Correct:
-	    	increaseScore();
-	        setPrompt("Correct!", GREEN);
+	    	setPrompt("Correct!", GREEN);
+	    	updateScore();
 	        nextWord();
 	    	return;
 	    case Reattempt:
-	    	setPrompt("Try once more", RED);
+	    	setPrompt("Incorrect, try once more", RED);
 	        giveHint();
 	    	return;
 	    case Incorrect:
+	    	// Continued below for readability.
 	    	break;
     }
     
+    // If the spelling is incorrect.
     switch (quiz.getMode()) {
 	    case Game:
-	    	setPrompt("Incorrect, but good effort.", RED);
+	    	setPrompt("Incorrect", RED);
 	    	break;
 	    case Practice:
-	        setPrompt("Incorrect", RED);
+	        setPrompt("Incorrect, but good effort.", RED);
 	        revealAnswer();
-	        nextWord();
 	    	break;
     }
+
+    nextWord();
   }
   
   /** Helper method to show the hint to the user. */
@@ -212,29 +215,8 @@ public class Quiz {
     SingleDelayedTask.scheduleDelayedTask(() -> hint.setText(""));
   }
 
-  /** Helper method to show number of letters in word */
-  private void showLetters() {
-	if (quiz.getMode() == Mode.Practice) {
-		return;
-	}
-	  
-    String word = quiz.getWord();
-    StringBuilder stringBuilder = new StringBuilder();
-    
-    for (int i = 0; i < word.length(); i++) {
-      if (quiz.getHintLetterAtIndex(i).equals(" ")) {
-        stringBuilder.append(" ");
-      } else {
-        stringBuilder.append("-");
-      }
-    }
-    
-    String promptLetters = stringBuilder.toString();
-    showLetters.setText(promptLetters);
-  }
-
   /** Helper method to increase score and update label. */
-  private void increaseScore() {
+  private void updateScore() {
     score.setText(String.valueOf(quiz.getScore()));
   }
 
@@ -271,18 +253,19 @@ public class Quiz {
     }
 
     // Clear hint and reset focus to input.
+    input.clear();
     input.requestFocus();
 
-    // Get next word.
     quiz.nextWord();
+    
+    // TODO: Remove.
+    System.out.println(quiz.getWord());
 
     // Speak the word.
     sound();
 
-    // Show hint if in a game.
-    if (quiz.getMode() == Mode.Game) {
-	  showLetters();
-    }
+    showLetters.setText(quiz.showLetters());
+    hint.setText("");
   }
 
   /**
@@ -291,31 +274,27 @@ public class Quiz {
    * @param state boolean value on or off button.
    */
   public void disableButtons(Boolean state) {
-    skip.setDisable(state);
-    submit.setDisable(state);
-    sound.setDisable(state);
     macronButton.setDisable(state);
+    skip.setDisable(state);
+    sound.setDisable(state);
+    submit.setDisable(state);
+    menu.setDisable(state);
     
     input.setDisable(state);
-    back.setDisable(state);
     input.requestFocus();
-    
-    if (quiz.getMode() == Mode.Practice) {
-    	quit.setDisable(state);    	
-    }
   }
 
   /** End of game subroutine. */
   public void endGame() {
     // Automatically switch to finish after timeout.
-    SingleDelayedTask.scheduleDelayedTask(() -> SceneManager.switchToFinishScene(quiz.getStats()));
+    SingleDelayedTask.scheduleDelayedTask(() -> SceneManager.switchToFinishScene(quiz.getStats(), true));
 
     // Allow the user to click to finish before the timeout.
     submit.setText("Finish");
     submit.setOnAction(
         e -> {
           SingleDelayedTask.cancel();
-          SceneManager.switchToFinishScene(quiz.getStats());
+          SceneManager.switchToFinishScene(quiz.getStats(), true);
         });
 
     // Only allow the finish button.

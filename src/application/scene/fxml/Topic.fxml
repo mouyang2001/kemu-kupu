@@ -5,6 +5,7 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -37,11 +38,14 @@
             <HBox alignment="CENTER_RIGHT" prefWidth="490.0" spacing="20.0">
                <children>
                   <Button fx:id="practice" disable="true" mnemonicParsing="false" onAction="#startPractice" prefHeight="60.0" prefWidth="150.0" text="Practice">
+                     <tooltip><Tooltip text="Whakaharatau | Practice Your Spelling" /></tooltip>
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="start" disable="true" mnemonicParsing="false" onAction="#startQuiz" prefHeight="60.0" prefWidth="150.0" text="Quiz" />
+                  <Button fx:id="start" disable="true" mnemonicParsing="false" onAction="#startQuiz" prefHeight="60.0" prefWidth="150.0" text="Quiz">
+                     <tooltip><Tooltip text="Pātaitai | Test Your Knowledge" /></tooltip>
+                  </Button>
                </children>
             </HBox>
          </children>

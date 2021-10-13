@@ -5,12 +5,12 @@ import application.Words;
 import java.io.IOException;
 import java.util.List;
 import java.util.Random;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
 
 /** Topic selection screen for the user to choose which word list to quiz. */
@@ -27,26 +27,22 @@ public class Topic {
 
   @FXML private CheckBox randomTopicCheck;
 
-  private List<String> topics;
-
   /** Called once the controller is loaded. */
   @FXML
   public void initialize() {
     // Try populate ListView.
     try {
-      topics = Words.getTopics();
-      topicListView.getItems().addAll(topics);
-      buttonSetUp();
+      topicListView.getItems().addAll(Words.getTopics());
     } catch (IOException e) {
       SceneManager.alert("Could not load topics.");
     }
 
     // Enable buttons once an item is selected.
-
     topicListView.addEventHandler(
         MouseEvent.MOUSE_PRESSED,
         e -> {
           boolean disabled = getTopic() == null;
+          randomTopicCheck.selectedProperty().set(disabled);
           start.setDisable(disabled);
           practice.setDisable(disabled);
         });
@@ -62,16 +58,6 @@ public class Topic {
               start.setDisable(!randomTopicCheck.isSelected());
               practice.setDisable(!randomTopicCheck.isSelected());
             });
-  }
-
-  private void buttonSetUp() {
-    Tooltip quiz = new Tooltip("pātaitai | test your knowledge");
-    quiz.setStyle("-fx-font-size: 20");
-    start.setTooltip(quiz);
-
-    Tooltip practise = new Tooltip("whakaharatau | practise your spelling");
-    practise.setStyle("-fx-font-size: 20");
-    practice.setTooltip(practise);
   }
 
   /** Click handler for the start quiz button. */
@@ -93,7 +79,14 @@ public class Topic {
   }
   
   private void start(Mode mode) {
-	SceneManager.switchToQuizScene(getTopic(), mode);
+	List<String> topics = topicListView.getItems();
+	
+	// Randomly select topic if required.
+	String topic = (randomTopicCheck.isSelected())
+      ? topics.get(new Random().nextInt(topics.size()))
+      : topicListView.getSelectionModel().getSelectedItem();
+	
+	SceneManager.switchToQuizScene(topic, mode);
   }
   
   private String getTopic() {

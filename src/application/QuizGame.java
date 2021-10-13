@@ -1,12 +1,8 @@
 package application;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
-import javafx.scene.media.AudioClip;
-
-import application.AttemptResult.Type;
 
 /** State of a single spelling game. */
 public class QuizGame {
@@ -28,19 +24,17 @@ public class QuizGame {
   
   Statistics stats = new Statistics();
   
-  private final double HINT_REVEAL_PERCENTAGE = 0.3;
+  private static final double HINT_REVEAL_PERCENTAGE = 0.3;
 
-  private int currentRound = 0;
-
-  private final int NUMBER_OF_ROUNDS = 5;  
+  public static final int NUMBER_OF_ROUNDS = 5;  
   
   private int score = 0;
   
-  private final int MAX_SCORE = 1000;
+  private static final int MAX_SCORE = 1000;
 
-  private final int MIN_SCORE = 100;
+  private static final int MIN_SCORE = 100;
 
-  private final int MAX_TIME = 10;
+  private static final int MAX_TIME = 10;
 
   /**
    * QuizGame constructor. Calls Words class to retrieve words ArrayList and shuffles them.
@@ -88,23 +82,25 @@ public class QuizGame {
   public AttemptResult submitAttempt(String spelling) {
 	  float time = calculateTime();
 	  
-	  Type type;
+	  AttemptResult.Type type;
 	  if (checkSpelling(spelling)) {
-		  type = Type.Correct;
+		  type = AttemptResult.Type.Correct;
 	  } else if (mode == Mode.Practice && firstAttempt) {
-		  type = Type.Reattempt;
+		  type = AttemptResult.Type.Reattempt;
 		  firstAttempt = false;
 	  } else {
-		  type = Type.Incorrect;
+		  type = AttemptResult.Type.Incorrect;
 	  }
 	  
-	  if (type != Type.Reattempt) {
-		  currentRound++;
+	  // Increase score.
+	  int attemptScore = calculateScore(type, time);
+	  score += attemptScore;
+	  
+	  AttemptResult result = new AttemptResult(type, attemptScore, time);
+	  
+	  if (mode == Mode.Game) {
+		  addStat(result);		  
 	  }
-	  
-	  AttemptResult result = new AttemptResult(type, calculateScore(type, time));
-	  
-	  addStat(result, time);
 	  
 	  return result;
   }
@@ -122,23 +118,24 @@ public class QuizGame {
   }
   
   private void addStat(AttemptResult result, float time) {
-	  application.Statistic.Type type;
+	  Statistic.Type type;
 	  switch (result.getType()) {
 	  case Correct:
-		  type = application.Statistic.Type.Correct;
+		  type = Statistic.Type.Correct;
 		  break;
 	  case Incorrect:
-		  type = application.Statistic.Type.Incorrect;
+		  type = Statistic.Type.Incorrect;
 		  break;
 	  default:
 		  return;
 	  }
 	  
-	  stats.add(new Statistic(getWord(), type, result.getScore(), time));
+	  stats.add(new Statistic(getWord(), type, result.getScore(), result.getTime()));
   }
   
   public void skip() {
-	  stats.add(new Statistic(getWord(), application.Statistic.Type.Skipped, -1, calculateTime()));
+	  nextWord();
+	  stats.add(new Statistic(getWord(), Statistic.Type.Skipped, 0, calculateTime()));
   }
 
   /**
@@ -186,6 +183,7 @@ public class QuizGame {
   public String showLetters() {
     String word = getWord();
     StringBuilder stringBuilder = new StringBuilder();
+    
     for (int i = 0; i < word.length(); i++) {
       if (getHintLetterAtIndex(i).equals(" ")) {
         stringBuilder.append(" ");
@@ -193,6 +191,7 @@ public class QuizGame {
         stringBuilder.append("-");
       }
     }
+    
     return stringBuilder.toString();
   }
 
@@ -201,11 +200,15 @@ public class QuizGame {
    * 
    * @return 
    */
-  private int calculateScore(Type type, float time) {
-	if (type != Type.Correct) {
+  private int calculateScore(AttemptResult.Type type, float time) {
+	if (type != AttemptResult.Type.Correct || !firstAttempt) {
 		return 0;
 	}
-	  
+	
+	if (mode == Mode.Practice) {
+		return 1;
+	}
+	
 	int calScore = (int)(MAX_SCORE - (MAX_SCORE / MAX_TIME) * time);
 	return Math.max(MIN_SCORE, calScore);
   }
@@ -215,21 +218,10 @@ public class QuizGame {
   }
   
   public boolean isFinished() {
-	  return mode == Mode.Game && currentRound == NUMBER_OF_ROUNDS;
+	  return stats.getStats().size() == NUMBER_OF_ROUNDS;
   }
   
   public Statistics getStats() {
 	  return stats;
-  }
-
-  /**
-   * Plays in/correct sound
-   *
-   * @param fileName of sound to play
-   */
-  public void playSound(String fileName) {
-    File file = new File("./src/application/scene/assets/" + fileName + ".wav");
-    AudioClip sound = new AudioClip(file.toURI().toString());
-    sound.play();
   }
 }

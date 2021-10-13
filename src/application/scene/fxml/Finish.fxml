@@ -17,7 +17,7 @@
             <Button fx:id="stats" mnemonicParsing="false" onAction="#showStats" prefHeight="70.0" prefWidth="200.0" text="View stats" />
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                <children>
-                  <Button fx:id="quit" mnemonicParsing="false" onAction="#quit" prefHeight="70.0" prefWidth="200.0" text="Quit">
+                  <Button fx:id="menu" mnemonicParsing="false" onAction="#menu" prefHeight="70.0" prefWidth="200.0" text="Menu">
                      <HBox.margin>
                         <Insets right="40.0" />
                      </HBox.margin>

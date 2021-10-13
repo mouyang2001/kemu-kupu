@@ -49,26 +49,14 @@ public class SceneManager {
 
   /** Show the quiz scene to the user and transfer topic selection data. */
   public static void switchToQuizScene(String topic, Mode mode) {
-    String fxml;
-    switch (mode) {
-    case Game:
-    	fxml = "Quiz";
-    	break;
-    case Practice:
-    	fxml = "Practice";
-    	break;
-    default:
-    	throw new RuntimeException();
-    }
-    
-	Quiz controller = changeScene(fxml).getController();
+	Quiz controller = changeScene("Quiz").getController();
     controller.beginQuiz(topic, mode);
   }
 
   /** Show the finish scene to the user. */
-  public static void switchToFinishScene(Statistics stats) {
+  public static void switchToFinishScene(Statistics stats, boolean playSound) {
     Finish controller = changeScene("Finish").getController();
-    controller.initialise(stats);
+    controller.initialise(stats, playSound);
   }
 
   /** Show the stats scene to the user. */
