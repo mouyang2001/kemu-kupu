@@ -6,14 +6,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.stream.Collectors;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 
-/**
- * Help screen with instructions on how to use the application.
- */
+/** Help screen with instructions on how to use the application. */
 public class Help {
   @FXML public Label title;
 
@@ -29,7 +26,7 @@ public class Help {
    */
   @FXML
   public void initialize() throws IOException, URISyntaxException {
-	Path path = Paths.get(getClass().getResource(INSTRUCTIONS_FILE).toURI());
+    Path path = Paths.get(getClass().getResource(INSTRUCTIONS_FILE).toURI());
     String contents = Files.lines(path).collect(Collectors.joining("\n"));
 
     instructions.setText(contents);

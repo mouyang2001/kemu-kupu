@@ -14,7 +14,7 @@ public class Finish {
   @FXML private Label scoreTitle;
 
   @FXML private Label score;
-  
+
   @FXML private Button stats;
 
   @FXML private Button menu;
@@ -34,11 +34,11 @@ public class Finish {
    */
   public void initialise(Statistics statistics, boolean playSound) {
     this.statistics = statistics;
-    
+
     setMessages();
-    
+
     if (playSound) {
-    	Sound.play(Sound.Complete);
+      Sound.play(Sound.Complete);
     }
   }
 
@@ -67,9 +67,9 @@ public class Finish {
    */
   private void setMessages() {
     score.setText(String.valueOf(statistics.getScore()));
-    
+
     double percentage = statistics.getScore() / MAX_SCORE;
-    
+
     if (percentage < 0.8) {
       wellDone.setText("Kia Kaha, keep learning!");
     } else {

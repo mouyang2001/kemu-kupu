@@ -1,9 +1,8 @@
 package application.scene;
 
-import java.io.IOException;
-
 import application.QuizGame.Mode;
 import application.Statistics;
+import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Parent;
@@ -49,7 +48,7 @@ public class SceneManager {
 
   /** Show the quiz scene to the user and transfer topic selection data. */
   public static void switchToQuizScene(String topic, Mode mode) {
-	Quiz quiz = changeScene("Quiz").getController();
+    Quiz quiz = changeScene("Quiz").getController();
     quiz.beginQuiz(topic, mode);
   }
 

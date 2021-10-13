@@ -9,30 +9,28 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 
-/**
- * The stats screen with the results of the quiz.
- */
+/** The stats screen with the results of the quiz. */
 public class Stats {
   @FXML private Button back;
 
   @FXML private GridPane table;
-  
+
   @FXML private Label scoreLabel;
 
   @FXML private Label numCorrectLabel;
 
   @FXML private Label avTime;
-  
+
   private Statistics stats;
 
   /**
    * Initialise the screen with the stats.
-   * 
+   *
    * @param stats The stats to show.
    */
   public void initialise(Statistics stats) {
     this.stats = stats;
-	
+
     displayMessages();
     loadTable();
   }
@@ -42,19 +40,16 @@ public class Stats {
   private void back() {
     SceneManager.switchToFinishScene(stats, false);
   }
-  
-  /**
-   * Display the score and overall statistics to the user.
-   */
+
+  /** Display the score and overall statistics to the user. */
   private void displayMessages() {
     scoreLabel.setText(String.valueOf(stats.getScore()));
-    numCorrectLabel.setText("You got " + stats.getNumCorrect() + " out of " + QuizGame.NUMBER_OF_ROUNDS + " correct");
+    numCorrectLabel.setText(
+        "You got " + stats.getNumCorrect() + " out of " + QuizGame.NUMBER_OF_ROUNDS + " correct");
     avTime.setText("You took " + formatTime(stats.getTotalTime()) + " seconds");
   }
 
-  /**
-   * Show the statistics of each question to the user.
-   */
+  /** Show the statistics of each question to the user. */
   private void loadTable() {
     // Add headers.
     Label wordLabel = new Label("Word");
@@ -69,29 +64,29 @@ public class Stats {
 
     // Add each statistic.
     int lines = 2;
-    
+
     for (Statistic stat : stats.getStats()) {
       Text word = new Text(stat.getWord());
       Text result = new Text(stat.getType().toString());
       Text time = new Text(formatTime(stat.getTime()));
       Text score = new Text(String.valueOf(stat.getScore()));
-      
+
       table.add(word, 1, lines);
       table.add(result, 2, lines);
       table.add(time, 3, lines);
       table.add(score, 4, lines);
-      
+
       lines++;
     }
   }
-  
+
   /**
    * Format a time in seconds to 2 decimal places.
-   * 
+   *
    * @param time The time to format.
    * @return The formatted time.
    */
   private String formatTime(float time) {
-	  return String.format("%.02f", time);
+    return String.format("%.02f", time);
   }
 }

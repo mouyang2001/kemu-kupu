@@ -5,9 +5,7 @@ import application.Festival;
 import application.QuizGame;
 import application.QuizGame.Mode;
 import application.SingleDelayedTask;
-
 import java.io.IOException;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -32,11 +30,11 @@ public class Quiz {
   @FXML private Button macronButton;
 
   @FXML private ImageView image;
-  
+
   @FXML private Label hint;
 
   @FXML private Button menu;
-  
+
   @FXML private Button skip;
 
   @FXML private Button submit;
@@ -61,22 +59,20 @@ public class Quiz {
     } catch (IOException e) {
       SceneManager.alert("Could not load word list.");
     }
-    
+
     // Start the first word.
     nextWord();
   }
 
-  /**
-   * Click handler for the menu button.
-   */
+  /** Click handler for the menu button. */
   @FXML
   private void menu() {
-	// Don't prompt for practices as nothing is saved.
-	if (quiz.getMode() == Mode.Practice) {
-		SceneManager.switchToMenuScene();
-		return;
-	}
-	
+    // Don't prompt for practices as nothing is saved.
+    if (quiz.getMode() == Mode.Practice) {
+      SceneManager.switchToMenuScene();
+      return;
+    }
+
     Alert alert = new Alert(AlertType.CONFIRMATION);
     alert.setTitle("");
     alert.setHeaderText("Are you sure you want to leave the quiz?");
@@ -97,11 +93,11 @@ public class Quiz {
   private void submit() {
     checkSpelling();
   }
-  
+
   /** Key handler for the input text field. */
   @FXML
   private void inputKeyPressed(KeyEvent e) {
-	if (e.getCode() == KeyCode.ENTER) {
+    if (e.getCode() == KeyCode.ENTER) {
       submit();
     }
   }
@@ -110,17 +106,17 @@ public class Quiz {
   @FXML
   private void skip() {
     Sound.play(Sound.Incorrect);
-	
+
     quiz.skip();
-    
-	setPrompt("Skipped", RED);
+
+    setPrompt("Skipped", RED);
     nextWord();
   }
 
   /** Click handler for the sound button. Gets festival to say the word. */
   @FXML
   private void sound() {
-	// Disable buttons while the word is spoken and re-enable after.
+    // Disable buttons while the word is spoken and re-enable after.
     disableButtons(true);
     Festival.speak(quiz.getWord(), () -> disableButtons(false));
   }
@@ -159,44 +155,44 @@ public class Quiz {
   /** Method performs check spelling routine. */
   private void checkSpelling() {
     Type result = quiz.submitAttempt(fetchInput()).getType();
-    
+
     // Play result sound.
     if (result == Type.Correct) {
-    	Sound.play(Sound.Correct);
+      Sound.play(Sound.Correct);
     } else {
-    	Sound.play(Sound.Incorrect);
+      Sound.play(Sound.Incorrect);
     }
-    
+
     // Update GUI.
     switch (result) {
-	    case Correct:
-	    	setPrompt("Correct!", GREEN);
-	    	updateScore();
-	        nextWord();
-	    	return;
-	    case Reattempt:
-	    	setPrompt("Incorrect, try once more", RED);
-	        giveHint();
-	    	return;
-	    case Incorrect:
-	    	// Continued below for readability.
-	    	break;
+      case Correct:
+        setPrompt("Correct!", GREEN);
+        updateScore();
+        nextWord();
+        return;
+      case Reattempt:
+        setPrompt("Incorrect, try once more", RED);
+        giveHint();
+        return;
+      case Incorrect:
+        // Continued below for readability.
+        break;
     }
-    
+
     // If the spelling is incorrect.
     switch (quiz.getMode()) {
-	    case Game:
-	    	setPrompt("Incorrect", RED);
-	    	break;
-	    case Practice:
-	        setPrompt("Incorrect, but good effort.", RED);
-	        revealAnswer();
-	    	break;
+      case Game:
+        setPrompt("Incorrect", RED);
+        break;
+      case Practice:
+        setPrompt("Incorrect, but good effort.", RED);
+        revealAnswer();
+        break;
     }
 
     nextWord();
   }
-  
+
   /** Show the hint to the user. */
   private void giveHint() {
     hint.setText(quiz.getWord().length() + " letters: " + quiz.getHint());
@@ -233,10 +229,10 @@ public class Quiz {
    */
   private String fetchInput() {
     String text = input.getText();
-    
+
     input.clear();
     input.requestFocus();
-    
+
     return text;
   }
 
@@ -254,18 +250,19 @@ public class Quiz {
 
     // Speak the word.
     sound();
-    
+
     // Reset GUI.
     input.clear();
     input.requestFocus();
-    
+
     hint.setText(quiz.getWord().length() + " letters");
   }
-  
+
   /** End the game and show to finish screen. */
   private void endGame() {
     // Automatically switch to finish after timeout.
-    SingleDelayedTask.scheduleDelayedTask(() -> SceneManager.switchToFinishScene(quiz.getStats(), true));
+    SingleDelayedTask.scheduleDelayedTask(
+        () -> SceneManager.switchToFinishScene(quiz.getStats(), true));
 
     // Allow the user to click to finish before the timeout.
     submit.setText("Finish");

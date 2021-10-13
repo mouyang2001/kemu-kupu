@@ -8,28 +8,28 @@ import java.util.List;
 public class QuizGame {
   /** Mode to run the quiz in. */
   public enum Mode {
-	  Practice,
-	  Game,
+    Practice,
+    Game,
   }
-  
+
   private final List<String> words;
 
   private int index = 0;
-  
+
   private Mode mode;
-  
+
   private long startTime;
-  
+
   private boolean firstAttempt = true;
-  
+
   Statistics stats = new Statistics();
-  
+
   public static final double HINT_REVEAL_PERCENTAGE = 0.3;
 
-  public static final int NUMBER_OF_ROUNDS = 5;  
-  
+  public static final int NUMBER_OF_ROUNDS = 5;
+
   private int score = 0;
-  
+
   public static final int MAX_SCORE = 1000;
 
   public static final int MIN_SCORE = 100;
@@ -46,46 +46,46 @@ public class QuizGame {
     // Read and randomise the wordlist.
     words = Words.getWords(topic);
     Collections.shuffle(words);
-    
+
     this.mode = mode;
   }
-  
+
   /**
    * Get the mode of the quiz.
-   * 
+   *
    * @return The mode of the quiz.
    */
   public Mode getMode() {
-	  return mode;
+    return mode;
   }
-  
+
   /**
    * Get the score for the quiz.
-   * 
+   *
    * @return The score for the quiz.
    */
   public int getScore() {
-	  return score;
+    return score;
   }
-  
+
   /**
    * If the quiz is finished.
-   * 
+   *
    * @return If the quiz is finished.
    */
   public boolean isFinished() {
-	  return stats.getStats().size() == NUMBER_OF_ROUNDS;
+    return stats.getStats().size() == NUMBER_OF_ROUNDS;
   }
-  
+
   /**
    * Get the statistics of the quiz.
-   * 
+   *
    * @return The statistics for the quiz.
    */
   public Statistics getStats() {
-	  return stats;
+    return stats;
   }
-  
+
   /**
    * Gets the current word being quizzed.
    *
@@ -94,7 +94,7 @@ public class QuizGame {
   public String getWord() {
     return words.get(index);
   }
-  
+
   /**
    * Gets a letter from the current word being quizzed.
    *
@@ -110,44 +110,44 @@ public class QuizGame {
     // Move to the next word.
     index++;
     index %= words.size();
-    
+
     // Reset attempt state.
     startTime = System.nanoTime();
     firstAttempt = true;
   }
-  
+
   /**
    * Submit the users attempt at spelling the current word.
-   * 
+   *
    * @param spelling The spelling form the user.
    * @return The result of the attempt.
    */
   public AttemptResult submitAttempt(String spelling) {
-	  float time = calculateTime();
-	  
-	  // Determine if the user is correct or should re-attempt.
-	  AttemptResult.Type type;
-	  if (checkSpelling(spelling)) {
-		  type = AttemptResult.Type.Correct;
-	  } else if (mode == Mode.Practice && firstAttempt) {
-		  type = AttemptResult.Type.Reattempt;
-		  firstAttempt = false;
-	  } else {
-		  type = AttemptResult.Type.Incorrect;
-	  }
-	  
-	  // Increase score.
-	  int attemptScore = calculateScore(type, time);
-	  score += attemptScore;
-	  
-	  AttemptResult result = new AttemptResult(type, attemptScore, time);
-	  
-	  // Statistics are only required for games.
-	  if (mode == Mode.Game) {
-		  addStat(result);		  
-	  }
-	  
-	  return result;
+    float time = calculateTime();
+
+    // Determine if the user is correct or should re-attempt.
+    AttemptResult.Type type;
+    if (checkSpelling(spelling)) {
+      type = AttemptResult.Type.Correct;
+    } else if (mode == Mode.Practice && firstAttempt) {
+      type = AttemptResult.Type.Reattempt;
+      firstAttempt = false;
+    } else {
+      type = AttemptResult.Type.Incorrect;
+    }
+
+    // Increase score.
+    int attemptScore = calculateScore(type, time);
+    score += attemptScore;
+
+    AttemptResult result = new AttemptResult(type, attemptScore, time);
+
+    // Statistics are only required for games.
+    if (mode == Mode.Game) {
+      addStat(result);
+    }
+
+    return result;
   }
 
   /**
@@ -160,35 +160,33 @@ public class QuizGame {
     // Case in-sensitive compare without leading and trailing whitespace.
     return spelling.trim().equalsIgnoreCase(getWord());
   }
-  
+
   /**
    * Add a statistic to the game statistics.
-   * 
+   *
    * @param result The result of the attempt.
    */
   private void addStat(AttemptResult result) {
-	  Statistic.Type type;
-	  switch (result.getType()) {
-	  case Correct:
-		  type = Statistic.Type.Correct;
-		  break;
-	  case Incorrect:
-		  type = Statistic.Type.Incorrect;
-		  break;
-	  default:
-		  return;
-	  }
-	  
-	  stats.add(new Statistic(getWord(), type, result.getScore(), result.getTime()));
-  }
-  
-  /**
-   * Skips the current word.
-   */
-  public void skip() {
-	  nextWord();
+    Statistic.Type type;
+    switch (result.getType()) {
+      case Correct:
+        type = Statistic.Type.Correct;
+        break;
+      case Incorrect:
+        type = Statistic.Type.Incorrect;
+        break;
+      default:
+        return;
+    }
 
-	  stats.add(new Statistic(getWord(), Statistic.Type.Skipped, 0, calculateTime()));
+    stats.add(new Statistic(getWord(), type, result.getScore(), result.getTime()));
+  }
+
+  /** Skips the current word. */
+  public void skip() {
+    nextWord();
+
+    stats.add(new Statistic(getWord(), Statistic.Type.Skipped, 0, calculateTime()));
   }
 
   /**
@@ -216,39 +214,38 @@ public class QuizGame {
 
     return hint.toString();
   }
-  
+
   /**
    * Calculate the time since the current word was selected.
-   * 
+   *
    * @return The elapsed time in seconds.
    */
   private float calculateTime() {
-	  long timeElapsedNanoseconds = System.nanoTime() - startTime;
-	  
-	  // Convert elapsed time into seconds.
-	  return (float)timeElapsedNanoseconds / 1000000000;
+    long timeElapsedNanoseconds = System.nanoTime() - startTime;
+
+    // Convert elapsed time into seconds.
+    return (float) timeElapsedNanoseconds / 1000000000;
   }
 
   /**
-   * Calculates the score of an attempt.
-   * Uses the linear time decay model: y = c - mx.
-   * 
+   * Calculates the score of an attempt. Uses the linear time decay model: y = c - mx.
+   *
    * @param type The result type from the attempt.
    * @param time The time in seconds the attempt took.
    * @return The score for the attempt.
    */
   private int calculateScore(AttemptResult.Type type, float time) {
-	// Incorrect or re-attempted answers get no points.
-	if (type != AttemptResult.Type.Correct || !firstAttempt) {
-		return 0;
-	}
-	
-	// Only one point for correct answers in practice mode.
-	if (mode == Mode.Practice) {
-		return 1;
-	}
-	
-	int calScore = (int)(MAX_SCORE - (MAX_SCORE / MAX_TIME) * time);
-	return Math.max(MIN_SCORE, calScore);
+    // Incorrect or re-attempted answers get no points.
+    if (type != AttemptResult.Type.Correct || !firstAttempt) {
+      return 0;
+    }
+
+    // Only one point for correct answers in practice mode.
+    if (mode == Mode.Practice) {
+      return 1;
+    }
+
+    int calScore = (int) (MAX_SCORE - (MAX_SCORE / MAX_TIME) * time);
+    return Math.max(MIN_SCORE, calScore);
   }
 }

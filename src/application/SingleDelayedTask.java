@@ -1,22 +1,17 @@
 package application;
 
 import java.time.Duration;
-
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 
-/**
- * Schedule tasks to be executed after a delay.
- * Only one task can be scheduled at a time.
- */
+/** Schedule tasks to be executed after a delay. Only one task can be scheduled at a time. */
 public class SingleDelayedTask {
   private static final Duration DELAY = Duration.ofSeconds(2);
-	
+
   private static Task<Void> delayedTask;
-	
+
   /**
-   * Runs a task after the specified delay.
-   * If a task is already scheduled it will be canceled.
+   * Runs a task after the specified delay. If a task is already scheduled it will be canceled.
    *
    * @param duration The duration to delay by.
    * @param task The task to run after the delay.
@@ -44,17 +39,17 @@ public class SingleDelayedTask {
     // Schedule the task for execution.
     BackgroundExecutor.executeDelayed(DELAY, delayedTask);
   }
-  
+
   /**
    * Cancel the delayed task.
-   * 
+   *
    * @return If the task was canceled.
    */
   public static boolean cancel() {
-	if (delayedTask == null) {
-		return false;
-	}
+    if (delayedTask == null) {
+      return false;
+    }
 
-	return delayedTask.cancel();
+    return delayedTask.cancel();
   }
 }

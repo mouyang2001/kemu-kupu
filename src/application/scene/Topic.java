@@ -5,7 +5,6 @@ import application.Words;
 import java.io.IOException;
 import java.util.List;
 import java.util.Random;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -71,35 +70,36 @@ public class Topic {
   private void startPractice() {
     start(Mode.Practice);
   }
-  
+
   /** Click handler for backing out of topic selection to main menu again. */
   @FXML
   private void leaveQuiz() {
     SceneManager.switchToMenuScene();
   }
-  
+
   /**
    * Start a quiz in the given mode.
-   * 
+   *
    * @param mode The mode to start the quiz in.
    */
   private void start(Mode mode) {
-	List<String> topics = topicListView.getItems();
-	
-	// Randomly select topic if required.
-	String topic = randomTopicCheck.isSelected()
-      ? topics.get(new Random().nextInt(topics.size()))
-      : topicListView.getSelectionModel().getSelectedItem();
-	
-	SceneManager.switchToQuizScene(topic, mode);
+    List<String> topics = topicListView.getItems();
+
+    // Randomly select topic if required.
+    String topic =
+        randomTopicCheck.isSelected()
+            ? topics.get(new Random().nextInt(topics.size()))
+            : topicListView.getSelectionModel().getSelectedItem();
+
+    SceneManager.switchToQuizScene(topic, mode);
   }
-  
+
   /**
    * Get the selected topic from the list view.
-   * 
+   *
    * @return The selected topic.
    */
   private String getTopic() {
-	return topicListView.getSelectionModel().getSelectedItem();
+    return topicListView.getSelectionModel().getSelectedItem();
   }
 }
