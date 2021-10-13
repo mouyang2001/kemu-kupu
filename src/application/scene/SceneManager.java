@@ -42,6 +42,11 @@ public class SceneManager {
     changeScene("Topic");
   }
 
+  /** Show the topic scene to the user. */
+  public static void switchToHelpScene() {
+    changeScene("Help");
+  }
+
   /** Show the quiz scene to the user and transfer topic selection data. */
   public static void switchToQuizScene(String topic, Mode mode) {
     String fxml;

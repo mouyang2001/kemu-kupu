@@ -1,8 +1,10 @@
 package application;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
+import javafx.scene.media.AudioClip;
 
 import application.AttemptResult.Type;
 
@@ -177,6 +179,24 @@ public class QuizGame {
   }
 
   /**
+   * Helper method to show number of letters in word*
+   *
+   * @return letter spaces as string
+   */
+  public String showLetters() {
+    String word = getWord();
+    StringBuilder stringBuilder = new StringBuilder();
+    for (int i = 0; i < word.length(); i++) {
+      if (getHintLetterAtIndex(i).equals(" ")) {
+        stringBuilder.append(" ");
+      } else {
+        stringBuilder.append("-");
+      }
+    }
+    return stringBuilder.toString();
+  }
+
+  /**
    * Calculates the score taking into account time decay using linear model: y = c - mx.
    * 
    * @return 
@@ -200,5 +220,16 @@ public class QuizGame {
   
   public Statistics getStats() {
 	  return stats;
+  }
+
+  /**
+   * Plays in/correct sound
+   *
+   * @param fileName of sound to play
+   */
+  public void playSound(String fileName) {
+    File file = new File("./src/application/scene/assets/" + fileName + ".wav");
+    AudioClip sound = new AudioClip(file.toURI().toString());
+    sound.play();
   }
 }

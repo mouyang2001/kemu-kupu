@@ -83,3 +83,7 @@
     -fx-font-size: 50;
     -fx-font-family: Play;
 }
+
+#randomTopicCheck {
+    -fx-text-fill: #FFFFFF;
+}

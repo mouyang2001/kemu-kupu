@@ -25,4 +25,10 @@ public class Menu {
   private void quit() {
     SceneManager.closeWindow();
   }
+
+  /** Click handler for the quit button. */
+  @FXML
+  private void help() {
+    SceneManager.switchToHelpScene();
+  }
 }

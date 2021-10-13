@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
-import javafx.scene.text.Text;
 
 public class Stats {
   @FXML private Button back;
@@ -46,10 +45,10 @@ public class Stats {
     Label timeLabel = new Label("Time (s)");
     Label scoreLabel = new Label("Score");
 
-    table.add(wordLabel, 0, 0);
-    table.add(isCorrectLabel, 1, 0);
-    table.add(timeLabel, 2, 0);
-    table.add(scoreLabel, 3, 0);
+    table.add(wordLabel, 1, 0);
+    table.add(isCorrectLabel, 2, 0);
+    table.add(timeLabel, 3, 0);
+    table.add(scoreLabel, 4, 0);
 
     int lines = 2;
     
@@ -66,5 +65,6 @@ public class Stats {
       
       lines++;
     }
+    scanner.close();
   }
 }
