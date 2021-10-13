@@ -4,15 +4,16 @@ import java.net.URL;
 
 import javafx.scene.media.AudioClip;
 
+/** Plays sound effects in the background. */
 public enum Sound {
   Correct,
   Incorrect,
   Complete;
 	
   /**
-   * Plays in/correct sound
+   * Plays the sound effect.
    *
-   * @param fileName of sound to play
+   * @param sound The sound effect to play.
    */
   public static void play(Sound sound) {
 	String fileName = "assets/" + sound.toString().toLowerCase() + ".wav";

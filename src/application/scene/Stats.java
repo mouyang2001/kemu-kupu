@@ -9,10 +9,15 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 
+/**
+ * The stats screen with the results of the quiz.
+ */
 public class Stats {
   @FXML private Button back;
 
   @FXML private GridPane table;
+  
+  @FXML private Label scoreLabel;
 
   @FXML private Label numCorrectLabel;
 
@@ -20,32 +25,38 @@ public class Stats {
   
   private Statistics stats;
 
-  /** @param scoreVal Score at end of quiz. */
+  /**
+   * Initialise the screen with the stats.
+   * 
+   * @param stats The stats to show.
+   */
   public void initialise(Statistics stats) {
     this.stats = stats;
-	  
-    table();
-
-    numCorrectLabel.setText("You got " + stats.getNumCorrect() + " out of " + QuizGame.NUMBER_OF_ROUNDS + " correct");
-    avTime.setText("You took " + formatTime(stats.getTotalTime()) + " seconds");
+	
+    displayMessages();
+    loadTable();
   }
 
-  /** click handler to go back to finish screen */
+  /** Click handler to go back to finish screen. */
   @FXML
   private void back() {
     SceneManager.switchToFinishScene(stats, false);
   }
   
-  private String formatTime(float time) {
-	  return String.format("%.02f", time);
+  /**
+   * Display the score and overall statistics to the user.
+   */
+  private void displayMessages() {
+    scoreLabel.setText(String.valueOf(stats.getScore()));
+    numCorrectLabel.setText("You got " + stats.getNumCorrect() + " out of " + QuizGame.NUMBER_OF_ROUNDS + " correct");
+    avTime.setText("You took " + formatTime(stats.getTotalTime()) + " seconds");
   }
 
   /**
-   * function to populate tableview
-   *
-   * @throws FileNotFoundException
+   * Show the statistics of each question to the user.
    */
-  private void table() {
+  private void loadTable() {
+    // Add headers.
     Label wordLabel = new Label("Word");
     Label isCorrectLabel = new Label("Result");
     Label timeLabel = new Label("Time (s)");
@@ -56,6 +67,7 @@ public class Stats {
     table.add(timeLabel, 3, 0);
     table.add(scoreLabel, 4, 0);
 
+    // Add each statistic.
     int lines = 2;
     
     for (Statistic stat : stats.getStats()) {
@@ -71,5 +83,15 @@ public class Stats {
       
       lines++;
     }
+  }
+  
+  /**
+   * Format a time in seconds to 2 decimal places.
+   * 
+   * @param time The time to format.
+   * @return The formatted time.
+   */
+  private String formatTime(float time) {
+	  return String.format("%.02f", time);
   }
 }

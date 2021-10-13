@@ -1,5 +1,6 @@
 package application.scene;
 
+import application.QuizGame;
 import application.Statistics;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -22,7 +23,7 @@ public class Finish {
 
   @FXML private ImageView image;
 
-  private final double MAX_SCORE = 25.0;
+  private final double MAX_SCORE = QuizGame.MAX_SCORE * QuizGame.NUMBER_OF_ROUNDS;
 
   private Statistics statistics;
 
@@ -34,11 +35,10 @@ public class Finish {
   public void initialise(Statistics statistics, boolean playSound) {
     this.statistics = statistics;
     
-    score.setText(String.valueOf(statistics.getScore()));
-    setDynamicMessage();
+    setMessages();
     
     if (playSound) {
-    	playSound();    	
+    	Sound.play(Sound.Complete);
     }
   }
 
@@ -60,17 +60,14 @@ public class Finish {
     SceneManager.switchToMenuScene();
   }
 
-  /** Helper method to play celebration song on scene change */
-  public void playSound() {
-    Sound.play(Sound.Complete);
-  }
-
   /**
    * Helper method to adjust wellDone label message depending on score
    *
    * @param score Score to base the message off.
    */
-  public void setDynamicMessage() {
+  private void setMessages() {
+    score.setText(String.valueOf(statistics.getScore()));
+    
     double percentage = statistics.getScore() / MAX_SCORE;
     
     if (percentage < 0.8) {

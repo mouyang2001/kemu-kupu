@@ -24,64 +24,108 @@ public class QuizGame {
   
   Statistics stats = new Statistics();
   
-  private static final double HINT_REVEAL_PERCENTAGE = 0.3;
+  public static final double HINT_REVEAL_PERCENTAGE = 0.3;
 
   public static final int NUMBER_OF_ROUNDS = 5;  
   
   private int score = 0;
   
-  private static final int MAX_SCORE = 1000;
+  public static final int MAX_SCORE = 1000;
 
-  private static final int MIN_SCORE = 100;
+  public static final int MIN_SCORE = 100;
 
-  private static final int MAX_TIME = 10;
+  public static final int MAX_TIME = 10;
 
   /**
-   * QuizGame constructor. Calls Words class to retrieve words ArrayList and shuffles them.
+   * Creates a quiz game to quiz the user on their spelling.
    *
-   * @param topic filename of the specific topic file.
+   * @param topic Filename of the topic file.
    * @throws IOException If an I/O error occurred.
    */
   public QuizGame(String topic, Mode mode) throws IOException {
-    // read words from file then rearrange in random
-    // order
+    // Read and randomise the wordlist.
     words = Words.getWords(topic);
     Collections.shuffle(words);
     
     this.mode = mode;
   }
-
+  
   /**
-   * Getter method for current word.
+   * Get the mode of the quiz.
+   * 
+   * @return The mode of the quiz.
+   */
+  public Mode getMode() {
+	  return mode;
+  }
+  
+  /**
+   * Get the score for the quiz.
+   * 
+   * @return The score for the quiz.
+   */
+  public int getScore() {
+	  return score;
+  }
+  
+  /**
+   * If the quiz is finished.
+   * 
+   * @return If the quiz is finished.
+   */
+  public boolean isFinished() {
+	  return stats.getStats().size() == NUMBER_OF_ROUNDS;
+  }
+  
+  /**
+   * Get the statistics of the quiz.
+   * 
+   * @return The statistics for the quiz.
+   */
+  public Statistics getStats() {
+	  return stats;
+  }
+  
+  /**
+   * Gets the current word being quizzed.
    *
-   * @return current word being tested as string.
+   * @return The current word being quizzed.
    */
   public String getWord() {
     return words.get(index);
   }
-
-  /** Sets the state of the game to the next word. */
-  public void nextWord() {
-    index++;
-    index %= words.size();
-    
-    startTime = System.nanoTime();
-    firstAttempt = true;
-  }
-
+  
   /**
-   * Method gets the letter at specified index of the current word.
+   * Gets a letter from the current word being quizzed.
    *
-   * @param index integer position of letter.
-   * @return hint letter.
+   * @param index The index of the letter to get.
+   * @return The letter from the current word at the index.
    */
   public String getHintLetterAtIndex(int index) {
     return String.valueOf(getWord().charAt(index));
   }
+
+  /** Sets the state of the game to the next word. */
+  public void nextWord() {
+    // Move to the next word.
+    index++;
+    index %= words.size();
+    
+    // Reset attempt state.
+    startTime = System.nanoTime();
+    firstAttempt = true;
+  }
   
+  /**
+   * Submit the users attempt at spelling the current word.
+   * 
+   * @param spelling The spelling form the user.
+   * @return The result of the attempt.
+   */
   public AttemptResult submitAttempt(String spelling) {
 	  float time = calculateTime();
 	  
+	  // Determine if the user is correct or should re-attempt.
 	  AttemptResult.Type type;
 	  if (checkSpelling(spelling)) {
 		  type = AttemptResult.Type.Correct;
@@ -98,6 +142,7 @@ public class QuizGame {
 	  
 	  AttemptResult result = new AttemptResult(type, attemptScore, time);
 	  
+	  // Statistics are only required for games.
 	  if (mode == Mode.Game) {
 		  addStat(result);		  
 	  }
@@ -106,18 +151,22 @@ public class QuizGame {
   }
 
   /**
-   * Method checks spelling of input word.
+   * Compare the spelling to the current word.
    *
-   * @param spelling user inputted word.
-   * @return attempt result.
+   * @param spelling The spelling to compare to the current word.
+   * @return If the spelling is correct.
    */
   private boolean checkSpelling(String spelling) {
-    // Check spelling with current word, trimming
-    // white spaces on ends and ignoring case.
+    // Case in-sensitive compare without leading and trailing whitespace.
     return spelling.trim().equalsIgnoreCase(getWord());
   }
   
-  private void addStat(AttemptResult result, float time) {
+  /**
+   * Add a statistic to the game statistics.
+   * 
+   * @param result The result of the attempt.
+   */
+  private void addStat(AttemptResult result) {
 	  Statistic.Type type;
 	  switch (result.getType()) {
 	  case Correct:
@@ -133,8 +182,12 @@ public class QuizGame {
 	  stats.add(new Statistic(getWord(), type, result.getScore(), result.getTime()));
   }
   
+  /**
+   * Skips the current word.
+   */
   public void skip() {
 	  nextWord();
+
 	  stats.add(new Statistic(getWord(), Statistic.Type.Skipped, 0, calculateTime()));
   }
 
@@ -143,7 +196,7 @@ public class QuizGame {
    * NOTE it will show at least one letter by default because of the nature of randomness, we don't
    * want blanks.
    *
-   * @return hint as a string.
+   * @return Hint of the current word.
    */
   public String getHint() {
     StringBuilder hint = new StringBuilder();
@@ -164,10 +217,11 @@ public class QuizGame {
     return hint.toString();
   }
   
-  public Mode getMode() {
-	  return mode;
-  }
-  
+  /**
+   * Calculate the time since the current word was selected.
+   * 
+   * @return The elapsed time in seconds.
+   */
   private float calculateTime() {
 	  long timeElapsedNanoseconds = System.nanoTime() - startTime;
 	  
@@ -176,15 +230,15 @@ public class QuizGame {
   }
 
   /**
-   * Helper method to show number of letters in word*
+   * Get a blank version of the current word.
+   * Replaces letters with '-' and preserves spaces.
    *
-   * @return letter spaces as string
+   * @return The blanked version of the current word.
    */
-  public String showLetters() {
-    String word = getWord();
+  public String blankWord() {
     StringBuilder stringBuilder = new StringBuilder();
     
-    for (int i = 0; i < word.length(); i++) {
+    for (int i = 0; i < getWord().length(); i++) {
       if (getHintLetterAtIndex(i).equals(" ")) {
         stringBuilder.append(" ");
       } else {
@@ -196,32 +250,25 @@ public class QuizGame {
   }
 
   /**
-   * Calculates the score taking into account time decay using linear model: y = c - mx.
+   * Calculates the score of an attempt.
+   * Uses the linear time decay model: y = c - mx.
    * 
-   * @return 
+   * @param type The result type from the attempt.
+   * @param time The time in seconds the attempt took.
+   * @return The score for the attempt.
    */
   private int calculateScore(AttemptResult.Type type, float time) {
+	// Incorrect or re-attempted answers get no points.
 	if (type != AttemptResult.Type.Correct || !firstAttempt) {
 		return 0;
 	}
 	
+	// Only one point for correct answers in practice mode.
 	if (mode == Mode.Practice) {
 		return 1;
 	}
 	
 	int calScore = (int)(MAX_SCORE - (MAX_SCORE / MAX_TIME) * time);
 	return Math.max(MIN_SCORE, calScore);
-  }
-  
-  public int getScore() {
-	  return score;
-  }
-  
-  public boolean isFinished() {
-	  return stats.getStats().size() == NUMBER_OF_ROUNDS;
-  }
-  
-  public Statistics getStats() {
-	  return stats;
   }
 }

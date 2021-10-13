@@ -30,7 +30,7 @@ public class Topic {
   /** Called once the controller is loaded. */
   @FXML
   public void initialize() {
-    // Try populate ListView.
+    // Try to show topics to the user.
     try {
       topicListView.getItems().addAll(Words.getTopics());
     } catch (IOException e) {
@@ -50,7 +50,7 @@ public class Topic {
     randomTopicCheck
         .selectedProperty()
         .addListener(
-            (observableValue, aBoolean, t1) -> {
+            (a, b, c) -> {
               // Disable select from topic listView.
               topicListView.getSelectionModel().select(-1);
 
@@ -78,17 +78,27 @@ public class Topic {
     SceneManager.switchToMenuScene();
   }
   
+  /**
+   * Start a quiz in the given mode.
+   * 
+   * @param mode The mode to start the quiz in.
+   */
   private void start(Mode mode) {
 	List<String> topics = topicListView.getItems();
 	
 	// Randomly select topic if required.
-	String topic = (randomTopicCheck.isSelected())
+	String topic = randomTopicCheck.isSelected()
       ? topics.get(new Random().nextInt(topics.size()))
       : topicListView.getSelectionModel().getSelectedItem();
 	
 	SceneManager.switchToQuizScene(topic, mode);
   }
   
+  /**
+   * Get the selected topic from the list view.
+   * 
+   * @return The selected topic.
+   */
   private String getTopic() {
 	return topicListView.getSelectionModel().getSelectedItem();
   }

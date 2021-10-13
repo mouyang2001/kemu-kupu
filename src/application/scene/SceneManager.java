@@ -49,20 +49,20 @@ public class SceneManager {
 
   /** Show the quiz scene to the user and transfer topic selection data. */
   public static void switchToQuizScene(String topic, Mode mode) {
-	Quiz controller = changeScene("Quiz").getController();
-    controller.beginQuiz(topic, mode);
+	Quiz quiz = changeScene("Quiz").getController();
+    quiz.beginQuiz(topic, mode);
   }
 
   /** Show the finish scene to the user. */
   public static void switchToFinishScene(Statistics stats, boolean playSound) {
-    Finish controller = changeScene("Finish").getController();
-    controller.initialise(stats, playSound);
+    Finish finish = changeScene("Finish").getController();
+    finish.initialise(stats, playSound);
   }
 
   /** Show the stats scene to the user. */
-  public static void switchToStatsScene(Statistics stats) {
-    Stats controller = changeScene("Stats").getController();
-    controller.initialise(stats);
+  public static void switchToStatsScene(Statistics statistics) {
+    Stats stats = changeScene("Stats").getController();
+    stats.initialise(statistics);
   }
 
   /**

@@ -52,16 +52,17 @@ public class Quiz {
    * entry point to start the quiz game.
    *
    * @param topic The chosen topic, file name.
+   * @param mode The mode of the quiz to run.
    */
   public void beginQuiz(String topic, Mode mode) {
-    // Begin new QuizGame instance.
     try {
+      // Start the quiz controller.
       quiz = new QuizGame(topic, mode);
     } catch (IOException e) {
       SceneManager.alert("Could not load word list.");
     }
 
-    // Kick off the first word.
+    // Start the first word.
     nextWord();
   }
 
@@ -78,10 +79,11 @@ public class Quiz {
   }
 
   /**
-   * Click handler for menu button
+   * Click handler for the menu button.
    */
   @FXML
   private void menu() {
+	// Don't prompt for practices as nothing is saved.
 	if (quiz.getMode() == Mode.Practice) {
 		SceneManager.switchToMenuScene();
 		return;
@@ -157,11 +159,6 @@ public class Quiz {
     input.requestFocus();
     input.end();
   }
-  
-  @FXML
-  private void quit() {
-    SceneManager.switchToTopicScene();
-  }
 
   /** Method performs check spelling routine. */
   private void checkSpelling() {
@@ -204,27 +201,27 @@ public class Quiz {
     nextWord();
   }
   
-  /** Helper method to show the hint to the user. */
+  /** Show the hint to the user. */
   private void giveHint() {
     hint.setText(quiz.getWord().length() + " letters: " + quiz.getHint());
   }
 
-  /** Helper method to reveal the answer to the user. */
+  /** Reveal the answer to the user. */
   private void revealAnswer() {
     hint.setText("Answer: " + quiz.getWord());
     SingleDelayedTask.scheduleDelayedTask(() -> hint.setText(""));
   }
 
-  /** Helper method to increase score and update label. */
+  /** Update the score. */
   private void updateScore() {
     score.setText(String.valueOf(quiz.getScore()));
   }
 
   /**
-   * Helper method to set prompt message.
+   * Set the prompt message and hide after a delay.
    *
-   * @param message of what we want to set in prompt
-   * @param colour hex code of colour to set the message
+   * @param message The message to show to the user.
+   * @param colour Hex colour code of the text.
    */
   private void setPrompt(String message, String colour) {
     correct.setText(message);
@@ -234,58 +231,43 @@ public class Quiz {
   }
 
   /**
-   * Helper method to get text from input TextField and reset it.
+   * Helper method to get text from input text field and reset it.
    *
-   * @return text that player inputted into the TextField input.
+   * @return The contents of the text field.
    */
   private String fetchInput() {
     String text = input.getText();
+    
     input.clear();
     input.requestFocus();
+    
     return text;
   }
 
-  /** Helper method to jump to next word and reset UI elements. */
+  /** Quiz the next word in the wordlist. */
   private void nextWord() {
     if (quiz.isFinished()) {
       endGame();
       return;
     }
 
-    // Clear hint and reset focus to input.
-    input.clear();
-    input.requestFocus();
-
     quiz.nextWord();
-    
+
     // TODO: Remove.
     System.out.println(quiz.getWord());
 
     // Speak the word.
     sound();
-
-    showLetters.setText(quiz.showLetters());
+    
+    // Reset GUI.
+    input.clear();
+    input.requestFocus();
+    showLetters.setText(quiz.blankWord());
     hint.setText("");
   }
-
-  /**
-   * Helper method to Toggle buttons
-   *
-   * @param state boolean value on or off button.
-   */
-  public void disableButtons(Boolean state) {
-    macronButton.setDisable(state);
-    skip.setDisable(state);
-    sound.setDisable(state);
-    submit.setDisable(state);
-    menu.setDisable(state);
-    
-    input.setDisable(state);
-    input.requestFocus();
-  }
-
-  /** End of game subroutine. */
-  public void endGame() {
+  
+  /** End the game and show to finish screen. */
+  private void endGame() {
     // Automatically switch to finish after timeout.
     SingleDelayedTask.scheduleDelayedTask(() -> SceneManager.switchToFinishScene(quiz.getStats(), true));
 
@@ -300,5 +282,21 @@ public class Quiz {
     // Only allow the finish button.
     disableButtons(true);
     submit.setDisable(false);
+  }
+
+  /**
+   * Disable or enable all on screen buttons.
+   *
+   * @param state If the buttons should be disabled.
+   */
+  private void disableButtons(boolean state) {
+    macronButton.setDisable(state);
+    skip.setDisable(state);
+    sound.setDisable(state);
+    submit.setDisable(state);
+    menu.setDisable(state);
+    
+    input.setDisable(state);
+    input.requestFocus();
   }
 }
