@@ -6,6 +6,20 @@
 	-fx-font-size: 20;
 }
 
+.button:hover {
+	-fx-cursor: hand;
+}
+
+#sound {
+	-fx-background-color: transparent;
+}
+
+#macronButton {
+	-fx-background-color: transparent;
+	-fx-text-fill: #FFFFFF;
+	-fx-font-size: 30;
+}
+
 #score {
     -fx-text-fill: #7289DA;
     -fx-font-size: 50;

@@ -29,7 +29,7 @@
       </Label>
       <HBox alignment="CENTER" prefHeight="82.0" prefWidth="600.0" spacing="10.0">
          <children>
-            <Button fx:id="macronButton" mnemonicParsing="false" onAction="#macronise" prefHeight="45.0" prefWidth="45.0" text="Āā">
+            <Button fx:id="macronButton" mnemonicParsing="false" onAction="#macronise" text="Āā">
                <tooltip><Tooltip text="Add a macron to the last letter" /></tooltip>
             </Button>
             <StackPane prefHeight="150.0" prefWidth="200.0">

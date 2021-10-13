@@ -6,10 +6,18 @@
 	-fx-font-size: 20;
 }
 
+.button:hover {
+	-fx-cursor: hand;
+}
+
 .list-cell {
     -fx-text-fill: #cacbce;
     -fx-alignment: center;
     -fx-font-size: 24;
+}
+
+.list-cell:hover {
+	-fx-cursor: hand;
 }
 
 .list-cell:even {
