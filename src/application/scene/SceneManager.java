@@ -1,6 +1,9 @@
 package application.scene;
 
 import java.io.IOException;
+
+import application.QuizGame.Mode;
+import application.Statistics;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Parent;
@@ -40,27 +43,33 @@ public class SceneManager {
   }
 
   /** Show the quiz scene to the user and transfer topic selection data. */
-  public static void switchToQuizScene(String topic) {
-    Quiz controller = changeScene("Quiz").getController();
-    controller.beginQuiz(topic);
-  }
-
-  /** Show the practice scene to the user and transfer topic selection data. */
-  public static void switchToPracticeScene(String topic) {
-    Practice controller = changeScene("Practice").getController();
-    controller.beginPractice(topic);
+  public static void switchToQuizScene(String topic, Mode mode) {
+    String fxml;
+    switch (mode) {
+    case Game:
+    	fxml = "Quiz";
+    	break;
+    case Practice:
+    	fxml = "Practice";
+    	break;
+    default:
+    	throw new RuntimeException();
+    }
+    
+	Quiz controller = changeScene(fxml).getController();
+    controller.beginQuiz(topic, mode);
   }
 
   /** Show the finish scene to the user. */
-  public static void switchToFinishScene(int score) {
+  public static void switchToFinishScene(Statistics stats) {
     Finish controller = changeScene("Finish").getController();
-    controller.initialise(score);
+    controller.initialise(stats);
   }
 
   /** Show the stats scene to the user. */
-  public static void switchToStatsScene(int score) {
+  public static void switchToStatsScene(Statistics stats) {
     Stats controller = changeScene("Stats").getController();
-    controller.initialise(score);
+    controller.initialise(stats);
   }
 
   /**

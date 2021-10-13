@@ -1,13 +1,10 @@
 package application.scene;
 
-import application.BackgroundExecutor;
 import application.Festival;
 import application.QuizGame;
-import application.Statistics;
+import application.QuizGame.Mode;
+import application.SingleDelayedTask;
 import java.io.IOException;
-import java.time.Duration;
-import javafx.application.Platform;
-import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -23,6 +20,7 @@ public class Quiz {
 
   @FXML private TextField input;
 
+  // Game Only.
   @FXML private Label showLetters;
 
   @FXML private Button sound;
@@ -30,40 +28,21 @@ public class Quiz {
   @FXML private Button macronButton;
 
   @FXML private ImageView image;
+  
+  @FXML private Label hint;
 
   @FXML private Button skip;
 
   @FXML private Button submit;
+  
+  // Practice Only.
+  @FXML private Button quit;
 
   private QuizGame quiz;
 
-  private Statistics stats;
+  private static final String RED = "#E88787";
 
-  private int scoreVal = 0;
-
-  private int currentRound = 0;
-
-  private Task<Void> delayedTask;
-
-  private long timeStart;
-
-  private long timeEnd;
-
-  private float timeElapsed;
-
-  private final String RED = "#E88787";
-
-  private final String GREEN = "#9AF1A3";
-
-  private final int NUMBER_OF_ROUNDS = 5;
-
-  private final int DELAY = 2;
-
-  private final int MAX_SCORE = 1000;
-
-  private final int MIN_SCORE = 100;
-
-  private final int MAX_TIME = 10;
+  private static final String GREEN = "#9AF1A3";
 
   /**
    * Method allows SceneManager to access and transfer data topic selection data. Also it's the
@@ -71,12 +50,10 @@ public class Quiz {
    *
    * @param topic The chosen topic, file name.
    */
-  public void beginQuiz(String topic) {
+  public void beginQuiz(String topic, Mode mode) {
     // Begin new QuizGame instance.
     try {
-      quiz = new QuizGame(topic);
-      stats = new Statistics();
-      stats.makeFiles();
+      quiz = new QuizGame(topic, mode);
     } catch (IOException e) {
       SceneManager.alert("Could not load word list.");
     }
@@ -92,9 +69,7 @@ public class Quiz {
     input.setOnKeyReleased(
         e -> {
           if (e.getCode() == KeyCode.ENTER) {
-            timeEnd = System.nanoTime();
-            calculateTime();
-            checkSpelling();
+            submit();
           }
         });
   }
@@ -102,24 +77,21 @@ public class Quiz {
   /** Click handler for the submit button. */
   @FXML
   private void submit() {
-    timeEnd = System.nanoTime();
-    calculateTime();
     checkSpelling();
   }
 
   /** Click handler for the skip button. Tells quiz object to go to the next word. */
   @FXML
   private void skip() {
+	quiz.skip();
     setPrompt("Skipped", RED);
-    timeEnd = System.nanoTime();
-    calculateTime();
-    stats.setScore(-1);
     nextWord();
   }
 
   /** Click handler for the sound button. Gets festival to say the word. */
   @FXML
   private void sound() {
+	// Disable buttons while the word is spoken and re-enable after.
     disableButtons(true);
     Festival.speak(quiz.getWord(), () -> disableButtons(false));
   }
@@ -154,32 +126,63 @@ public class Quiz {
     input.requestFocus();
     input.end();
   }
+  
+  @FXML
+  private void quit() {
+    SceneManager.switchToTopicScene();
+  }
 
   /** Method performs check spelling routine. */
   private void checkSpelling() {
     // Retrieve input in text field.
     String spelling = fetchInput();
-
-    // Check spelling of word and proceed according to the case.
-    switch (quiz.checkSpelling(spelling)) {
-      case Correct:
-        increaseScore();
-        setPrompt("Correct!", GREEN);
-        nextWord();
-        break;
-
-      case Incorrect:
-        setPrompt("Incorrect, but good effort.", RED);
-        stats.setScore(0);
-        nextWord();
-        break;
+    
+    switch (quiz.submitAttempt(spelling).getType()) {
+	    case Correct:
+	    	increaseScore();
+	        setPrompt("Correct!", GREEN);
+	        nextWord();
+	    	return;
+	    case Reattempt:
+	    	setPrompt("Try once more", RED);
+	        giveHint();
+	    	return;
+	    case Incorrect:
+	    	break;
+    }
+    
+    switch (quiz.getMode()) {
+	    case Game:
+	    	setPrompt("Incorrect, but good effort.", RED);
+	    	break;
+	    case Practice:
+	        setPrompt("Incorrect", RED);
+	        revealAnswer();
+	        nextWord();
+	    	break;
     }
   }
+  
+  /** Helper method to show the hint to the user. */
+  private void giveHint() {
+    hint.setText(quiz.getWord().length() + " letters: " + quiz.getHint());
+  }
 
-  /** Helper method to show number of letters in word* */
+  /** Helper method to reveal the answer to the user. */
+  private void revealAnswer() {
+    hint.setText("Answer: " + quiz.getWord());
+    SingleDelayedTask.scheduleDelayedTask(() -> hint.setText(""));
+  }
+
+  /** Helper method to show number of letters in word */
   private void showLetters() {
+	if (quiz.getMode() == Mode.Practice) {
+		return;
+	}
+	  
     String word = quiz.getWord();
     StringBuilder stringBuilder = new StringBuilder();
+    
     for (int i = 0; i < word.length(); i++) {
       if (quiz.getHintLetterAtIndex(i).equals(" ")) {
         stringBuilder.append(" ");
@@ -187,15 +190,14 @@ public class Quiz {
         stringBuilder.append("-");
       }
     }
+    
     String promptLetters = stringBuilder.toString();
     showLetters.setText(promptLetters);
   }
 
   /** Helper method to increase score and update label. */
   private void increaseScore() {
-    scoreVal += quiz.calculateScore(MAX_SCORE, MIN_SCORE, MAX_TIME, timeElapsed);
-    score.setText(String.valueOf(scoreVal));
-    stats.setScore(scoreVal);
+    score.setText(String.valueOf(quiz.getScore()));
   }
 
   /**
@@ -208,14 +210,7 @@ public class Quiz {
     correct.setText(message);
     correct.setStyle("-fx-text-fill: " + colour);
 
-    delayTask(Duration.ofSeconds(DELAY), () -> correct.setText(""));
-  }
-
-  /** Helper method to calculate time taken to answer question */
-  private void calculateTime() {
-    long timeElapsedNanoseconds = timeEnd - timeStart;
-    stats.setTime(timeElapsedNanoseconds);
-    timeElapsed = (float) timeElapsedNanoseconds / 1000000000;
+    SingleDelayedTask.scheduleDelayedTask(() -> correct.setText(""));
   }
 
   /**
@@ -232,23 +227,10 @@ public class Quiz {
 
   /** Helper method to jump to next word and reset UI elements. */
   private void nextWord() {
-    disableButtons(true);
-    if (currentRound != 0) {
-      try {
-        stats.append();
-      } catch (IOException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
-      }
-    }
-    // If NUMBER_OF_ROUNDS reached then switch to finish.
-    if (currentRound == NUMBER_OF_ROUNDS) {
+    if (quiz.isFinished()) {
       endGame();
       return;
     }
-
-    // Increase current round count.
-    currentRound++;
 
     // Clear hint and reset focus to input.
     input.requestFocus();
@@ -256,13 +238,13 @@ public class Quiz {
     // Get next word.
     quiz.nextWord();
 
-    // System.out.println(quiz.getWord());
+    // Speak the word.
+    sound();
 
-    // After festival says the word, enable the buttons again.
-    Festival.speak(quiz.getWord(), () -> disableButtons(false));
-    showLetters();
-    stats.setWord(quiz.getWord());
-    timeStart = System.nanoTime();
+    // Show hint if in a game.
+    if (quiz.getMode() == Mode.Game) {
+	  showLetters();
+    }
   }
 
   /**
@@ -274,58 +256,31 @@ public class Quiz {
     skip.setDisable(state);
     submit.setDisable(state);
     sound.setDisable(state);
+    macronButton.setDisable(state);
+    
     input.setDisable(state);
     input.requestFocus();
+    
+    if (quiz.getMode() == Mode.Practice) {
+    	quit.setDisable(state);    	
+    }
   }
 
   /** End of game subroutine. */
   public void endGame() {
     // Automatically switch to finish after timeout.
-    delayTask(Duration.ofSeconds(DELAY), () -> SceneManager.switchToFinishScene(scoreVal));
+    SingleDelayedTask.scheduleDelayedTask(() -> SceneManager.switchToFinishScene(quiz.getStats()));
 
     // Allow the user to click to finish before the timeout.
     submit.setText("Finish");
     submit.setOnAction(
         e -> {
-          delayedTask.cancel();
-          SceneManager.switchToFinishScene(scoreVal);
+          SingleDelayedTask.cancel();
+          SceneManager.switchToFinishScene(quiz.getStats());
         });
 
     // Only allow the finish button.
+    disableButtons(true);
     submit.setDisable(false);
-    sound.setDisable(true);
-    skip.setDisable(true);
-    input.setDisable(true);
-  }
-
-  /**
-   * Runs a task after the specified delay. Only one task will be in-flight, prioritising newer
-   * tasks.
-   *
-   * @param duration The duration to delay by.
-   * @param task The task to run after the delay.
-   */
-  private void delayTask(Duration duration, Runnable task) {
-    // Cancel the in-flight task.
-    if (delayedTask != null && !delayedTask.isDone()) {
-      delayedTask.cancel();
-    }
-
-    // Create the new task.
-    delayedTask =
-        new Task<Void>() {
-          @Override
-          protected Void call() {
-            if (!isCancelled()) {
-              // Run on the GUI thread.
-              Platform.runLater(task);
-            }
-
-            return null;
-          }
-        };
-
-    // Schedule the task for execution.
-    BackgroundExecutor.executeDelayed(duration, delayedTask);
   }
 }

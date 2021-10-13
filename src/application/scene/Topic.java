@@ -1,5 +1,6 @@
 package application.scene;
 
+import application.QuizGame.Mode;
 import application.Words;
 import java.io.IOException;
 import javafx.fxml.FXML;
@@ -34,26 +35,35 @@ public class Topic {
     topicListView.addEventHandler(
         MouseEvent.MOUSE_PRESSED,
         e -> {
-          start.setDisable(topicListView.getSelectionModel().getSelectedItem() == null);
-          practice.setDisable(topicListView.getSelectionModel().getSelectedItem() == null);
+          boolean disabled = getTopic() == null;
+          start.setDisable(disabled);
+          practice.setDisable(disabled);
         });
   }
 
   /** Click handler for the start quiz button. */
   @FXML
   private void startQuiz() {
-    SceneManager.switchToQuizScene(topicListView.getSelectionModel().getSelectedItem());
+    start(Mode.Game);
   }
 
+  /** Click handler for the start practice quiz button. */
   @FXML
   private void startPractice() {
-    SceneManager.switchToPracticeScene(topicListView.getSelectionModel().getSelectedItem());
+    start(Mode.Practice);
   }
-  ;
-
+  
   /** Click handler for backing out of topic selection to main menu again. */
   @FXML
   private void leaveQuiz() {
     SceneManager.switchToMenuScene();
+  }
+  
+  private void start(Mode mode) {
+	SceneManager.switchToQuizScene(getTopic(), mode);
+  }
+  
+  private String getTopic() {
+	return topicListView.getSelectionModel().getSelectedItem();
   }
 }

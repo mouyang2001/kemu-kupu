@@ -1,5 +1,6 @@
 package application.scene;
 
+import application.Statistics;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -18,17 +19,17 @@ public class Finish {
 
   private final double MAX_SCORE = 25.0;
 
-  private int scoreValue;
+  private Statistics stats;
 
   /**
    * Shows current score and sets feedback message.
    *
    * @param scoreVal Score at end of quiz.
    */
-  public void initialise(int scoreVal) {
-    scoreValue = scoreVal;
-    setDynamicMessage(scoreVal);
-    score.setText(String.valueOf(scoreVal));
+  public void initialise(Statistics stats) {
+    this.stats = stats;
+    score.setText(String.valueOf(stats.getScore()));
+    setDynamicMessage();
   }
 
   /** Click handler for the new quiz button. */
@@ -40,7 +41,7 @@ public class Finish {
   /** Click handler for the stats button. */
   @FXML
   private void showStats() {
-    SceneManager.switchToStatsScene(scoreValue);
+    SceneManager.switchToStatsScene(stats);
   }
 
   /** Click handler for the quit button. */
@@ -54,9 +55,11 @@ public class Finish {
    *
    * @param score Score to base the message off.
    */
-  public void setDynamicMessage(int score) {
-    double percentage = score / MAX_SCORE;
+  public void setDynamicMessage() {
     wellDone.setStyle("-fx-text-fill: " + "#9AF1A3");
+   
+    double percentage = stats.getScore() / MAX_SCORE;
+    
     if (percentage < 0.8) {
       wellDone.setText("Kia Kaha, keep learning!");
     } else {

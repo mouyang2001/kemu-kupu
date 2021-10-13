@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="16.0" stylesheets="@../css/Practice.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.scene.Practice">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="16.0" stylesheets="@../css/Practice.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.scene.Quiz">
     <children>
       <HBox alignment="CENTER" prefWidth="200.0" spacing="150.0">
          <children>
@@ -46,7 +46,7 @@
         <Label fx:id="hint" layoutX="126.0" layoutY="235.0" />
         <HBox alignment="CENTER" prefWidth="200.0" spacing="20.0">
             <children>
-            <Button fx:id="quit" mnemonicParsing="false" onAction="#quit" prefHeight="70.0" prefWidth="200.0" text="Quit" />
+                <Button fx:id="quit" mnemonicParsing="false" onAction="#quit" prefHeight="70.0" prefWidth="200.0" text="Quit" />
                 <Button fx:id="skip" mnemonicParsing="false" onAction="#skip" prefHeight="70.0" prefWidth="200.0" text="Don't know">
                     <HBox.margin>
                         <Insets />
