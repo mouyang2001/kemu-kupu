@@ -16,7 +16,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 
 public class Practice {
-	
+
   @FXML private Label score;
 
   @FXML private Label correct;
@@ -38,21 +38,18 @@ public class Practice {
   @FXML private Button submit;
 
   @FXML private Button quit;
-  
 
   private QuizGame quiz;
 
   private Statistics stats;
-  
+
   private Task<Void> delayedTask;
-  
-  
+
   private int scoreVal = 0;
 
   private int currentRound = 0;
 
   private Boolean firstAttempt = true;
-  
 
   private final String RED = "#E88787";
 
@@ -61,8 +58,6 @@ public class Practice {
   private final double HINT_REVEAL_PERCENTAGE = 0.3;
 
   private final int DELAY = 2;
-
-
 
   /**
    * Method allows SceneManager to access and transfer data topic selection data. Also it's the
