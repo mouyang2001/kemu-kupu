@@ -7,6 +7,7 @@ import application.QuizGame.Mode;
 import application.SingleDelayedTask;
 
 import java.io.IOException;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -16,6 +17,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 /** Quiz screen that quizzes the users spelling. */
 public class Quiz {
@@ -24,8 +26,6 @@ public class Quiz {
   @FXML private Label correct;
 
   @FXML private TextField input;
-
-  @FXML private Label showLetters;
 
   @FXML private Button sound;
 
@@ -61,21 +61,9 @@ public class Quiz {
     } catch (IOException e) {
       SceneManager.alert("Could not load word list.");
     }
-
+    
     // Start the first word.
     nextWord();
-  }
-
-  /** Scene initializer, for setting unique listener events on elements. */
-  @FXML
-  public void initialize() {
-    // Input TextField will listen to enter button pressed event.
-    input.setOnKeyReleased(
-        e -> {
-          if (e.getCode() == KeyCode.ENTER) {
-            submit();
-          }
-        });
   }
 
   /**
@@ -108,6 +96,14 @@ public class Quiz {
   @FXML
   private void submit() {
     checkSpelling();
+  }
+  
+  /** Key handler for the input text field. */
+  @FXML
+  private void inputKeyPressed(KeyEvent e) {
+	if (e.getCode() == KeyCode.ENTER) {
+      submit();
+    }
   }
 
   /** Click handler for the skip button. Tells quiz object to go to the next word. */
@@ -262,8 +258,8 @@ public class Quiz {
     // Reset GUI.
     input.clear();
     input.requestFocus();
-    showLetters.setText(quiz.blankWord());
-    hint.setText("");
+    
+    hint.setText(quiz.getWord().length() + " letters");
   }
   
   /** End the game and show to finish screen. */
@@ -295,7 +291,7 @@ public class Quiz {
     sound.setDisable(state);
     submit.setDisable(state);
     menu.setDisable(state);
-    
+
     input.setDisable(state);
     input.requestFocus();
   }

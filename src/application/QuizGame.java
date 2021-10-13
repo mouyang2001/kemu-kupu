@@ -230,26 +230,6 @@ public class QuizGame {
   }
 
   /**
-   * Get a blank version of the current word.
-   * Replaces letters with '-' and preserves spaces.
-   *
-   * @return The blanked version of the current word.
-   */
-  public String blankWord() {
-    StringBuilder stringBuilder = new StringBuilder();
-    
-    for (int i = 0; i < getWord().length(); i++) {
-      if (getHintLetterAtIndex(i).equals(" ")) {
-        stringBuilder.append(" ");
-      } else {
-        stringBuilder.append("-");
-      }
-    }
-    
-    return stringBuilder.toString();
-  }
-
-  /**
    * Calculates the score of an attempt.
    * Uses the linear time decay model: y = c - mx.
    * 

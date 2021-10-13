@@ -68,6 +68,7 @@
 
 #input {
 	-fx-font-size: 30;
+	-fx-background-color: #CCCCCC;
 }
 
 #showLetters {
