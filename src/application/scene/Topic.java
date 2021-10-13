@@ -65,15 +65,15 @@ public class Topic {
               practice.setDisable(!randomTopicCheck.isSelected());
             });
   }
-  
+
   private void buttonSetUp() {
-	  Tooltip quiz = new Tooltip("pātaitai | test your knowledge");
-	  quiz.setStyle("-fx-font-size: 20");
-	  start.setTooltip(quiz);
-	  
-	  Tooltip practise = new Tooltip("whakaharatau | practise your spelling");
-	  practise.setStyle("-fx-font-size: 20");
-	  practice.setTooltip(practise);
+    Tooltip quiz = new Tooltip("pātaitai | test your knowledge");
+    quiz.setStyle("-fx-font-size: 20");
+    start.setTooltip(quiz);
+
+    Tooltip practise = new Tooltip("whakaharatau | practise your spelling");
+    practise.setStyle("-fx-font-size: 20");
+    practice.setTooltip(practise);
   }
 
   /** Click handler for the start quiz button. */
