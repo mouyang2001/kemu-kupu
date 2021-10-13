@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
 
 /** Topic selection screen for the user to choose which word list to quiz. */
@@ -34,6 +35,7 @@ public class Topic {
     try {
       topics = Words.getTopics();
       topicListView.getItems().addAll(topics);
+      buttonSetUp();
     } catch (IOException e) {
       SceneManager.alert("Could not load topics.");
     }
@@ -62,6 +64,16 @@ public class Topic {
               start.setDisable(!randomTopicCheck.isSelected());
               practice.setDisable(!randomTopicCheck.isSelected());
             });
+  }
+  
+  private void buttonSetUp() {
+	  Tooltip quiz = new Tooltip("pātaitai | test your knowledge");
+	  quiz.setStyle("-fx-font-size: 20");
+	  start.setTooltip(quiz);
+	  
+	  Tooltip practise = new Tooltip("whakaharatau | practise your spelling");
+	  practise.setStyle("-fx-font-size: 20");
+	  practice.setTooltip(practise);
   }
 
   /** Click handler for the start quiz button. */

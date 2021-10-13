@@ -6,12 +6,19 @@ import application.QuizGame;
 import application.Statistics;
 import java.io.IOException;
 import java.time.Duration;
+import java.util.Optional;
+
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 
@@ -30,10 +37,14 @@ public class Quiz {
   @FXML private Button macronButton;
 
   @FXML private ImageView image;
+  
+  @FXML private ImageView back_image;
 
   @FXML private Button skip;
 
   @FXML private Button submit;
+  
+  @FXML private Button back;
 
   private QuizGame quiz;
 
@@ -77,6 +88,7 @@ public class Quiz {
       quiz = new QuizGame(topic);
       stats = new Statistics();
       stats.makeFiles();
+      buttonSetUp();
     } catch (IOException e) {
       SceneManager.alert("Could not load word list.");
     }
@@ -97,6 +109,36 @@ public class Quiz {
             checkSpelling();
           }
         });
+  }
+  
+  /** Tooltip setup **/
+  private void buttonSetUp() {
+	  Tooltip macron = new Tooltip("Click here to add a macron onto the last letter you typed");
+	  macron.setStyle("-fx-font-size: 20");
+	  macronButton.setTooltip(macron);
+  }
+  
+  /**
+   * Click handler for back button
+   * 
+   * Popup code inspired by https://code.makery.ch/blog/javafx-dialogs-official/
+   */
+  @FXML
+  private void back() {
+	  Alert alert = new Alert(AlertType.CONFIRMATION);
+	  alert.setTitle(" ");
+	  alert.setHeaderText("Are you sure you want to leave the quiz?");
+	  alert.setContentText("You will lose all your hard word :(");
+
+	  Optional<ButtonType> result = alert.showAndWait();
+	  if (result.get() == ButtonType.OK){
+	      //quit and return to menu
+		  SceneManager.switchToMenuScene();
+	  } else {
+		  //continue with quiz
+		  alert.close();
+		  input.requestFocus();
+	  }
   }
 
   /** Click handler for the submit button. */
@@ -263,6 +305,7 @@ public class Quiz {
     submit.setDisable(state);
     sound.setDisable(state);
     input.setDisable(state);
+    back.setDisable(state);
     input.requestFocus();
   }
 

@@ -56,5 +56,18 @@
 	-fx-font-size: 40;
 }
 
+#back {
+    -fx-background-color: #f04747;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 30;
+    -fx-font-family: Play;
+}
 
+#back:hover {
+    -fx-background-color: #c93e3e;
+}
+
+#back:pressed {
+    -fx-background-color: #a03131;
+}
 
