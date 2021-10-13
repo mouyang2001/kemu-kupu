@@ -1,120 +1,72 @@
 package application;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import application.Statistic.Type;
+import java.util.ArrayList;
+import java.util.List;
 
-/** Stats from single spelling quiz * */
+/** Statistics from single spelling quiz * */
 public class Statistics {
+  private List<Statistic> stats = new ArrayList<>();
 
-  private int score;
-
-  private float time;
-
-  private String word;
-
-  private String type;
-
-  private File statsFile;
+  private int score = 0;
 
   /**
-   * set word currently being tested
+   * Add a statistic to the statistics.
    *
-   * @param word
+   * @param stat The statistic to add.
    */
-  public void setWord(String word) {
-    this.word = word;
+  public void add(Statistic stat) {
+    stats.add(stat);
+    score += stat.getScore();
   }
 
   /**
-   * set score of word just tested
+   * Get all the stored statistics.
    *
-   * @param score
+   * @return The stored statistics.
    */
-  public void setScore(int score) {
-    this.score = score;
-    setType();
+  public List<Statistic> getStats() {
+    return stats;
   }
 
   /**
-   * set time taken to answer word just tested
+   * Get the total score from all attempts.
    *
-   * @param time
+   * @return The total score.
    */
-  public void setTime(float time) {
-    this.time = time;
-  }
-
-  /** helper method to identify if word was correct, incorrect or skipped */
-  public void setType() {
-    if (score < 0) {
-      type = "Skipped";
-    } else if (score == 0) {
-      type = "Incorrect";
-    } else {
-      type = "Correct";
-    }
-  }
-
-  /** creates files used to store stats */
-  public void makeFiles() {
-    bash("mkdir -p .stats");
-    bash("rm ./.stats/.words.txt");
-    bash("touch .stats/.words.txt");
-    statsFile = new File("./.stats/.words.txt");
+  public int getScore() {
+    return score;
   }
 
   /**
-   * helper function for executing bash commands
+   * Get the number of correct attempts.
    *
-   * @param command to execute
+   * @return The number of correct attempts.
    */
-  public void bash(String command) {
-    try {
-      ProcessBuilder builder = new ProcessBuilder("bash", "-c", command);
-      Process process = builder.start();
+  public int getNumCorrect() {
+    int correct = 0;
 
-      BufferedReader stdout = new BufferedReader(new InputStreamReader(process.getInputStream()));
-      BufferedReader stderr = new BufferedReader(new InputStreamReader(process.getErrorStream()));
-
-      int exitStatus = process.waitFor();
-
-      if (exitStatus == 0) {
-        String line;
-        while ((line = stdout.readLine()) != null) {
-          System.out.println(line);
-        }
-      } else {
-        String line;
-        while ((line = stderr.readLine()) != null) {
-          System.err.println(line);
-        }
+    for (Statistic stat : stats) {
+      if (stat.getType() == Type.Correct) {
+        correct++;
       }
-    } catch (Exception e) {
-      e.printStackTrace();
     }
+
+    return correct;
   }
 
   /**
-   * Append a word to a statistic file.
+   * Get the total time of all attempts.
    *
-   * @param file The file to add the word to.
-   * @param word The word to add into the file.
-   * @throws IOException If an I/O error occurs.
+   * @return The total time.
    */
-  public void append() throws IOException {
-    FileWriter fw = new FileWriter(statsFile, true);
-    BufferedWriter bw = new BufferedWriter(fw);
+  public float getTotalTime() {
+    float time = 0;
 
-    // Write the word to its own line.
-    bw.write(word + System.lineSeparator());
-    bw.write(type + System.lineSeparator());
-    bw.write(String.valueOf(time) + System.lineSeparator());
-    bw.write(String.valueOf(score) + System.lineSeparator());
+    for (Statistic stat : stats) {
+      time += stat.getTime();
+    }
 
-    bw.close();
+    return time;
   }
 }

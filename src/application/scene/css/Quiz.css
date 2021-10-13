@@ -2,6 +2,24 @@
     -fx-background-color: #1E2124;
 }
 
+.tooltip {
+	-fx-font-size: 20;
+}
+
+.button:hover {
+	-fx-cursor: hand;
+}
+
+#sound {
+	-fx-background-color: transparent;
+}
+
+#macronButton {
+	-fx-background-color: transparent;
+	-fx-text-fill: #FFFFFF;
+	-fx-font-size: 30;
+}
+
 #score {
     -fx-text-fill: #7289DA;
     -fx-font-size: 50;
@@ -50,24 +68,25 @@
 
 #input {
 	-fx-font-size: 30;
+	-fx-background-color: #CCCCCC;
 }
 
 #showLetters {
 	-fx-font-size: 40;
 }
 
-#back {
+#menu {
     -fx-background-color: #f04747;
     -fx-text-fill: #FFFFFF;
     -fx-font-size: 30;
     -fx-font-family: Play;
 }
 
-#back:hover {
+#menu:hover {
     -fx-background-color: #c93e3e;
 }
 
-#back:pressed {
+#menu:pressed {
     -fx-background-color: #a03131;
 }
 

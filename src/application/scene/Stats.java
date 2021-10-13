@@ -1,61 +1,57 @@
 package application.scene;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.text.DecimalFormat;
-import java.util.Scanner;
+import application.QuizGame;
+import application.Statistic;
+import application.Statistics;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Text;
 
+/** The stats screen with the results of the quiz. */
 public class Stats {
-
   @FXML private Button back;
 
   @FXML private GridPane table;
+
+  @FXML private Label scoreLabel;
 
   @FXML private Label numCorrectLabel;
 
   @FXML private Label avTime;
 
-  @FXML private Label scoreLabel;
-
-  private int score;
-
-  private int numCorrect;
-
-  private double timeTotal;
-
-  /** @param scoreVal Score at end of quiz. */
-  public void initialise(int scoreVal) {
-    numCorrect = 0;
-    timeTotal = 0.0;
-    score = scoreVal;
-    try {
-      table();
-    } catch (FileNotFoundException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
-    DecimalFormat df = new DecimalFormat("#.##");
-    scoreLabel.setText(String.valueOf(score));
-    numCorrectLabel.setText("You got " + numCorrect + " out of 5 correct");
-    avTime.setText("You took " + df.format(timeTotal) + " seconds");
-  }
-
-  /** click handler to go back to finish screen */
-  @FXML
-  private void back() {
-    SceneManager.switchToFinishScene(score);
-  }
+  private Statistics stats;
 
   /**
-   * function to populate tableview
+   * Initialise the screen with the stats.
    *
-   * @throws FileNotFoundException
+   * @param stats The stats to show.
    */
-  private void table() throws FileNotFoundException {
+  public void initialise(Statistics stats) {
+    this.stats = stats;
+
+    displayMessages();
+    loadTable();
+  }
+
+  /** Click handler to go back to finish screen. */
+  @FXML
+  private void back() {
+    SceneManager.switchToFinishScene(stats, false);
+  }
+
+  /** Display the score and overall statistics to the user. */
+  private void displayMessages() {
+    scoreLabel.setText(String.valueOf(stats.getScore()));
+    numCorrectLabel.setText(
+        "You got " + stats.getNumCorrect() + " out of " + QuizGame.NUMBER_OF_ROUNDS + " correct");
+    avTime.setText("You took " + formatTime(stats.getTotalTime()) + " seconds");
+  }
+
+  /** Show the statistics of each question to the user. */
+  private void loadTable() {
+    // Add headers.
     Label wordLabel = new Label("Word");
     Label isCorrectLabel = new Label("Result");
     Label timeLabel = new Label("Time (s)");
@@ -66,28 +62,31 @@ public class Stats {
     table.add(timeLabel, 3, 0);
     table.add(scoreLabel, 4, 0);
 
-    File statsFile = new File("./.stats/.words.txt");
-    Scanner scanner = new Scanner(statsFile);
-    int lines = 1;
+    // Add each statistic.
+    int lines = 2;
 
-    while (scanner.hasNext()) {
-      lines++;
-      Label word = new Label(scanner.next());
-      String typeString = scanner.next();
-      if (typeString.equals("Correct")) {
-        numCorrect++;
-      }
-      Label type = new Label(typeString);
-      String timeString = scanner.next();
-      Label time = new Label(timeString);
-      timeTotal += Float.parseFloat(timeString);
-      Label score = new Label(scanner.next());
+    for (Statistic stat : stats.getStats()) {
+      Text word = new Text(stat.getWord());
+      Text result = new Text(stat.getType().toString());
+      Text time = new Text(formatTime(stat.getTime()));
+      Text score = new Text(String.valueOf(stat.getScore()));
 
       table.add(word, 1, lines);
-      table.add(type, 2, lines);
+      table.add(result, 2, lines);
       table.add(time, 3, lines);
       table.add(score, 4, lines);
+
+      lines++;
     }
-    scanner.close();
+  }
+
+  /**
+   * Format a time in seconds to 2 decimal places.
+   *
+   * @param time The time to format.
+   * @return The formatted time.
+   */
+  private String formatTime(float time) {
+    return String.format("%.02f", time);
   }
 }

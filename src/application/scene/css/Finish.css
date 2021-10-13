@@ -2,8 +2,12 @@
     -fx-background-color: #1E2124;
 }
 
+.button:hover {
+	-fx-cursor: hand;
+}
+
 #wellDone {
-    -fx-text-fill: #FFFFFF;
+    -fx-text-fill: #9AF1A3;
     -fx-font-size: 60;
     -fx-font-family: Verdana;
 }
@@ -48,17 +52,17 @@
 	-fx-background-color : #475B9F;
 }
 
-#quit {
-	-fx-background-color: #595959;
-	-fx-text-fill: #FFFFFF;
+#menu {
+    -fx-background-color: #f04747;
+    -fx-text-fill: #FFFFFF;
     -fx-font-size: 30;
     -fx-font-family: Play;
 }
 
-#quit:hover {
-	-fx-background-color : #4A4A4A;
+#menu:hover {
+    -fx-background-color: #c93e3e;
 }
 
-#quit:pressed {
-	-fx-background-color : #3B3B3C;
+#menu:pressed {
+    -fx-background-color: #a03131;
 }
