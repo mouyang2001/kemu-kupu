@@ -1,11 +1,11 @@
 package application.scene;
 
-import java.io.File;
+import application.QuizGame;
+import application.Statistics;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.scene.media.AudioClip;
 
 /** Finish screen that shows the users score after the quiz. */
 public class Finish {
@@ -14,27 +14,32 @@ public class Finish {
   @FXML private Label scoreTitle;
 
   @FXML private Label score;
+  
+  @FXML private Button stats;
 
-  @FXML private Button quit;
+  @FXML private Button menu;
 
   @FXML private Button playAgain;
 
   @FXML private ImageView image;
 
-  private final double MAX_SCORE = 25.0;
+  private final double MAX_SCORE = QuizGame.MAX_SCORE * QuizGame.NUMBER_OF_ROUNDS;
 
-  private int scoreValue;
+  private Statistics statistics;
 
   /**
    * Shows current score and sets feedback message.
    *
    * @param scoreVal Score at end of quiz.
    */
-  public void initialise(int scoreVal) {
-    scoreValue = scoreVal;
-    setDynamicMessage(scoreVal);
-    score.setText(String.valueOf(scoreVal));
-    playSound();
+  public void initialise(Statistics statistics, boolean playSound) {
+    this.statistics = statistics;
+    
+    setMessages();
+    
+    if (playSound) {
+    	Sound.play(Sound.Complete);
+    }
   }
 
   /** Click handler for the new quiz button. */
@@ -46,20 +51,13 @@ public class Finish {
   /** Click handler for the stats button. */
   @FXML
   private void showStats() {
-    SceneManager.switchToStatsScene(scoreValue);
+    SceneManager.switchToStatsScene(statistics);
   }
 
-  /** Click handler for the quit button. */
+  /** Click handler for the menu button. */
   @FXML
-  private void quit() {
-    SceneManager.closeWindow();
-  }
-
-  /** Helper method to play celebration song on scene change */
-  public void playSound() {
-    File file = new File("./src/application/scene/assets/complete.wav");
-    AudioClip sound = new AudioClip(file.toURI().toString());
-    sound.play();
+  private void menu() {
+    SceneManager.switchToMenuScene();
   }
 
   /**
@@ -67,9 +65,11 @@ public class Finish {
    *
    * @param score Score to base the message off.
    */
-  public void setDynamicMessage(int score) {
-    double percentage = score / MAX_SCORE;
-    wellDone.setStyle("-fx-text-fill: " + "#9AF1A3");
+  private void setMessages() {
+    score.setText(String.valueOf(statistics.getScore()));
+    
+    double percentage = statistics.getScore() / MAX_SCORE;
+    
     if (percentage < 0.8) {
       wellDone.setText("Kia Kaha, keep learning!");
     } else {

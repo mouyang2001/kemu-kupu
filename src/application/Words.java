@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 /** Controls interactions with word/topic files in the words folder. */
 public class Words {
-  private static final Path wordsDir = Paths.get("words");
+  private static final Path WORDS_DIR = Paths.get("words");
 
   /**
    * Grabs string ArrayList of all the topics.
@@ -18,7 +18,7 @@ public class Words {
    * @throws IOException If topics files could not be found.
    */
   public static List<String> getTopics() throws IOException {
-    return Files.list(wordsDir)
+    return Files.list(WORDS_DIR)
         .map(Path::getFileName)
         .map(Path::toString)
         .collect(Collectors.toList());
@@ -32,6 +32,6 @@ public class Words {
    * @throws IOException If the topic file could not be loaded.
    */
   public static List<String> getWords(String topic) throws IOException {
-    return Files.lines(wordsDir.resolve(topic)).collect(Collectors.toList());
+    return Files.lines(WORDS_DIR.resolve(topic)).collect(Collectors.toList());
   }
 }

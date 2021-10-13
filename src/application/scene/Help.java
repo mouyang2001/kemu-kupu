@@ -1,33 +1,38 @@
 package application.scene;
 
-import java.io.*;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.stream.Collectors;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 
+/**
+ * Help screen with instructions on how to use the application.
+ */
 public class Help {
   @FXML public Label title;
 
   @FXML public TextArea instructions;
 
-  private final String ABS_PATH_TO_INSTRUCTIONS = "application/scene/assets/instructions.txt";
+  private static final String INSTRUCTIONS_FILE = "assets/instructions.txt";
 
   /**
    * Scene initializer. Populates scene components.
    *
-   * @throws IOException if no path to instructions text file exists.
+   * @throws IOException If the instructions file doesn't exist.
+   * @throws URISyntaxException If the instructions file doesn't exist.
    */
   @FXML
-  public void initialize() throws IOException {
-    // Each line in instructions text file.
-    InputStream in = getClass().getClassLoader().getResourceAsStream(ABS_PATH_TO_INSTRUCTIONS);
-    BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-    String line;
+  public void initialize() throws IOException, URISyntaxException {
+	Path path = Paths.get(getClass().getResource(INSTRUCTIONS_FILE).toURI());
+    String contents = Files.lines(path).collect(Collectors.joining("\n"));
 
-    // Output lines in instructions text file to the instructions textArea.
-    while ((line = reader.readLine()) != null) instructions.appendText(line + "\n");
-
-    // Setup instructions textArea.
+    instructions.setText(contents);
     instructions.setEditable(false);
     instructions.positionCaret(0);
   }

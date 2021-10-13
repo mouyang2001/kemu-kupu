@@ -2,6 +2,10 @@
     -fx-background-color: #1E2124;
 }
 
+.button:hover {
+	-fx-cursor: hand;
+}
+
 #title {
     -fx-text-fill: #FFFFFF;
     -fx-font-size: 80;
@@ -11,7 +15,7 @@
 #back {
 	-fx-background-color: #7289DA;
 	-fx-text-fill: #FFFFFF;
-    -fx-font-size: 50;
+    -fx-font-size: 30;
     -fx-font-family: Play;
 }
 
