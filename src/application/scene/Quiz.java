@@ -33,11 +33,11 @@ public class Quiz {
   @FXML private ImageView image;
 
   @FXML private Label hint;
-  
+
   @FXML private Label slow;
-  
+
   @FXML private Slider speed;
-  
+
   @FXML private Label fast;
 
   @FXML private Button menu;
@@ -66,9 +66,11 @@ public class Quiz {
     } catch (IOException e) {
       SceneManager.alert("Could not load word list.");
     }
-    
+
     // Register speed handler.
-    speed.valueProperty().addListener((observable, oldValue, newValue) -> Festival.setSpeed(newValue.floatValue()));
+    speed
+        .valueProperty()
+        .addListener((observable, oldValue, newValue) -> Festival.setSpeed(newValue.floatValue()));
 
     // Start the first word.
     nextWord();
