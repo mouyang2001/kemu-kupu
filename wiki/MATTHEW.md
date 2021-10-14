@@ -39,5 +39,7 @@ I improved breanna's implementation of time decay scoring. I did this by creatin
 ### Tue 12/10/2021
 Took inspiration from the peer reviews I did on the implementation of a "help" feature on how to use different features of the app. So I created a help button on the main menu which would lead you to a scene displaying the instructions explaining different features of Kemu Kupu. Since our target audience is 18-25 I could write instructions with more words suitable for someone in that age range.
 
+### Thu 14/10/2021
+Removed fxml verion specification in the fxml files so that it would remove console warning during runtime. I was tasked with remaking the macron buttons. I firstly used figma to create 2 concept drafts. Then I inquried with the team as to which design them preferred. Finalll I implemented the design according to the specifications and merged my branch in, closing the issue.
 
 
