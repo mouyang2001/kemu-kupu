@@ -34,13 +34,6 @@ public class LeaderboardControl {
 		}
 		winner = true;
 		check();
-		if (winner) {
-			try {
-				updateFile();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
 	}
 	/**
 	 * initialse with current highscores
@@ -69,18 +62,18 @@ public class LeaderboardControl {
 	private void check() {
 		if (score > first.getScore()) {
 			place = 1;
-			third = second;
-			second = first;
-			first = new Highscore("You", score);
+			third.setName(second.getName());
+			third.setScore(second.getScore());
+			second.setName(first.getName());
+			second.setScore(first.getScore());
 			player = first;
 		} else if (score > second.getScore()) {
 			place = 2;
-			third = second;
-			second = new Highscore("You", score);
+			third.setName(second.getName());
+			third.setScore(second.getScore());
 			player = second;
 		} else if (score > third.getScore()) {
 			place = 3;
-			third = new Highscore("You", score);
 			player = third;
 		} else {
 			place = 4;
@@ -97,6 +90,8 @@ public class LeaderboardControl {
 		bash("touch .stats/.leaderboard.txt");
 		FileWriter fw = new FileWriter(file, true);
 		BufferedWriter bw = new BufferedWriter(fw);
+		System.out.println(first.getName());
+		System.out.println(second.getName());
 		bw.write(first.getName() + System.lineSeparator());
 		bw.write(first.getScore() + System.lineSeparator());
 		bw.write(second.getName() + System.lineSeparator());
@@ -121,6 +116,12 @@ public class LeaderboardControl {
 	 */
 	public void setName(String name) {
 		player.setName(name);
+		player.setScore(score);
+		try {
+			updateFile();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**

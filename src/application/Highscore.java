@@ -37,4 +37,12 @@ public class Highscore {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	/**
+	 * setter method for score
+	 * @param score
+	 */
+	public void setScore(int score) {
+		this.score = score;
+	}
 }

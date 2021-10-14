@@ -29,18 +29,13 @@ public class Leaderboard {
 	 * initialse label and table
 	 * @param statistics
 	 */
-	public void initialise(Statistics statistics) {
+	public void initialise(Statistics statistics, LeaderboardControl leaderboard) {
 		this.stats = statistics;
 		score = statistics.getScore();
-		leaderboard = new LeaderboardControl(score);
+		this.leaderboard = leaderboard;
 		printLabel();
-		if (leaderboard.getPlace() > 4) {
-			try {
-				leaderboard.updateFile();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+
+		
 		try {
 			table();
 		} catch (FileNotFoundException e) {
