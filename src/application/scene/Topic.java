@@ -49,7 +49,7 @@ public class Topic {
     randomTopicCheck
         .selectedProperty()
         .addListener(
-            (a, b, c) -> {
+            (observable, oldValue, newValue) -> {
               // Disable select from topic listView.
               topicListView.getSelectionModel().select(-1);
 

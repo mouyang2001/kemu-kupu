@@ -12,6 +12,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -32,6 +33,12 @@ public class Quiz {
   @FXML private ImageView image;
 
   @FXML private Label hint;
+  
+  @FXML private Label slow;
+  
+  @FXML private Slider speed;
+  
+  @FXML private Label fast;
 
   @FXML private Button menu;
 
@@ -59,6 +66,9 @@ public class Quiz {
     } catch (IOException e) {
       SceneManager.alert("Could not load word list.");
     }
+    
+    // Register speed handler.
+    speed.valueProperty().addListener((observable, oldValue, newValue) -> Festival.setSpeed(newValue.floatValue()));
 
     // Start the first word.
     nextWord();
@@ -117,8 +127,8 @@ public class Quiz {
   @FXML
   private void sound() {
     // Disable buttons while the word is spoken and re-enable after.
-    disableButtons(true);
-    Festival.speak(quiz.getWord(), () -> disableButtons(false));
+    disableInputs(true);
+    Festival.speak(quiz.getWord(), () -> disableInputs(false));
   }
 
   /** Click handler for the macronise button. Converts the latest character to macron. */
@@ -273,21 +283,22 @@ public class Quiz {
         });
 
     // Only allow the finish button.
-    disableButtons(true);
+    disableInputs(true);
     submit.setDisable(false);
   }
 
   /**
-   * Disable or enable all on screen buttons.
+   * Disable or enable user inputs.
    *
-   * @param state If the buttons should be disabled.
+   * @param state If the inputs should be disabled.
    */
-  private void disableButtons(boolean state) {
+  private void disableInputs(boolean state) {
     macronButton.setDisable(state);
     skip.setDisable(state);
     sound.setDisable(state);
     submit.setDisable(state);
     menu.setDisable(state);
+    speed.setDisable(state);
 
     input.setDisable(state);
     input.requestFocus();
