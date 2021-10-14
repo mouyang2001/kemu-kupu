@@ -1,4 +1,4 @@
-# SOFTENG 206 Assignment 2
+# SOFTENG 206 Project
 
 ## Setup
 
