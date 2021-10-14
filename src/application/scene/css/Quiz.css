@@ -75,6 +75,29 @@
 	-fx-font-size: 40;
 }
 
+#slow {
+	-fx-font-size: 20;
+	-fx-text-fill: #FFFFFF;
+}
+
+#fast {
+	-fx-font-size: 20;
+	-fx-text-fill: #FFFFFF;
+}
+
+#speed {
+    -fx-control-inner-background: #FFFFFF;
+}
+
+#speed .thumb {
+    -fx-background-color: #7289DA;
+}
+
+#speed .thumb:hover {
+	-fx-background-color : #6076C4;
+	-fx-cursor: hand;
+}
+
 #menu {
     -fx-background-color: #f04747;
     -fx-text-fill: #FFFFFF;

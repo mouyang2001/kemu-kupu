@@ -7,6 +7,17 @@ import javafx.application.Platform;
 
 /** Controls the festival text to speech command. */
 public class Festival {
+  private static float duration = 1;
+  
+  /**
+   * Set the speed the text will be spoken to the user at.
+   * 
+   * @param speed The speed to speak the text at.
+   */
+  public static void setSpeed(float speed) {
+	duration = 1 / speed;
+  }
+	
   /**
    * Speaks text to the user in a background thread.
    *
@@ -55,8 +66,9 @@ public class Festival {
     PrintWriter stdin = new PrintWriter(process.getOutputStream());
 
     // Run festival commands.
-    stdin.print("(voice_akl_mi_pk06_cg)" + "(SayText \"" + text + "\")");
-
+    stdin.print("(voice_akl_mi_pk06_cg)");
+    stdin.print("(Parameter.set 'Duration_Stretch " + duration + ")");
+    stdin.print("(SayText \"" + text + "\")");
     stdin.close();
 
     process.waitFor();
