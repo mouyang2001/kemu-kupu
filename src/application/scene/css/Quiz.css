@@ -14,10 +14,16 @@
 	-fx-background-color: transparent;
 }
 
-#macronButton {
-	-fx-background-color: transparent;
-	-fx-text-fill: #FFFFFF;
-	-fx-font-size: 30;
+#hboxMacrons .button {
+    -fx-font-size: 25;
+    -fx-text-fill: #FFFFFF;
+    -fx-background-color: rgb(155, 132, 238);
+}
+
+#hboxMacrons .button:hover {
+    -fx-font-size: 25;
+    -fx-text-fill: #FFFFFF;
+    -fx-background-color: rgb(155, 132, 238, 0.7);
 }
 
 #score {

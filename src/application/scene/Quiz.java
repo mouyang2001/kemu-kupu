@@ -123,33 +123,22 @@ public class Quiz {
     Festival.speak(quiz.getWord(), () -> disableInputs(false));
   }
 
-  /** Click handler for the macronise button. Converts the latest character to macron. */
-  @FXML
-  private void macronise() {
-    // Grab input if empty just return.
-    String text = input.getText();
-    if (text.isEmpty()) {
-      return;
-    }
+  /** Click handlers for the macron vowel buttons. Inputs macron letter into input text field. */
+  @FXML private void macronA() { inputConcatenate("ā"); }
+  @FXML private void macronE() { inputConcatenate("ē"); }
+  @FXML private void macronI() { inputConcatenate("ī"); }
+  @FXML private void macronO() { inputConcatenate("ō"); }
+  @FXML private void macronU() { inputConcatenate("ū"); }
 
-    // Split input up into first substring and last letter, eg "welcome" -> "welcom" + "e".
-    String substring = text.substring(0, text.length() - 1);
-    char lastLetter = text.charAt(text.length() - 1);
+  /**
+   * Concatenates macron letter onto current input text.
+   * @param macronLetter String letter we want to concatenate onto the end.
+   */
+  private void inputConcatenate(String macronLetter) {
+    String currentText = input.getText();
+    input.setText(currentText + macronLetter);
 
-    // Vowels character arrays setup.
-    final String vowelsCharacters = "AEIOUaeiou";
-    final String macronVowels = "ĀĒĪŌŪāēīōū";
-
-    // Check if the last character is a vowel.
-    int index = vowelsCharacters.indexOf(lastLetter);
-    if (index == -1) {
-      return;
-    }
-
-    // Replace the last character with the macronised vowel.
-    input.setText(substring + macronVowels.charAt(index));
-
-    // Return cursor to the end of the text field.
+    // Return carat to the end of the text field.
     input.requestFocus();
     input.end();
   }
@@ -285,7 +274,6 @@ public class Quiz {
    * @param state If the inputs should be disabled.
    */
   private void disableInputs(boolean state) {
-    macronButton.setDisable(state);
     skip.setDisable(state);
     sound.setDisable(state);
     submit.setDisable(state);
