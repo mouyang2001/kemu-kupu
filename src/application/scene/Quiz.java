@@ -130,14 +130,34 @@ public class Quiz {
   }
 
   /** Click handlers for the macron vowel buttons. Inputs macron letter into input text field. */
-  @FXML private void macronA() { inputConcatenate("ā"); }
-  @FXML private void macronE() { inputConcatenate("ē"); }
-  @FXML private void macronI() { inputConcatenate("ī"); }
-  @FXML private void macronO() { inputConcatenate("ō"); }
-  @FXML private void macronU() { inputConcatenate("ū"); }
+  @FXML
+  private void macronA() {
+    inputConcatenate("ā");
+  }
+
+  @FXML
+  private void macronE() {
+    inputConcatenate("ē");
+  }
+
+  @FXML
+  private void macronI() {
+    inputConcatenate("ī");
+  }
+
+  @FXML
+  private void macronO() {
+    inputConcatenate("ō");
+  }
+
+  @FXML
+  private void macronU() {
+    inputConcatenate("ū");
+  }
 
   /**
    * Concatenates macron letter onto current input text.
+   *
    * @param macronLetter String letter we want to concatenate onto the end.
    */
   private void inputConcatenate(String macronLetter) {
