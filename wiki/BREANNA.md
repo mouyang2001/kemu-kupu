@@ -39,3 +39,9 @@ Matthew improved the time based scoring using a linear decay function. I complet
 
 Tuesday 12/10
 I added the show letters functionality to the practise module, and created a new word list that contains all words. I then found copyright free audio clips and added them to the app for getting questions correct, incorrect and finishing the quiz.
+
+Wednesday 13/10
+Responding to some peer feedback we recieved from assignment 4, I added a menu button in the quit that would exit you out of the current quiz. I also added tooltips to better explain the function of some buttons. 
+
+Thursday 14/10
+I implemented a leaderboard functionality. This uses a mix of objects and files to so that the player can view scores from previous games (i.e. it doesn't delete when you exit the game), and it allows player to type in their name to save their score if they reach a high score.
