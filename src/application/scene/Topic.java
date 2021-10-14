@@ -18,7 +18,7 @@ import javafx.scene.input.MouseEvent;
 /** Topic selection screen for the user to choose which word list to quiz. */
 public class Topic {
   @FXML private Label title;
-  
+
   @FXML private TextField search;
 
   @FXML private ListView<String> topicListView;
@@ -63,36 +63,38 @@ public class Topic {
               practice.setDisable(!randomTopicCheck.isSelected());
             });
   }
-  
+
   /** Key handler for when any key is pressed in the search box. */
   @FXML
   private void searchPressed(KeyEvent e) {
-	  if (e.getCode().equals(KeyCode.BACK_SPACE) || e.getCode().equals(KeyCode.DELETE)) {
-		  searchTyped();
-	  }
+    if (e.getCode().equals(KeyCode.BACK_SPACE) || e.getCode().equals(KeyCode.DELETE)) {
+      searchTyped();
+    }
   }
-  
+
   /** Key handler for when a letter is typed in the search box. */
   @FXML
   private void searchTyped() {
-	  topicListView.getItems().stream()
-	    .filter(item -> item.toLowerCase().contains(search.getText().toLowerCase()))
-	    .findAny()
-	    .ifPresentOrElse(item -> {
-	    	// Select and scroll to item in list.
-	        topicListView.getSelectionModel().select(item);
-	        topicListView.scrollTo(item);
-	        
-	        // Uncheck random checkbox.
-	        randomTopicCheck.selectedProperty().set(false);
-	        
-	        disableStart(false);
-	    }, () -> {
-	    	// Unselect item in listview.
-	    	topicListView.getSelectionModel().select(-1);
-	    	
-	    	disableStart(true);
-	    });
+    topicListView.getItems().stream()
+        .filter(item -> item.toLowerCase().contains(search.getText().toLowerCase()))
+        .findAny()
+        .ifPresentOrElse(
+            item -> {
+              // Select and scroll to item in list.
+              topicListView.getSelectionModel().select(item);
+              topicListView.scrollTo(item);
+
+              // Uncheck random checkbox.
+              randomTopicCheck.selectedProperty().set(false);
+
+              disableStart(false);
+            },
+            () -> {
+              // Unselect item in listview.
+              topicListView.getSelectionModel().select(-1);
+
+              disableStart(true);
+            });
   }
 
   /** Click handler for the start quiz button. */
@@ -138,14 +140,14 @@ public class Topic {
   private String getTopic() {
     return topicListView.getSelectionModel().getSelectedItem();
   }
-  
+
   /**
    * Disable the start quiz buttons.
-   * 
+   *
    * @param state If the buttons should be disabled.
    */
   private void disableStart(boolean state) {
-	start.setDisable(state);
-  	practice.setDisable(state);
+    start.setDisable(state);
+    practice.setDisable(state);
   }
 }
