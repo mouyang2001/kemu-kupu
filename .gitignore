@@ -28,4 +28,6 @@ bin
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
-assignment-3-and-project-team-35.iml
+*.iml
+
+out/
