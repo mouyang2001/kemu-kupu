@@ -21,21 +21,9 @@
 	-fx-background-color : #475B9F;
 }
 
-#avTime {
-	-fx-text-fill: #FFFFFF;
-    -fx-font-size: 40;
-    -fx-font-family: Verdana;
-}
-
-#scoreLabel {
+#label{
 	-fx-text-fill: #7289DA;
     -fx-font-size: 70;
-    -fx-font-family: Verdana;
-}
-
-#numCorrectLabel {
-	-fx-text-fill: #FFFFFF;
-    -fx-font-size: 40;
     -fx-font-family: Verdana;
 }
 

@@ -1,5 +1,6 @@
 package application.scene;
 
+import application.LeaderboardControl;
 import application.QuizGame.Mode;
 import application.Statistics;
 import java.io.IOException;
@@ -62,6 +63,12 @@ public class SceneManager {
   public static void switchToStatsScene(Statistics statistics) {
     Stats stats = changeScene("Stats").getController();
     stats.initialise(statistics);
+  }
+  
+  /** Show the stats scene to the user. */
+  public static void switchToLeaderboardScene(Statistics statistics, LeaderboardControl leader) {
+    Leaderboard leaderboard = changeScene("Leaderboard").getController();
+    leaderboard.initialise(statistics, leader);
   }
 
   /**

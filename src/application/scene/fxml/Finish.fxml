@@ -14,7 +14,16 @@
             <Label fx:id="wellDone" layoutX="258.0" layoutY="53.0" text="Well Done!" />
             <Label fx:id="scoreTitle" layoutX="258.0" layoutY="107.0" text="Your score is" />
             <Label fx:id="score" layoutX="268.0" layoutY="171.0" text="*score*" />
-            <Button fx:id="stats" mnemonicParsing="false" onAction="#showStats" prefHeight="70.0" prefWidth="200.0" text="View stats" />
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="stats" mnemonicParsing="false" onAction="#showStats" prefHeight="70.0" prefWidth="200.0" text="View stats" />
+                  <Button fx:id="leaderboard" mnemonicParsing="false" onAction="#leaderboard" prefHeight="70.0" prefWidth="200.0" text="Leaderboard">
+                     <HBox.margin>
+                        <Insets left="60.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                <children>
                   <Button fx:id="menu" mnemonicParsing="false" onAction="#menu" prefHeight="70.0" prefWidth="200.0" text="Menu">
