@@ -21,7 +21,7 @@
 	-fx-background-color : #475B9F;
 }
 
-#text{
+#label{
 	-fx-text-fill: #7289DA;
     -fx-font-size: 70;
     -fx-font-family: Verdana;
