@@ -63,6 +63,12 @@ public class SceneManager {
     Stats stats = changeScene("Stats").getController();
     stats.initialise(statistics);
   }
+  
+  /** Show the stats scene to the user. */
+  public static void switchToLeaderboardScene(Statistics statistics) {
+    Leaderboard leaderboard = changeScene("Leaderboard").getController();
+    leaderboard.initialise(statistics);
+  }
 
   /**
    * Changes the currently displayed scene to the user.

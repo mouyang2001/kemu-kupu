@@ -66,10 +66,10 @@ public class Stats {
     int lines = 2;
 
     for (Statistic stat : stats.getStats()) {
-      Text word = new Text(stat.getWord());
-      Text result = new Text(stat.getType().toString());
-      Text time = new Text(formatTime(stat.getTime()));
-      Text score = new Text(String.valueOf(stat.getScore()));
+      Label word = new Label(stat.getWord());
+      Label result = new Label(stat.getType().toString());
+      Label time = new Label(formatTime(stat.getTime()));
+      Label score = new Label(String.valueOf(stat.getScore()));
 
       table.add(word, 1, lines);
       table.add(result, 2, lines);

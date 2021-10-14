@@ -26,7 +26,7 @@ public class QuizGame {
 
   public static final double HINT_REVEAL_PERCENTAGE = 0.3;
 
-  public static final int NUMBER_OF_ROUNDS = 5;
+  public static final int NUMBER_OF_ROUNDS = 1;
 
   private int score = 0;
 

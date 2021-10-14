@@ -53,6 +53,12 @@ public class Finish {
   private void showStats() {
     SceneManager.switchToStatsScene(statistics);
   }
+  
+  /** Click handler for the leaderboard button. */
+  @FXML
+  private void leaderboard() {
+    SceneManager.switchToLeaderboardScene(statistics);
+  }
 
   /** Click handler for the menu button. */
   @FXML

@@ -48,7 +48,8 @@
 
 .label {
 	-fx-text-fill: #cacbce;
-	fx-font-size: 30;
+	-fx-font-size: 30;
+	-fx-text-fill: #FFFFFF;
 }
 
 

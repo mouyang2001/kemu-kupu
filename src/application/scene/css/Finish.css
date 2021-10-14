@@ -52,17 +52,32 @@
 	-fx-background-color : #475B9F;
 }
 
+#leaderboard {
+	-fx-background-color: #7289DA;
+	-fx-text-fill: #FFFFFF;
+    -fx-font-size: 25;
+    -fx-font-family: Play;
+}
+
+#leaderboard:hover {
+	-fx-background-color : #6076C4;
+}
+
+#leaderboard:pressed {
+	-fx-background-color : #475B9F;
+}
+
 #menu {
-    -fx-background-color: #f04747;
+    -fx-background-color: #595959;
     -fx-text-fill: #FFFFFF;
     -fx-font-size: 30;
     -fx-font-family: Play;
 }
 
 #menu:hover {
-    -fx-background-color: #c93e3e;
+    -fx-background-color: #4A4A4A;
 }
 
 #menu:pressed {
-    -fx-background-color: #a03131;
+    -fx-background-color: #3B3B3C;
 }
