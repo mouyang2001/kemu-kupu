@@ -44,6 +44,11 @@
     -fx-font-family: Verdana;
 }
 
+#search {
+	-fx-font-size: 30;
+	-fx-background-color: #CCCCCC;
+}
+
 #back {
     -fx-background-color: #595959;
     -fx-text-fill: #FFFFFF;
