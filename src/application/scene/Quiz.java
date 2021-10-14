@@ -106,14 +106,6 @@ public class Quiz {
     checkSpelling();
   }
 
-  /** Key handler for the input text field. */
-  @FXML
-  private void inputKeyPressed(KeyEvent e) {
-    if (e.getCode() == KeyCode.ENTER) {
-      submit();
-    }
-  }
-
   /** Click handler for the skip button. Tells quiz object to go to the next word. */
   @FXML
   private void skip() {

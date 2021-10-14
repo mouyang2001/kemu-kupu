@@ -35,7 +35,7 @@
             </Button>
             <StackPane prefHeight="150.0" prefWidth="200.0">
                <children>
-                  <TextField fx:id="input" onKeyPressed="#inputKeyPressed" prefHeight="45.0" prefWidth="246.0" />
+                  <TextField fx:id="input" onAction="#submit" prefHeight="45.0" prefWidth="246.0" />
                </children>
             </StackPane>
             <Button fx:id="sound" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#sound" prefHeight="45.0" prefWidth="45.0" text="*image*">
