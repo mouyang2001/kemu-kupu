@@ -1,19 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Slider?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.Tooltip?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/Quiz.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="application.scene.Quiz">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/Quiz.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.scene.Quiz">
    <children>
       <Label fx:id="score" alignment="CENTER" contentDisplay="CENTER" prefHeight="60.0" prefWidth="300.0" text="0">
          <font>
@@ -28,16 +21,22 @@
             <Insets bottom="10.0" />
          </VBox.margin>
       </Label>
+      <HBox fx:id="hboxMacrons" alignment="CENTER" prefWidth="200.0" spacing="10.0">
+         <children>
+            <Button fx:id="macronButtonA" mnemonicParsing="false" onAction="#macronA" text="ā" />
+            <Button fx:id="macronButtonE" mnemonicParsing="false" onAction="#macronE" text="ē" />
+            <Button fx:id="macronButtonI" mnemonicParsing="false" onAction="#macronI" text="ī" />
+            <Button fx:id="macronButtonO" mnemonicParsing="false" onAction="#macronO" text="ō" />
+            <Button fx:id="macronButtonU" mnemonicParsing="false" onAction="#macronU" text="ū" />
+         </children>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </HBox>
       <HBox alignment="CENTER" prefHeight="82.0" prefWidth="600.0" spacing="10.0">
          <children>
-            <Button fx:id="macronButton" mnemonicParsing="false" onAction="#macronise" text="Āā">
-               <tooltip><Tooltip text="Add a macron to the last letter" /></tooltip>
-            </Button>
-            <StackPane prefHeight="150.0" prefWidth="200.0">
-               <children>
-                  <TextField fx:id="input" onAction="#submit" prefHeight="45.0" prefWidth="246.0" />
-               </children>
-            </StackPane>
+            <Separator prefHeight="45.0" prefWidth="45.0" visible="false" />
+            <TextField fx:id="input" onAction="#submit" prefHeight="45.0" prefWidth="300.0" />
             <Button fx:id="sound" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#sound" prefHeight="45.0" prefWidth="45.0" text="*image*">
                <HBox.margin>
                   <Insets />
@@ -56,7 +55,7 @@
       <HBox alignment="CENTER" spacing="20.0">
          <children>
             <Label fx:id="slow" text="Slow" />
-            <Slider fx:id="speed" maxWidth="200.0" min="0.3" max="1.7" value="1.0" />
+            <Slider fx:id="speed" max="1.7" maxWidth="200.0" min="0.3" value="1.0" />
             <Label fx:id="fast" text="Fast" />
          </children>
       </HBox>
