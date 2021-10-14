@@ -7,7 +7,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
-import javafx.scene.text.Text;
 
 /** The stats screen with the results of the quiz. */
 public class Stats {
