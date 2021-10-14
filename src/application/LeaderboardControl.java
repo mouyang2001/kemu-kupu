@@ -91,10 +91,10 @@ public class LeaderboardControl {
   public void updateFile() throws IOException {
     bash("rm .stats/.leaderboard.txt");
     bash("touch .stats/.leaderboard.txt");
+    
     FileWriter fw = new FileWriter(file, true);
     BufferedWriter bw = new BufferedWriter(fw);
-    System.out.println(first.getName());
-    System.out.println(second.getName());
+    
     bw.write(first.getName() + System.lineSeparator());
     bw.write(first.getScore() + System.lineSeparator());
     bw.write(second.getName() + System.lineSeparator());
