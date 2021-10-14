@@ -54,7 +54,7 @@ public class Leaderboard {
       Label name;
       Label score;
       name = new Label(nameString);
-      score = new Label(scanner.next());
+      score = new Label(String.valueOf(scanner.nextInt()));
       if (nameString.equals("null")) {
         name = new Label(" ");
         score = new Label(" ");
