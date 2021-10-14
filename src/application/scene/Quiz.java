@@ -44,6 +44,12 @@ public class Quiz {
 
   @FXML private Button submit;
 
+  @FXML private Button macronButtonA;
+  @FXML private Button macronButtonE;
+  @FXML private Button macronButtonI;
+  @FXML private Button macronButtonO;
+  @FXML private Button macronButtonU;
+
   private QuizGame quiz;
 
   private static final String RED = "#E88787";
@@ -274,12 +280,21 @@ public class Quiz {
    * @param state If the inputs should be disabled.
    */
   private void disableInputs(boolean state) {
+    // Disable buttons.
     skip.setDisable(state);
     sound.setDisable(state);
     submit.setDisable(state);
     menu.setDisable(state);
     speed.setDisable(state);
 
+    // Disable macron buttons.
+    macronButtonA.setDisable(state);
+    macronButtonE.setDisable(state);
+    macronButtonI.setDisable(state);
+    macronButtonO.setDisable(state);
+    macronButtonU.setDisable(state);
+
+    // Disable Input
     input.setDisable(state);
     input.requestFocus();
   }
