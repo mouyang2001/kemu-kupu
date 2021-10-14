@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="700.0" prefWidth="1200.0" spacing="15.0" stylesheets="@../css/Topic.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.scene.Topic">
+<VBox alignment="CENTER" prefHeight="700.0" prefWidth="1200.0" spacing="15.0" stylesheets="@../css/Topic.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="application.scene.Topic">
    <children>
       <Label fx:id="title" stylesheets="@../css/Topic.css" text="Choose your topic">
          <VBox.margin>

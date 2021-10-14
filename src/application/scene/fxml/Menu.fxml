@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" spacing="20.0" stylesheets="@../css/Menu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.scene.Menu">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" spacing="20.0" stylesheets="@../css/Menu.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="application.scene.Menu">
    <children>
       <Label fx:id="title" alignment="CENTER" contentDisplay="CENTER" prefHeight="46.0" prefWidth="1092.0" stylesheets="@../css/Menu.css" text="Welcome to Kēmu Kupu">
          <font>
