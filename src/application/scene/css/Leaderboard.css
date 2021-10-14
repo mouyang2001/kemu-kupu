@@ -1,0 +1,43 @@
+.root {
+    -fx-background-color: #1E2124;
+}
+
+.button:hover {
+	-fx-cursor: hand;
+}
+
+#back {
+	-fx-background-color: #7289DA;
+	-fx-text-fill: #FFFFFF;
+    -fx-font-size: 30;
+    -fx-font-family: Play;
+}
+
+#back:hover {
+	-fx-background-color : #6076C4;
+}
+
+#back:pressed {
+	-fx-background-color : #475B9F;
+}
+
+#text{
+	-fx-text-fill: #7289DA;
+    -fx-font-size: 70;
+    -fx-font-family: Verdana;
+}
+
+#table {
+	-fx-text-fill: #cacbce;
+    -fx-alignment: center;
+    -fx-font-size: 30;
+    -fx-background-color: #36393e;
+}
+
+.label {
+	-fx-text-fill: #cacbce;
+	-fx-font-size: 30;
+	-fx-text-fill: #FFFFFF;
+}
+
+
