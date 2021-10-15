@@ -42,4 +42,7 @@ Took inspiration from the peer reviews I did on the implementation of a "help" f
 ### Thu 14/10/2021
 Removed fxml verion specification in the fxml files so that it would remove console warning during runtime. I was tasked with remaking the macron buttons. I firstly used figma to create 2 concept drafts. Then I inquried with the team as to which design them preferred. Finalll I implemented the design according to the specifications and merged my branch in, closing the issue.
 
+### Frid 14/10/2021
+Breanna opend a new issue with regards to a bug within the practice module. The answer wasn't showing long enough for the user to learn the answer and was being overridden too quickly by certain game mechanics. I located the issue and fixed it by setting a new event listener for submit button when the answer was revealed. SO the user have as much time as they want to process the answer before moving on. I also made some styling changes to the speed slider.
+
 
