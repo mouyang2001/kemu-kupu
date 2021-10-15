@@ -207,7 +207,6 @@ public class Quiz {
         revealAnswer();
         break;
     }
-
   }
 
   /** Show the hint to the user. */
@@ -225,12 +224,13 @@ public class Quiz {
 
     // Change submit button to new 'next' word function.
     submit.setText("Next");
-    submit.setOnAction((event) -> {
-      // Change button back to normal functionality.
-      submit.setText("Submit");
-      submit.setOnAction((eventInner) -> checkSpelling());
-      nextWord();
-    });
+    submit.setOnAction(
+        (event) -> {
+          // Change button back to normal functionality.
+          submit.setText("Submit");
+          submit.setOnAction((eventInner) -> checkSpelling());
+          nextWord();
+        });
   }
 
   /** Update the score. */
