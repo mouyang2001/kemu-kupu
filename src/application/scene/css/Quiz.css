@@ -88,6 +88,7 @@
 
 #fast {
 	-fx-font-size: 20;
+	-fx-font-style: italic;
 	-fx-text-fill: #FFFFFF;
 }
 
@@ -96,11 +97,10 @@
 }
 
 #speed .thumb {
-    -fx-background-color: #7289DA;
+    -fx-background-color: rgb(155, 132, 238);
 }
 
 #speed .thumb:hover {
-	-fx-background-color : #6076C4;
 	-fx-cursor: hand;
 }
 
