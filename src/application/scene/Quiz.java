@@ -200,6 +200,7 @@ public class Quiz {
     switch (quiz.getMode()) {
       case Game:
         setPrompt("Incorrect", RED);
+        nextWord();
         break;
       case Practice:
         setPrompt("Incorrect, but good effort.", RED);
@@ -207,7 +208,6 @@ public class Quiz {
         break;
     }
 
-    nextWord();
   }
 
   /** Show the hint to the user. */
@@ -218,7 +218,19 @@ public class Quiz {
   /** Reveal the answer to the user. */
   private void revealAnswer() {
     hint.setText("Answer: " + quiz.getWord());
-    SingleDelayedTask.scheduleDelayedTask(() -> hint.setText(""));
+
+    // Disable all buttons exception submit.
+    disableInputs(true);
+    submit.setDisable(false);
+
+    // Change submit button to new 'next' word function.
+    submit.setText("Next");
+    submit.setOnAction((event) -> {
+      // Change button back to normal functionality.
+      submit.setText("Submit");
+      submit.setOnAction((eventInner) -> checkSpelling());
+      nextWord();
+    });
   }
 
   /** Update the score. */
