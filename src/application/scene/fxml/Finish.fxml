@@ -16,7 +16,7 @@
             <Label fx:id="score" layoutX="268.0" layoutY="171.0" text="*score*" />
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="stats" mnemonicParsing="false" onAction="#showStats" prefHeight="70.0" prefWidth="200.0" text="View stats" />
+                  <Button fx:id="stats" mnemonicParsing="false" onAction="#showStats" prefHeight="70.0" prefWidth="200.0" text="Stats" />
                   <Button fx:id="leaderboard" mnemonicParsing="false" onAction="#leaderboard" prefHeight="70.0" prefWidth="200.0" text="Leaderboard">
                      <HBox.margin>
                         <Insets left="60.0" />

@@ -62,7 +62,7 @@ public class Stats {
     table.add(scoreHeader, 4, 0);
 
     // Add each statistic.
-    int i = 2;
+    int i = 1;
 
     for (Statistic stat : stats.getStats()) {
       Label word = new Label(stat.getWord());
