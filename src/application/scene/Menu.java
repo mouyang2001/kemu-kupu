@@ -14,9 +14,9 @@ public class Menu {
   @FXML private Label title;
 
   @FXML private Button newQuiz;
-  
+
   @FXML private Button leaderboard;
-  
+
   @FXML private Button help;
 
   @FXML private Button quit;
@@ -26,17 +26,17 @@ public class Menu {
   private void newQuiz() {
     SceneManager.switchToTopicScene();
   }
-  
+
   /** Click handler for the help button. */
   @FXML
   private void help() {
     SceneManager.switchToHelpScene();
   }
-  
+
   /** Click handler for the leaderboard button. */
   @FXML
   private void leaderboard() {
-	SceneManager.switchToLeaderboardScene(false, null, null);
+    SceneManager.switchToLeaderboardScene(false, null, null);
   }
 
   /** Click handler for the quit button, with confirmation popup. */

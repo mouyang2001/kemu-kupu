@@ -214,28 +214,28 @@ public class QuizGame {
 
     return hint.toString();
   }
-  
+
   /**
-   * Creates a template of the word using underscores to represent
-   * each non-space character in the current word.
-   * 
+   * Creates a template of the word using underscores to represent each non-space character in the
+   * current word.
+   *
    * @return Blank hint of the current word.
    */
   public String getBlankHint() {
-	  StringBuilder hint = new StringBuilder();
+    StringBuilder hint = new StringBuilder();
 
-	    for (char character : getWord().toCharArray()) {
-	      if (character == ' ') {
-	        hint.append(" ");
-	      } else {
-	    	  hint.append("_");
-	      }
+    for (char character : getWord().toCharArray()) {
+      if (character == ' ') {
+        hint.append(" ");
+      } else {
+        hint.append("_");
+      }
 
-	      // Give some spacing so you can see the '_' more clearly.
-	      hint.append(" ");
-	    }
+      // Give some spacing so you can see the '_' more clearly.
+      hint.append(" ");
+    }
 
-	    return hint.toString();
+    return hint.toString();
   }
 
   /**

@@ -4,7 +4,6 @@ import application.Leaderboard;
 import application.LeaderboardScore;
 import application.QuizGame;
 import application.Statistics;
-
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -21,7 +20,7 @@ public class Finish {
   @FXML private Label score;
 
   @FXML private Button stats;
-  
+
   @FXML private Button leaderboard;
 
   @FXML private Button menu;
@@ -33,7 +32,7 @@ public class Finish {
   private final double MAX_SCORE = QuizGame.MAX_SCORE * QuizGame.NUMBER_OF_ROUNDS;
 
   private Statistics statistics;
-  
+
   private LeaderboardScore leaderboardScore;
 
   /**
@@ -51,7 +50,7 @@ public class Finish {
     // is the first time showing the finish screen.
     if (!returning) {
       Sound.play(Sound.Complete);
-      
+
       addToLeaderboard();
     }
   }
@@ -95,22 +94,22 @@ public class Finish {
 
   /** Prompt the user for their name and add them to the leaderboard. */
   private void addToLeaderboard() {
-	try {
-	  if (!Leaderboard.makesLeaderboard(statistics.getScore())) {
-		return;
-	  }
-	} catch (IOException e) {
-	  SceneManager.alert("Could not load leaderboard");
-	}
-	
+    try {
+      if (!Leaderboard.makesLeaderboard(statistics.getScore())) {
+        return;
+      }
+    } catch (IOException e) {
+      SceneManager.alert("Could not load leaderboard");
+    }
+
     // Prompt user for their name.
-	TextInputDialog dialog = new TextInputDialog("");
+    TextInputDialog dialog = new TextInputDialog("");
     dialog.setTitle("Congratulations!");
     dialog.setHeaderText("You set a new highscore!");
     dialog.setContentText("Please enter your name:");
-    
+
     String name = dialog.showAndWait().orElseGet(() -> "Unknown Player");
-    
+
     // Try updating the leaderboard.
     try {
       leaderboardScore = Leaderboard.add(name, statistics.getScore(), statistics.getTopic());

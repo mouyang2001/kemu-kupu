@@ -16,7 +16,7 @@ public class Help {
   @FXML private Label title;
 
   @FXML private TextArea instructions;
-  
+
   @FXML private Button back;
 
   private static final String INSTRUCTIONS_FILE = "assets/instructions.txt";

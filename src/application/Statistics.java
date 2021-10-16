@@ -7,13 +7,13 @@ import java.util.List;
 /** Statistics from single spelling quiz. */
 public class Statistics {
   private String topic;
-	
+
   private List<Statistic> stats = new ArrayList<>();
 
   private int score = 0;
-  
+
   public Statistics(String topic) {
-	this.topic = topic;
+    this.topic = topic;
   }
 
   /**
@@ -75,13 +75,13 @@ public class Statistics {
 
     return time;
   }
-  
+
   /**
    * Gets the topic the statistics are for.
-   * 
+   *
    * @return The topic the statistics are for.
    */
   public String getTopic() {
-	return topic;
+    return topic;
   }
 }

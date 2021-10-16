@@ -49,7 +49,7 @@ public class SceneManager {
 
   /**
    * Show the quiz scene to the user and transfer topic selection data.
-   * 
+   *
    * @param topic The chosen topic, file name.
    * @param mode The mode of the quiz to run.
    */
@@ -60,7 +60,7 @@ public class SceneManager {
 
   /**
    * Show the finish scene to the user.
-   * 
+   *
    * @param statistics Statistics of the quiz.
    * @param returning If returning to the finish screen.
    */
@@ -71,7 +71,7 @@ public class SceneManager {
 
   /**
    * Show the stats scene to the user.
-   * 
+   *
    * @param statistics The stats to show.
    */
   public static void switchToStatsScene(Statistics statistics) {
@@ -81,12 +81,13 @@ public class SceneManager {
 
   /**
    * Show the leaderboard scene to the user.
-   * 
+   *
    * @param quiz If being shown after a quiz.
    * @param statistic The stats to return to.
    * @param leaderboardScore The score obtained on the leaderboard.
    */
-  public static void switchToLeaderboardScene(boolean quiz, Statistics statistics, LeaderboardScore leaderboardScore) {
+  public static void switchToLeaderboardScene(
+      boolean quiz, Statistics statistics, LeaderboardScore leaderboardScore) {
     Leaderboard leaderboard = changeScene("Leaderboard").getController();
     leaderboard.initialise(quiz, statistics, leaderboardScore);
   }
