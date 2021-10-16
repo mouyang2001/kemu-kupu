@@ -71,7 +71,7 @@ public class Finish {
   /** Click handler for the leaderboard button. */
   @FXML
   private void leaderboard() {
-    SceneManager.switchToLeaderboardScene(statistics, leaderboardScore);
+    SceneManager.switchToLeaderboardScene(true, statistics, leaderboardScore);
   }
 
   /** Click handler for the menu button. */
@@ -113,7 +113,7 @@ public class Finish {
     
     // Try updating the leaderboard.
     try {
-      leaderboardScore = Leaderboard.add(name, statistics.getScore());
+      leaderboardScore = Leaderboard.add(name, statistics.getScore(), statistics.getTopic());
     } catch (IOException e) {
       SceneManager.alert("Could not update leaderboard");
     }

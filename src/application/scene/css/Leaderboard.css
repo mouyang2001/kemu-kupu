@@ -7,18 +7,18 @@
 }
 
 #back {
-	-fx-background-color: #7289DA;
+	-fx-background-color: #595959;
 	-fx-text-fill: #FFFFFF;
     -fx-font-size: 30;
     -fx-font-family: Play;
 }
 
 #back:hover {
-	-fx-background-color : #6076C4;
+	-fx-background-color : #4A4A4A;
 }
 
 #back:pressed {
-	-fx-background-color : #475B9F;
+	-fx-background-color : #3B3B3C;
 }
 
 #label{
@@ -39,5 +39,3 @@
 	-fx-font-size: 30;
 	-fx-text-fill: #FFFFFF;
 }
-
-

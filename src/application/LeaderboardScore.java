@@ -2,23 +2,45 @@ package application;
 
 /** A score on the leaderboard. */
 public class LeaderboardScore {
+  private int placing;
+  
   private String name;
   
   private int score;
   
-  private int placing;
+  private String topic;
 
   /**
    * Create a score that is on the leaderboard.
    * 
+   * @param placing The placing in the leaderboard.
    * @param name The name of the user.
    * @param score The score the user obtained.
-   * @param placing The placing in the leaderboard.
+   * @param topic The topic that was quizzed.
    */
-  public LeaderboardScore(String name, int score, int placing) {
+  public LeaderboardScore(int placing, String name, int score, String topic) {
+	this.placing = placing;
     this.name = name;
     this.score = score;
-    this.placing = placing;
+    this.topic = topic;
+  }
+  
+  /**
+   * Gets the placing on the leaderboard.
+   * 
+   * @return The placing on the leaderboard.
+   */
+  public int getPlacing() {
+    return placing;
+  }
+  
+  /**
+   * Sets the placing on the leaderboard.
+   * 
+   * @param placing The placing on the leaderboard.
+   */
+  public void setPlacing(int placing) {
+	this.placing = placing;
   }
 
   /**
@@ -40,20 +62,11 @@ public class LeaderboardScore {
   }
   
   /**
-   * Gets the placing on the leaderboard.
+   * Gets the topic that was quizzed.
    * 
-   * @return The placing on the leaderboard.
+   * @return The topic that was quizzed.
    */
-  public int getPlacing() {
-    return placing;
-  }
-  
-  /**
-   * Sets the placing on the leaderboard.
-   * 
-   * @param placing The placing on the leaderboard.
-   */
-  public void setPlacing(int placing) {
-	this.placing = placing;
+  public String getTopic() {
+	return topic;
   }
 }

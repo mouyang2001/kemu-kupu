@@ -51,18 +51,18 @@ public class Stats {
   /** Show the statistics of each question to the user. */
   private void loadTable() {
     // Add headers.
-    Label wordLabel = new Label("Word");
-    Label isCorrectLabel = new Label("Result");
-    Label timeLabel = new Label("Time (s)");
-    Label scoreLabel = new Label("Score");
+    Label wordHeader = new Label("Word");
+    Label isCorrectHeader = new Label("Result");
+    Label timeHeader = new Label("Time (s)");
+    Label scoreHeader = new Label("Score");
 
-    table.add(wordLabel, 1, 0);
-    table.add(isCorrectLabel, 2, 0);
-    table.add(timeLabel, 3, 0);
-    table.add(scoreLabel, 4, 0);
+    table.add(wordHeader, 1, 0);
+    table.add(isCorrectHeader, 2, 0);
+    table.add(timeHeader, 3, 0);
+    table.add(scoreHeader, 4, 0);
 
     // Add each statistic.
-    int lines = 2;
+    int i = 2;
 
     for (Statistic stat : stats.getStats()) {
       Label word = new Label(stat.getWord());
@@ -70,12 +70,12 @@ public class Stats {
       Label time = new Label(formatTime(stat.getTime()));
       Label score = new Label(String.valueOf(stat.getScore()));
 
-      table.add(word, 1, lines);
-      table.add(result, 2, lines);
-      table.add(time, 3, lines);
-      table.add(score, 4, lines);
+      table.add(word, 1, i);
+      table.add(result, 2, i);
+      table.add(time, 3, i);
+      table.add(score, 4, i);
 
-      lines++;
+      i++;
     }
   }
 

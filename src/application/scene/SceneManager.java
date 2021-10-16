@@ -72,7 +72,7 @@ public class SceneManager {
   /**
    * Show the stats scene to the user.
    * 
-   * @param stats The stats to show.
+   * @param statistics The stats to show.
    */
   public static void switchToStatsScene(Statistics statistics) {
     Stats stats = changeScene("Stats").getController();
@@ -82,12 +82,13 @@ public class SceneManager {
   /**
    * Show the leaderboard scene to the user.
    * 
+   * @param quiz If being shown after a quiz.
    * @param statistic The stats to return to.
    * @param leaderboardScore The score obtained on the leaderboard.
    */
-  public static void switchToLeaderboardScene(Statistics statistics, LeaderboardScore leaderboardScore) {
+  public static void switchToLeaderboardScene(boolean quiz, Statistics statistics, LeaderboardScore leaderboardScore) {
     Leaderboard leaderboard = changeScene("Leaderboard").getController();
-    leaderboard.initialise(statistics, leaderboardScore);
+    leaderboard.initialise(quiz, statistics, leaderboardScore);
   }
 
   /**

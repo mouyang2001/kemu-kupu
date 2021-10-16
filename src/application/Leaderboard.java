@@ -31,13 +31,14 @@ public class Leaderboard {
    * 
    * @param name The name of the user.
    * @param score The score the user obtained.
+   * @param topic The topic that was quizzed.
    * @return The leaderboard score if the score was high enough, otherwise null.
    * @throws IOException If an I/O error occurred.
    */
-  public static LeaderboardScore add(String name, int score) throws IOException {
+  public static LeaderboardScore add(String name, int score, String topic) throws IOException {
 	read();
 	
-	LeaderboardScore leaderboardScore = new LeaderboardScore(name, score, 1);
+	LeaderboardScore leaderboardScore = new LeaderboardScore(1, name, score, topic);
 	
 	scores.add(leaderboardScore);
 	
@@ -98,12 +99,13 @@ public class Leaderboard {
 	int placing = 1;
 	
 	for (String line : Files.readAllLines(file)) {
-		// Scores are stores as "Name|Score".
+		// Scores are stores as "Name|Score|Topic".
 		String[] partition = line.split("[|]");
 		String name = partition[0];
 		int score = Integer.parseInt(partition[1]);
+		String topic = partition[2];
 		
-		scores.add(new LeaderboardScore(name, score, placing));
+		scores.add(new LeaderboardScore(placing, name, score, topic));
 		
 		placing++;
 	}
@@ -125,7 +127,7 @@ public class Leaderboard {
     List<String> lines =
         scores.stream()
             .limit(3)
-            .map(score -> score.getName() + "|" + score.getScore())
+            .map(score -> score.getName() + "|" + score.getScore() + "|" + score.getTopic())
             .collect(Collectors.toList());
 
     Files.write(file, lines);

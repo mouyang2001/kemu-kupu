@@ -17,6 +17,8 @@ public class Leaderboard {
 
   @FXML private GridPane table;
   
+  private boolean quiz;
+  
   private Statistics statistics;
   
   private LeaderboardScore leaderboardScore;
@@ -24,11 +26,13 @@ public class Leaderboard {
   /**
    * Show the scene based on the leaderboard.
    * 
-   * @param statistic The stats to return to.
-   * @param leaderboardScore The score obtained on the leaderboard.
+   * @param quiz If being shown after a quiz.
+   * @param statistic The stats to return to, if after a quiz.
+   * @param leaderboardScore The score obtained on the leaderboard, if after a quiz.
    */
-  public void initialise(Statistics statistics, LeaderboardScore leaderboardScore) {
-    this.statistics = statistics;
+  public void initialise(boolean quiz, Statistics statistics, LeaderboardScore leaderboardScore) {
+	this.quiz = quiz;
+	this.statistics = statistics;
     this.leaderboardScore = leaderboardScore;
 
     try {
@@ -45,6 +49,11 @@ public class Leaderboard {
    * @throws IOException If an I/O error occured.
    */
   private void showMessage() throws IOException {
+	if (!quiz) {
+	  label.setText("Leaderboard");
+	  return;
+	}
+	
     if (leaderboardScore == null) {
       label.setText("You didn't set a new high score.\nPractise more and try again!");
       return;
@@ -69,16 +78,30 @@ public class Leaderboard {
    * @throws IOException If an I/O error occurred.
    */
   private void showLeaderboard() throws IOException {
-	int i = 0;
+	// Add headers.
+    Label positionHeader = new Label("Position");
+    Label nameHeader = new Label("Name");
+    Label scoreHeader = new Label("Score");
+    Label topicHeader = new Label("Topic");
+
+    table.add(positionHeader, 1, 0);
+    table.add(nameHeader, 2, 0);
+    table.add(scoreHeader, 3, 0);
+    table.add(topicHeader, 4, 0);
+	
+    // Add each score.
+	int i = 1;
 	
 	for (LeaderboardScore score : application.Leaderboard.getScores()) {
 		Label placeLabel = new Label(placing(score.getPlacing()));
 		Label nameLabel = new Label(score.getName());
 		Label scoreLabel = new Label(String.valueOf(score.getScore()));
+		Label topicLabel = new Label(score.getTopic());
 
 		table.add(placeLabel, 1, i);
 		table.add(nameLabel, 2, i);
 		table.add(scoreLabel, 3, i);
+		table.add(topicLabel, 4, i);
 		
 		i++;
 	}
@@ -106,6 +129,10 @@ public class Leaderboard {
   /** Click handler to go back to finish screen. */
   @FXML
   private void back() {
-    SceneManager.switchToFinishScene(statistics, true);
+	if (quiz) {
+		SceneManager.switchToFinishScene(statistics, true);
+	} else {
+		SceneManager.switchToMenuScene();
+	}
   }
 }

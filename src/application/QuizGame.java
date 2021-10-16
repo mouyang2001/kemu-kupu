@@ -22,7 +22,7 @@ public class QuizGame {
 
   private boolean firstAttempt = true;
 
-  Statistics stats = new Statistics();
+  Statistics statistics;
 
   public static final double HINT_REVEAL_PERCENTAGE = 0.3;
 
@@ -48,6 +48,7 @@ public class QuizGame {
     Collections.shuffle(words);
 
     this.mode = mode;
+    statistics = new Statistics(topic);
   }
 
   /**
@@ -74,7 +75,7 @@ public class QuizGame {
    * @return If the quiz is finished.
    */
   public boolean isFinished() {
-    return stats.getStats().size() == NUMBER_OF_ROUNDS;
+    return statistics.getStats().size() == NUMBER_OF_ROUNDS;
   }
 
   /**
@@ -83,7 +84,7 @@ public class QuizGame {
    * @return The statistics for the quiz.
    */
   public Statistics getStats() {
-    return stats;
+    return statistics;
   }
 
   /**
@@ -179,14 +180,14 @@ public class QuizGame {
         return;
     }
 
-    stats.add(new Statistic(getWord(), type, result.getScore(), result.getTime()));
+    statistics.add(new Statistic(getWord(), type, result.getScore(), result.getTime()));
   }
 
   /** Skips the current word. */
   public void skip() {
     nextWord();
 
-    stats.add(new Statistic(getWord(), Statistic.Type.Skipped, 0, calculateTime()));
+    statistics.add(new Statistic(getWord(), Statistic.Type.Skipped, 0, calculateTime()));
   }
 
   /**

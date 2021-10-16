@@ -27,6 +27,21 @@
 	-fx-background-color : #475B9F;
 }
 
+#leaderboard {
+	-fx-background-color: #7289DA;
+	-fx-text-fill: #FFFFFF;
+    -fx-font-size: 50;
+    -fx-font-family: Play;
+}
+
+#leaderboard:hover {
+	-fx-background-color : #6076C4;
+}
+
+#leaderboard:pressed {
+	-fx-background-color : #475B9F;
+}
+
 #help {
 	-fx-background-color: #43B581;
 	-fx-text-fill: #FFFFFF;
