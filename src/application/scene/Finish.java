@@ -21,6 +21,8 @@ public class Finish {
   @FXML private Label score;
 
   @FXML private Button stats;
+  
+  @FXML private Button leaderboard;
 
   @FXML private Button menu;
 

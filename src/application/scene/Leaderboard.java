@@ -46,19 +46,19 @@ public class Leaderboard {
    */
   private void showMessage() throws IOException {
     if (leaderboardScore == null) {
-      label.setText("You didn't set a new high score :( Practise more and try again!");
+      label.setText("You didn't set a new high score.\nPractise more and try again!");
       return;
     }
     
     switch (leaderboardScore.getPlacing()) {
 	    case 1:
-	    	label.setText("Congratulations! You set a new high score!");
+	    	label.setText("Congratulations!\nYou set a new high score!");
 	    	break;
 	    case 2:
-	    	label.setText("Congratulations! You came 2nd!");
+	    	label.setText("Congratulations!\nYou came 2nd!");
 	    	break;
 	    case 3:
-	    	label.setText("Congratulations! You came 3rd!");
+	    	label.setText("Congratulations!\nYou came 3rd!");
 	    	break;
     }
   }
