@@ -45,12 +45,18 @@ public class Quiz {
   @FXML private Button submit;
 
   @FXML private Button macronButtonA;
+  
   @FXML private Button macronButtonE;
+  
   @FXML private Button macronButtonI;
+  
   @FXML private Button macronButtonO;
+  
   @FXML private Button macronButtonU;
 
   private QuizGame quiz;
+  
+  private int caret = 0;
 
   private static final String RED = "#E88787";
 
@@ -75,6 +81,9 @@ public class Quiz {
     speed
         .valueProperty()
         .addListener((observable, oldValue, newValue) -> Festival.setSpeed(newValue.floatValue()));
+    
+    // Register caret position handler.
+    input.caretPositionProperty().addListener((observable, oldValue, newValue) -> caret = oldValue.intValue());
 
     // Start the first word.
     nextWord();
@@ -132,44 +141,47 @@ public class Quiz {
   /** Click handler for the macron ā button. */
   @FXML
   private void macronA() {
-    inputConcatenate("ā");
+    insertString("ā");
   }
 
   /** Click handler for the macron ē button. */
   @FXML
   private void macronE() {
-    inputConcatenate("ē");
+    insertString("ē");
   }
 
   /** Click handler for the macron ī button. */
   @FXML
   private void macronI() {
-    inputConcatenate("ī");
+    insertString("ī");
   }
 
   /** Click handler for the macron ō button. */
   @FXML
   private void macronO() {
-    inputConcatenate("ō");
+    insertString("ō");
   }
 
   /** Click handler for the macron ū button. */
   @FXML
   private void macronU() {
-    inputConcatenate("ū");
+    insertString("ū");
   }
 
   /**
-   * Concatenates macron letter onto current input text.
+   * Inserts a string at the current cursor position.
    *
-   * @param macron Macron to concatenate onto the end.
+   * @param str String to insert.
    */
-  private void inputConcatenate(String macron) {
-    input.setText(input.getText() + macron);
+  private void insertString(String str) {
+	String text = input.getText();
+	String newText = text.substring(0, caret) + str + text.substring(caret);
+	
+    input.setText(newText);
 
-    // Return carat to the end of the text field.
+    // Position the caret after the insertion.
     input.requestFocus();
-    input.end();
+    input.positionCaret(caret + str.length());
   }
 
   /** Method performs check spelling routine. */
