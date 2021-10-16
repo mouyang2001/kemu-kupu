@@ -25,7 +25,7 @@
 #playAgain {
 	-fx-background-color: #7289DA;
 	-fx-text-fill: #FFFFFF;
-    -fx-font-size: 30;
+    -fx-font-size: 35;
     -fx-font-family: Play;
 }
 
@@ -40,7 +40,7 @@
 #stats {
 	-fx-background-color: #7289DA;
 	-fx-text-fill: #FFFFFF;
-    -fx-font-size: 30;
+    -fx-font-size: 40;
     -fx-font-family: Play;
 }
 
@@ -55,7 +55,7 @@
 #leaderboard {
 	-fx-background-color: #7289DA;
 	-fx-text-fill: #FFFFFF;
-    -fx-font-size: 25;
+    -fx-font-size: 30;
     -fx-font-family: Play;
 }
 
@@ -70,7 +70,7 @@
 #menu {
     -fx-background-color: #595959;
     -fx-text-fill: #FFFFFF;
-    -fx-font-size: 30;
+    -fx-font-size: 40;
     -fx-font-family: Play;
 }
 

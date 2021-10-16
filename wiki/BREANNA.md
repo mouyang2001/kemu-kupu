@@ -45,3 +45,6 @@ Responding to some peer feedback we recieved from assignment 4, I added a menu b
 
 Thursday 14/10
 I implemented a leaderboard functionality. This uses a mix of objects and files to so that the player can view scores from previous games (i.e. it doesn't delete when you exit the game), and it allows player to type in their name to save their score if they reach a high score.
+
+Sunday 17/10
+I fiddled with some of the design to make sure that all the elements were displayed neatly on the page.
