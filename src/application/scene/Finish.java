@@ -1,9 +1,11 @@
 package application.scene;
 
-import application.LeaderboardControl;
+import application.Leaderboard;
+import application.LeaderboardScore;
 import application.QuizGame;
 import application.Statistics;
-import java.util.Optional;
+
+import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -19,6 +21,8 @@ public class Finish {
   @FXML private Label score;
 
   @FXML private Button stats;
+  
+  @FXML private Button leaderboard;
 
   @FXML private Button menu;
 
@@ -29,25 +33,26 @@ public class Finish {
   private final double MAX_SCORE = QuizGame.MAX_SCORE * QuizGame.NUMBER_OF_ROUNDS;
 
   private Statistics statistics;
-
-  private LeaderboardControl leaderboard;
+  
+  private LeaderboardScore leaderboardScore;
 
   /**
-   * Shows current score and sets feedback message.
+   * Show the finish screen based on the statistics of the quiz.
    *
-   * @param scoreVal Score at end of quiz.
+   * @param statistics Statistics of the quiz.
+   * @param returning If returning to the finish screen.
    */
-  public void initialise(Statistics statistics, boolean playSound) {
+  public void initialise(Statistics statistics, boolean returning) {
     this.statistics = statistics;
 
     setMessages();
 
-    if (playSound) {
+    // Only play sound and update leaderboard if it
+    // is the first time showing the finish screen.
+    if (!returning) {
       Sound.play(Sound.Complete);
-      leaderboard = new LeaderboardControl(statistics.getScore());
-      if (leaderboard.isWinner()) {
-        showPopup();
-      }
+      
+      addToLeaderboard();
     }
   }
 
@@ -66,7 +71,7 @@ public class Finish {
   /** Click handler for the leaderboard button. */
   @FXML
   private void leaderboard() {
-    SceneManager.switchToLeaderboardScene(statistics, leaderboard);
+    SceneManager.switchToLeaderboardScene(true, statistics, leaderboardScore);
   }
 
   /** Click handler for the menu button. */
@@ -75,11 +80,7 @@ public class Finish {
     SceneManager.switchToMenuScene();
   }
 
-  /**
-   * Helper method to adjust wellDone label message depending on score
-   *
-   * @param score Score to base the message off.
-   */
+  /** Show score and message based off the score. */
   private void setMessages() {
     score.setText(String.valueOf(statistics.getScore()));
 
@@ -92,23 +93,29 @@ public class Finish {
     }
   }
 
-  /**
-   * helper method to set popup if player set a new highscore
-   *
-   * <p>Popup code inspired by https://code.makery.ch/blog/javafx-dialogs-official/
-   */
-  private void showPopup() {
-    TextInputDialog dialog = new TextInputDialog(" ");
+  /** Prompt the user for their name and add them to the leaderboard. */
+  private void addToLeaderboard() {
+	try {
+	  if (!Leaderboard.makesLeaderboard(statistics.getScore())) {
+		return;
+	  }
+	} catch (IOException e) {
+	  SceneManager.alert("Could not load leaderboard");
+	}
+	
+    // Prompt user for their name.
+	TextInputDialog dialog = new TextInputDialog("");
     dialog.setTitle("Congratulations!");
     dialog.setHeaderText("You set a new highscore!");
     dialog.setContentText("Please enter your name:");
-
-    // Traditional way to get the response value.
-    Optional<String> result = dialog.showAndWait();
-    if (result.isPresent()) {
-      leaderboard.setName(result.get());
-    } else {
-      leaderboard.setName("unknown player");
+    
+    String name = dialog.showAndWait().orElseGet(() -> "Unknown Player");
+    
+    // Try updating the leaderboard.
+    try {
+      leaderboardScore = Leaderboard.add(name, statistics.getScore(), statistics.getTopic());
+    } catch (IOException e) {
+      SceneManager.alert("Could not update leaderboard");
     }
   }
 }

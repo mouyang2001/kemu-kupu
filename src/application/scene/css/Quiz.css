@@ -14,16 +14,20 @@
 	-fx-background-color: transparent;
 }
 
-#hboxMacrons .button {
+.macrons .button {
     -fx-font-size: 25;
     -fx-text-fill: #FFFFFF;
-    -fx-background-color: rgb(155, 132, 238);
+    -fx-background-color: #7289DA;
 }
 
-#hboxMacrons .button:hover {
+.macrons .button:hover {
     -fx-font-size: 25;
     -fx-text-fill: #FFFFFF;
-    -fx-background-color: rgb(155, 132, 238, 0.7);
+    -fx-background-color: #6076C4;
+}
+
+.macrons .button:pressed {
+	-fx-background-color: #475B9F;
 }
 
 #score {
@@ -105,17 +109,16 @@
 }
 
 #menu {
-    -fx-background-color: #f04747;
+    -fx-background-color: #595959;
     -fx-text-fill: #FFFFFF;
     -fx-font-size: 30;
     -fx-font-family: Play;
 }
 
 #menu:hover {
-    -fx-background-color: #c93e3e;
+    -fx-background-color: #4A4A4A;
 }
 
 #menu:pressed {
-    -fx-background-color: #a03131;
+    -fx-background-color: #3B3B3C;
 }
-

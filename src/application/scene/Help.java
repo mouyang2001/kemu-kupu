@@ -7,14 +7,17 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.stream.Collectors;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 
 /** Help screen with instructions on how to use the application. */
 public class Help {
-  @FXML public Label title;
+  @FXML private Label title;
 
-  @FXML public TextArea instructions;
+  @FXML private TextArea instructions;
+  
+  @FXML private Button back;
 
   private static final String INSTRUCTIONS_FILE = "assets/instructions.txt";
 

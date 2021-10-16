@@ -21,7 +21,7 @@
             <Insets />
          </VBox.margin>
       </Label>
-      <HBox fx:id="hboxMacrons" alignment="CENTER" prefWidth="200.0" spacing="10.0">
+      <HBox styleClass="macrons" alignment="CENTER" prefWidth="300.0" spacing="10.0">
          <children>
             <Button fx:id="macronButtonA" mnemonicParsing="false" onAction="#macronA" text="ā" />
             <Button fx:id="macronButtonE" mnemonicParsing="false" onAction="#macronE" text="ē" />

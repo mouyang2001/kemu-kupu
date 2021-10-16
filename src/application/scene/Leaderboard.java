@@ -1,91 +1,138 @@
 package application.scene;
 
-import application.LeaderboardControl;
+import application.LeaderboardScore;
 import application.Statistics;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
+import java.io.IOException;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 
+/** Leaderboard scene that shows the top scores from the quiz. */
 public class Leaderboard {
-  private int score;
+  @FXML private Button back;
 
-  private Statistics stats;
+  @FXML private Label label;
 
-  @FXML Button back;
-
-  @FXML Label label;
-
-  @FXML GridPane table;
-
-  private LeaderboardControl leaderboard;
+  @FXML private GridPane table;
+  
+  private boolean quiz;
+  
+  private Statistics statistics;
+  
+  private LeaderboardScore leaderboardScore;
 
   /**
-   * initialse label and table
-   *
-   * @param statistics
+   * Show the scene based on the leaderboard.
+   * 
+   * @param quiz If being shown after a quiz.
+   * @param statistic The stats to return to, if after a quiz.
+   * @param leaderboardScore The score obtained on the leaderboard, if after a quiz.
    */
-  public void initialise(Statistics statistics, LeaderboardControl leaderboard) {
-    this.stats = statistics;
-    score = statistics.getScore();
-    this.leaderboard = leaderboard;
-    printLabel();
+  public void initialise(boolean quiz, Statistics statistics, LeaderboardScore leaderboardScore) {
+	this.quiz = quiz;
+	this.statistics = statistics;
+    this.leaderboardScore = leaderboardScore;
 
     try {
-      table();
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
+	  showMessage();
+	  showLeaderboard();
+    } catch (IOException e) {
+      SceneManager.alert("Could not load leaderboard");
+    }
+  }
+  
+  /**
+   * Helper method to print message depending on your score.
+   * 
+   * @throws IOException If an I/O error occured.
+   */
+  private void showMessage() throws IOException {
+	if (!quiz) {
+	  label.setText("Leaderboard");
+	  return;
+	}
+	
+    if (leaderboardScore == null) {
+      label.setText("You didn't set a new high score.\nPractise more and try again!");
+      return;
+    }
+    
+    switch (leaderboardScore.getPlacing()) {
+	    case 1:
+	    	label.setText("Congratulations!\nYou set a new high score!");
+	    	break;
+	    case 2:
+	    	label.setText("Congratulations!\nYou came 2nd!");
+	    	break;
+	    case 3:
+	    	label.setText("Congratulations!\nYou came 3rd!");
+	    	break;
     }
   }
 
   /**
-   * helper method to populate grid view
-   *
-   * @throws FileNotFoundException
+   * Populate the leaderboard with the top scores.
+   * 
+   * @throws IOException If an I/O error occurred.
    */
-  private void table() throws FileNotFoundException {
-    File file = new File("./.stats/.leaderboard.txt");
-    Scanner scanner = new Scanner(file);
-    for (int i = 0; i < 3; i++) {
-      String nameString = scanner.next();
-      Label name;
-      Label score;
-      name = new Label(nameString);
-      score = new Label(String.valueOf(scanner.nextInt()));
-      if (nameString.equals("null")) {
-        name = new Label(" ");
-        score = new Label(" ");
-      }
-      table.add(name, 2, i);
-      table.add(score, 3, i);
-    }
+  private void showLeaderboard() throws IOException {
+	// Add headers.
+    Label positionHeader = new Label("Position");
+    Label nameHeader = new Label("Name");
+    Label scoreHeader = new Label("Score");
+    Label topicHeader = new Label("Topic");
 
-    scanner.close();
-    table.add(new Label("1st"), 1, 0);
-    table.add(new Label("2nd"), 1, 1);
-    table.add(new Label("3rd"), 1, 2);
+    table.add(positionHeader, 1, 0);
+    table.add(nameHeader, 2, 0);
+    table.add(scoreHeader, 3, 0);
+    table.add(topicHeader, 4, 0);
+	
+    // Add each score.
+	int i = 1;
+	
+	for (LeaderboardScore score : application.Leaderboard.getScores()) {
+		Label placeLabel = new Label(placing(score.getPlacing()));
+		Label nameLabel = new Label(score.getName());
+		Label scoreLabel = new Label(String.valueOf(score.getScore()));
+		Label topicLabel = new Label(score.getTopic());
+
+		table.add(placeLabel, 1, i);
+		table.add(nameLabel, 2, i);
+		table.add(scoreLabel, 3, i);
+		table.add(topicLabel, 4, i);
+		
+		i++;
+	}
   }
-
-  /** Helper method to print message depending on your score */
-  private void printLabel() {
-    int place = leaderboard.getPlace();
-    if (place == 1) {
-      label.setText("Congratulations! You set a new high score!");
-    } else if (place == 2) {
-      label.setText("Congratulations! You came 2nd!");
-    } else if (place == 3) {
-      label.setText("Congratulations! You came 3rd!");
-    } else {
-      label.setText("You didn't set a new high score :( Practise more and try again!");
-    }
+  
+  /**
+   * Gets the suffixed placing from the corresponding integer.
+   * 
+   * @param place The placing from 1-3 inclusive.
+   * @return The suffixed placing.
+   */
+  private String placing(int place) {
+	  switch (place) {
+		  case 1:
+			  return "1st";
+		  case 2:
+			  return "2nd";
+		  case 3:
+			  return "3rd";
+		  default:
+			  throw new IllegalArgumentException("Placing out of range");
+	  }
   }
 
   /** Click handler to go back to finish screen. */
   @FXML
   private void back() {
-    SceneManager.switchToFinishScene(stats, false);
+	if (quiz) {
+		SceneManager.switchToFinishScene(statistics, true);
+	} else {
+		SceneManager.switchToMenuScene();
+	}
   }
 }

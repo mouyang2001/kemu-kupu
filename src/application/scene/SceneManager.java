@@ -1,6 +1,6 @@
 package application.scene;
 
-import application.LeaderboardControl;
+import application.LeaderboardScore;
 import application.QuizGame.Mode;
 import application.Statistics;
 import java.io.IOException;
@@ -47,28 +47,48 @@ public class SceneManager {
     changeScene("Help");
   }
 
-  /** Show the quiz scene to the user and transfer topic selection data. */
+  /**
+   * Show the quiz scene to the user and transfer topic selection data.
+   * 
+   * @param topic The chosen topic, file name.
+   * @param mode The mode of the quiz to run.
+   */
   public static void switchToQuizScene(String topic, Mode mode) {
     Quiz quiz = changeScene("Quiz").getController();
     quiz.beginQuiz(topic, mode);
   }
 
-  /** Show the finish scene to the user. */
-  public static void switchToFinishScene(Statistics stats, boolean playSound) {
+  /**
+   * Show the finish scene to the user.
+   * 
+   * @param statistics Statistics of the quiz.
+   * @param returning If returning to the finish screen.
+   */
+  public static void switchToFinishScene(Statistics stats, boolean returning) {
     Finish finish = changeScene("Finish").getController();
-    finish.initialise(stats, playSound);
+    finish.initialise(stats, returning);
   }
 
-  /** Show the stats scene to the user. */
+  /**
+   * Show the stats scene to the user.
+   * 
+   * @param statistics The stats to show.
+   */
   public static void switchToStatsScene(Statistics statistics) {
     Stats stats = changeScene("Stats").getController();
     stats.initialise(statistics);
   }
 
-  /** Show the stats scene to the user. */
-  public static void switchToLeaderboardScene(Statistics statistics, LeaderboardControl leader) {
+  /**
+   * Show the leaderboard scene to the user.
+   * 
+   * @param quiz If being shown after a quiz.
+   * @param statistic The stats to return to.
+   * @param leaderboardScore The score obtained on the leaderboard.
+   */
+  public static void switchToLeaderboardScene(boolean quiz, Statistics statistics, LeaderboardScore leaderboardScore) {
     Leaderboard leaderboard = changeScene("Leaderboard").getController();
-    leaderboard.initialise(statistics, leader);
+    leaderboard.initialise(quiz, statistics, leaderboardScore);
   }
 
   /**
