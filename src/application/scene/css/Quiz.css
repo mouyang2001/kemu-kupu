@@ -15,14 +15,12 @@
 }
 
 .macrons .button {
-    -fx-font-size: 25;
+    -fx-font-size: 30;
     -fx-text-fill: #FFFFFF;
     -fx-background-color: #7289DA;
 }
 
 .macrons .button:hover {
-    -fx-font-size: 25;
-    -fx-text-fill: #FFFFFF;
     -fx-background-color: #6076C4;
 }
 
@@ -32,24 +30,24 @@
 
 #score {
     -fx-text-fill: #7289DA;
-    -fx-font-size: 50;
+    -fx-font-size: 90;
     -fx-font-family: Verdana;
 }
 
 #correct {
 	-fx-text-fill: #FFFFFF;
-    -fx-font-size: 40;
+    -fx-font-size: 50;
 }
 
 #hint {
 	-fx-text-fill: #FFFFFF;
-    -fx-font-size: 20;
+    -fx-font-size: 30;
 }
 
 #submit {
 	-fx-background-color: #7289DA;
 	-fx-text-fill: #FFFFFF;
-    -fx-font-size: 30;
+    -fx-font-size: 40;
     -fx-font-family: Play;
 }
 
@@ -64,7 +62,7 @@
 #skip {
 	-fx-background-color: #595959;
 	-fx-text-fill: #FFFFFF;
-    -fx-font-size: 30;
+    -fx-font-size: 35;
     -fx-font-family: Play;
 }
 
@@ -77,21 +75,21 @@
 }
 
 #input {
-	-fx-font-size: 30;
+	-fx-font-size: 40;
 	-fx-background-color: #CCCCCC;
 }
 
 #showLetters {
-	-fx-font-size: 60;
+	-fx-font-size: 100;
 }
 
 #slow {
-	-fx-font-size: 20;
+	-fx-font-size: 30;
 	-fx-text-fill: #FFFFFF;
 }
 
 #fast {
-	-fx-font-size: 20;
+	-fx-font-size: 30;
 	-fx-font-style: italic;
 	-fx-text-fill: #FFFFFF;
 }
@@ -111,7 +109,7 @@
 #menu {
     -fx-background-color: #595959;
     -fx-text-fill: #FFFFFF;
-    -fx-font-size: 30;
+    -fx-font-size: 40;
     -fx-font-family: Play;
 }
 

@@ -1,17 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0" stylesheets="@../css/Quiz.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.scene.Quiz">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="583.0" prefWidth="782.0" spacing="10.0" stylesheets="@../css/Quiz.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.scene.Quiz">
    <children>
       <Label fx:id="score" alignment="CENTER" contentDisplay="CENTER" prefHeight="60.0" prefWidth="300.0" text="0">
          <font>
             <Font size="20.0" />
          </font>
+         <VBox.margin>
+            <Insets bottom="50.0" />
+         </VBox.margin>
       </Label>
       <Label fx:id="correct" layoutX="235.0" layoutY="89.0">
          <font>
@@ -21,28 +30,28 @@
             <Insets />
          </VBox.margin>
       </Label>
-      <HBox styleClass="macrons" alignment="CENTER" prefWidth="300.0" spacing="10.0">
+      <HBox alignment="CENTER" prefHeight="59.0" prefWidth="782.0" spacing="10.0" styleClass="macrons">
          <children>
-            <Button fx:id="macronButtonA" mnemonicParsing="false" onAction="#macronA" text="ā" />
-            <Button fx:id="macronButtonE" mnemonicParsing="false" onAction="#macronE" text="ē" />
-            <Button fx:id="macronButtonI" mnemonicParsing="false" onAction="#macronI" text="ī" />
-            <Button fx:id="macronButtonO" mnemonicParsing="false" onAction="#macronO" text="ō" />
-            <Button fx:id="macronButtonU" mnemonicParsing="false" onAction="#macronU" text="ū" />
+            <Button fx:id="macronButtonA" mnemonicParsing="false" onAction="#macronA" prefHeight="60.0" prefWidth="60.0" text="ā" />
+            <Button fx:id="macronButtonE" mnemonicParsing="false" onAction="#macronE" prefHeight="60.0" prefWidth="60.0" text="ē" />
+            <Button fx:id="macronButtonI" mnemonicParsing="false" onAction="#macronI" prefHeight="60.0" prefWidth="60.0" text="ī" />
+            <Button fx:id="macronButtonO" mnemonicParsing="false" onAction="#macronO" prefHeight="60.0" prefWidth="60.0" text="ō" />
+            <Button fx:id="macronButtonU" mnemonicParsing="false" onAction="#macronU" prefHeight="60.0" prefWidth="60.0" text="ū" />
          </children>
          <VBox.margin>
-            <Insets />
+            <Insets bottom="20.0" />
          </VBox.margin>
       </HBox>
       <HBox alignment="CENTER" prefHeight="82.0" prefWidth="600.0" spacing="10.0">
          <children>
             <Separator prefHeight="45.0" prefWidth="45.0" visible="false" />
-            <TextField fx:id="input" onAction="#submit" prefHeight="45.0" prefWidth="300.0" />
-            <Button fx:id="sound" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#sound" prefHeight="45.0" prefWidth="45.0" text="*image*">
+            <TextField fx:id="input" onAction="#submit" prefHeight="60.0" prefWidth="450.0" />
+            <Button fx:id="sound" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#sound" prefHeight="53.0" prefWidth="55.0" text="*image*">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
                <graphic>
-                  <ImageView fx:id="image" fitHeight="50.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="image" fitHeight="40.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../assets/sound_icon.png" />
                      </image>
@@ -50,8 +59,14 @@
                </graphic>
             </Button>
          </children>
+         <VBox.margin>
+            <Insets bottom="20.0" />
+         </VBox.margin>
       </HBox>
-      <Label fx:id="hint" />
+      <Label fx:id="hint">
+         <VBox.margin>
+            <Insets bottom="10.0" />
+         </VBox.margin></Label>
       <HBox alignment="CENTER" spacing="20.0">
          <children>
             <Label fx:id="slow" text="Slow" />
@@ -59,15 +74,21 @@
             <Label fx:id="fast" text="Fast" />
          </children>
       </HBox>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+      <HBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
          <children>
-            <Button fx:id="menu" mnemonicParsing="false" onAction="#menu" prefHeight="70.0" prefWidth="200.0" text="Menu" />
-            <Button fx:id="skip" mnemonicParsing="false" onAction="#skip" prefHeight="70.0" prefWidth="200.0" text="Don't know">
+            <Button fx:id="menu" mnemonicParsing="false" onAction="#menu" prefHeight="80.0" prefWidth="230.0" text="Menu">
+               <HBox.margin>
+                  <Insets right="30.0" />
+               </HBox.margin></Button>
+            <Button fx:id="skip" mnemonicParsing="false" onAction="#skip" prefHeight="80.0" prefWidth="230.0" text="Don't know">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
             </Button>
-            <Button fx:id="submit" mnemonicParsing="false" onAction="#submit" prefHeight="70.0" prefWidth="200.0" text="Submit" />
+            <Button fx:id="submit" mnemonicParsing="false" onAction="#submit" prefHeight="80.0" prefWidth="230.0" text="Submit">
+               <HBox.margin>
+                  <Insets left="30.0" />
+               </HBox.margin></Button>
          </children>
          <VBox.margin>
             <Insets />
