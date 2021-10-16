@@ -27,5 +27,6 @@ Add macrons to vowels by pressing `<Right Alt> + <Vowel>`.
 Run the project with the following command.
 
 ```bash
+> chmod +x run.sh
 > ./run.sh
 ```

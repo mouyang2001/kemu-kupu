@@ -291,9 +291,6 @@ public class Quiz {
 
     quiz.nextWord();
 
-    // TODO: Remove.
-    System.out.println(quiz.getWord());
-
     // Speak the word.
     sound();
 
