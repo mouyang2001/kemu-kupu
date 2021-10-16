@@ -37,7 +37,7 @@ public class Stats {
   /** Click handler to go back to finish screen. */
   @FXML
   private void back() {
-    SceneManager.switchToFinishScene(stats, false);
+    SceneManager.switchToFinishScene(stats, true);
   }
 
   /** Display the score and overall statistics to the user. */

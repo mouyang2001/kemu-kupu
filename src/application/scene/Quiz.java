@@ -95,10 +95,10 @@ public class Quiz {
     alert.setContentText("You will lose all your hard word :(");
 
     if (alert.showAndWait().get() == ButtonType.OK) {
-      // quit and return to menu
+      // Quit and return to menu.
       SceneManager.switchToMenuScene();
     } else {
-      // continue with quiz
+      // Continue with quiz.
       alert.close();
       input.requestFocus();
     }
@@ -129,27 +129,31 @@ public class Quiz {
     Festival.speak(quiz.getWord(), () -> disableInputs(false));
   }
 
-  /** Click handlers for the macron vowel buttons. Inputs macron letter into input text field. */
+  /** Click handler for the macron ā button. */
   @FXML
   private void macronA() {
     inputConcatenate("ā");
   }
 
+  /** Click handler for the macron ē button. */
   @FXML
   private void macronE() {
     inputConcatenate("ē");
   }
 
+  /** Click handler for the macron ī button. */
   @FXML
   private void macronI() {
     inputConcatenate("ī");
   }
 
+  /** Click handler for the macron ō button. */
   @FXML
   private void macronO() {
     inputConcatenate("ō");
   }
 
+  /** Click handler for the macron ū button. */
   @FXML
   private void macronU() {
     inputConcatenate("ū");
@@ -158,11 +162,10 @@ public class Quiz {
   /**
    * Concatenates macron letter onto current input text.
    *
-   * @param macronLetter String letter we want to concatenate onto the end.
+   * @param macron Macron to concatenate onto the end.
    */
-  private void inputConcatenate(String macronLetter) {
-    String currentText = input.getText();
-    input.setText(currentText + macronLetter);
+  private void inputConcatenate(String macron) {
+    input.setText(input.getText() + macron);
 
     // Return carat to the end of the text field.
     input.requestFocus();
@@ -291,14 +294,14 @@ public class Quiz {
   private void endGame() {
     // Automatically switch to finish after timeout.
     SingleDelayedTask.scheduleDelayedTask(
-        () -> SceneManager.switchToFinishScene(quiz.getStats(), true));
+        () -> SceneManager.switchToFinishScene(quiz.getStats(), false));
 
     // Allow the user to click to finish before the timeout.
     submit.setText("Finish");
     submit.setOnAction(
         e -> {
           SingleDelayedTask.cancel();
-          SceneManager.switchToFinishScene(quiz.getStats(), true);
+          SceneManager.switchToFinishScene(quiz.getStats(), false);
         });
 
     // Only allow the finish button.
