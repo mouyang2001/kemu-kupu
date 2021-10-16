@@ -56,3 +56,20 @@
 - After extensively testing our application I found that we could not type macrons into our application as we expected.
 - I notified my teammates and we discussed how we could modify our application to better support the user.
 - A solution was discovered and we decided to add setup instructions for a Māori keyboard and keep our macronise button for not so tech savvy users.
+
+### 13/10
+- There was lots of technical debt that had been building up over the assignment.
+- I decided to make some large refactors to clean up the codebase and make our lives easier going forward.
+- I also spent some time going over all the documentation in the codebase.
+
+### 14/10
+- I added the voice speed feature which was very easy to implement.
+- I also added a topic search feature which was also very simple to implement.
+- I did some more refactoring as some of the new code was very inefficient and untidy.
+
+### 16/10
+- I have spent most of my time refactoring code and documenting it, which should have been done in the first place.
+
+### 17/10
+- I have been adding small improvements to the application that have been brought up on the issue tracker.
+- Lots of small style issues and consistency issues are very time consuming to fix and it may help to get everyone to find all the small inconsistencies and tackle them together.
