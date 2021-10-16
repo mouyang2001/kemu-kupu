@@ -45,17 +45,17 @@ public class Quiz {
   @FXML private Button submit;
 
   @FXML private Button macronButtonA;
-  
+
   @FXML private Button macronButtonE;
-  
+
   @FXML private Button macronButtonI;
-  
+
   @FXML private Button macronButtonO;
-  
+
   @FXML private Button macronButtonU;
 
   private QuizGame quiz;
-  
+
   private int caret = 0;
 
   private static final String RED = "#E88787";
@@ -81,9 +81,11 @@ public class Quiz {
     speed
         .valueProperty()
         .addListener((observable, oldValue, newValue) -> Festival.setSpeed(newValue.floatValue()));
-    
+
     // Register caret position handler.
-    input.caretPositionProperty().addListener((observable, oldValue, newValue) -> caret = oldValue.intValue());
+    input
+        .caretPositionProperty()
+        .addListener((observable, oldValue, newValue) -> caret = oldValue.intValue());
 
     // Start the first word.
     nextWord();
@@ -174,9 +176,9 @@ public class Quiz {
    * @param str String to insert.
    */
   private void insertString(String str) {
-	String text = input.getText();
-	String newText = text.substring(0, caret) + str + text.substring(caret);
-	
+    String text = input.getText();
+    String newText = text.substring(0, caret) + str + text.substring(caret);
+
     input.setText(newText);
 
     // Position the caret after the insertion.
