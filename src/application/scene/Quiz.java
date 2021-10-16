@@ -214,7 +214,7 @@ public class Quiz {
 
   /** Show the hint to the user. */
   private void giveHint() {
-    hint.setText(quiz.getWord().length() + " letters: " + quiz.getHint());
+    hint.setText(quiz.getHint());
   }
 
   /** Reveal the answer to the user. */
@@ -287,7 +287,7 @@ public class Quiz {
     input.clear();
     input.requestFocus();
 
-    hint.setText(quiz.getWord().length() + " letters");
+    hint.setText(quiz.getBlankHint());
   }
 
   /** End the game and show to finish screen. */
