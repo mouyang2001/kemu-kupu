@@ -28,14 +28,14 @@
 }
 
 #leaderboard {
-	-fx-background-color: #7289DA;
+	-fx-background-color: rgb(155, 132, 238);
 	-fx-text-fill: #FFFFFF;
     -fx-font-size: 50;
     -fx-font-family: Play;
 }
 
 #leaderboard:hover {
-	-fx-background-color : #6076C4;
+	-fx-background-color : rgb(155, 132, 238, 0.7);
 }
 
 #leaderboard:pressed {

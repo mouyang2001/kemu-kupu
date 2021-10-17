@@ -38,39 +38,39 @@
 }
 
 #stats {
-	-fx-background-color: #7289DA;
+	-fx-background-color: rgb(247, 64, 64);
 	-fx-text-fill: #FFFFFF;
-    -fx-font-size: 40;
+    -fx-font-size: 30;
     -fx-font-family: Play;
 }
 
 #stats:hover {
-	-fx-background-color : #6076C4;
+	-fx-background-color: rgb(247, 64, 64, 0.7);
 }
 
 #stats:pressed {
-	-fx-background-color : #475B9F;
+	-fx-background-color: rgb(247, 64, 64, 0.5);
 }
 
 #leaderboard {
-	-fx-background-color: #7289DA;
+	-fx-background-color: rgb(155, 132, 238);
 	-fx-text-fill: #FFFFFF;
     -fx-font-size: 30;
     -fx-font-family: Play;
 }
 
 #leaderboard:hover {
-	-fx-background-color : #6076C4;
+	-fx-background-color: rgb(155, 132, 238, 0.7);
 }
 
 #leaderboard:pressed {
-	-fx-background-color : #475B9F;
+	-fx-background-color: rgb(155, 132, 238, 0.5);
 }
 
 #menu {
     -fx-background-color: #595959;
     -fx-text-fill: #FFFFFF;
-    -fx-font-size: 40;
+    -fx-font-size: 30;
     -fx-font-family: Play;
 }
 
