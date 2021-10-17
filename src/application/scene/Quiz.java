@@ -127,9 +127,7 @@ public class Quiz {
   @FXML
   private void skip() {
     Sound.play(Sound.Incorrect);
-
-    quiz.skip();
-
+    quiz.addCurrentWordToSkipped();
     setPrompt("Skipped", RED);
     nextWord();
   }

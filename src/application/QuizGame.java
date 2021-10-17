@@ -205,9 +205,7 @@ public class QuizGame {
   }
 
   /** Skips the current word. */
-  public void skip() {
-    nextWord();
-
+  public void addCurrentWordToSkipped() {
     statistics.add(new Statistic(getWord(), Statistic.Type.Skipped, 0, calculateTime()));
   }
 
