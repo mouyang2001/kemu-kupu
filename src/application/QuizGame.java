@@ -16,6 +16,8 @@ public class QuizGame {
 
   private int index = 0;
 
+  private int round = 0;
+
   private Mode mode;
 
   private long startTime;
@@ -49,6 +51,24 @@ public class QuizGame {
 
     this.mode = mode;
     statistics = new Statistics(topic);
+  }
+
+  /**
+   * Get the number of rounds in the quiz.
+   *
+   * @return The mode of the quiz.
+   */
+  public int getNumberOfRounds() {
+    return NUMBER_OF_ROUNDS;
+  }
+
+  /**
+   * Get the current round in the quiz.
+   *
+   * @return The mode of the quiz.
+   */
+  public int getCurrentRound() {
+    return round;
   }
 
   /**
@@ -109,6 +129,7 @@ public class QuizGame {
   /** Sets the state of the game to the next word. */
   public void nextWord() {
     // Move to the next word.
+    round++;
     index++;
     index %= words.size();
 
