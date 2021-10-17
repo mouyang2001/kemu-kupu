@@ -259,8 +259,10 @@ public class Quiz {
 
   /** Update progress indicator */
   private void updateProgress() {
-    String progress = (quiz.getMode() == Mode.Practice) ?
-            "#" + quiz.getCurrentRound() : quiz.getCurrentRound() + "/" + quiz.getNumberOfRounds();
+    String progress =
+        (quiz.getMode() == Mode.Practice)
+            ? "#" + quiz.getCurrentRound()
+            : quiz.getCurrentRound() + "/" + quiz.getNumberOfRounds();
     progressLabel.setText(progress);
   }
 
