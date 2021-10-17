@@ -54,6 +54,8 @@ public class Quiz {
 
   @FXML private Button macronButtonU;
 
+  @FXML private Label progressLabel;
+
   private QuizGame quiz;
 
   private int caret = 0;
@@ -255,6 +257,13 @@ public class Quiz {
     score.setText(String.valueOf(quiz.getScore()));
   }
 
+  /** Update progress indicator */
+  private void updateProgress() {
+    String progress = (quiz.getMode() == Mode.Practice) ?
+            "#" + quiz.getCurrentRound() : quiz.getCurrentRound() + "/" + quiz.getNumberOfRounds();
+    progressLabel.setText(progress);
+  }
+
   /**
    * Set the prompt message and hide after a delay.
    *
@@ -290,6 +299,8 @@ public class Quiz {
     }
 
     quiz.nextWord();
+
+    updateProgress();
 
     // Speak the word.
     sound();
