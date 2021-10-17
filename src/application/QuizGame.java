@@ -56,7 +56,7 @@ public class QuizGame {
   /**
    * Get the number of rounds in the quiz.
    *
-   * @return The mode of the quiz.
+   * @return The number of rounds in quiz.
    */
   public int getNumberOfRounds() {
     return NUMBER_OF_ROUNDS;
@@ -65,7 +65,7 @@ public class QuizGame {
   /**
    * Get the current round in the quiz.
    *
-   * @return The mode of the quiz.
+   * @return The current round of the quiz.
    */
   public int getCurrentRound() {
     return round;
