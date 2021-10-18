@@ -38,18 +38,18 @@
 }
 
 #stats {
-	-fx-background-color: rgb(247, 64, 64);
+	-fx-background-color: rgb(155, 132, 238);
 	-fx-text-fill: #FFFFFF;
     -fx-font-size: 30;
     -fx-font-family: Play;
 }
 
 #stats:hover {
-	-fx-background-color: rgb(247, 64, 64, 0.7);
+	-fx-background-color: rgb(155, 132, 238, 0.7);
 }
 
 #stats:pressed {
-	-fx-background-color: rgb(247, 64, 64, 0.5);
+	-fx-background-color: rgb(155, 132, 238, 0.5);
 }
 
 #leaderboard {
