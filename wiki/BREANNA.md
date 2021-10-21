@@ -48,3 +48,6 @@ I implemented a leaderboard functionality. This uses a mix of objects and files 
 
 Sunday 17/10
 I fiddled with some of the design to make sure that all the elements were displayed neatly on the page.
+
+Thursday 21/10
+I edited the README.md and exported the project as a runnable jar file for our final submission.
