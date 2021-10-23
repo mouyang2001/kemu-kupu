@@ -13,7 +13,6 @@ public class SingleDelayedTask {
   /**
    * Runs a task after the specified delay. If a task is already scheduled it will be canceled.
    *
-   * @param duration The duration to delay by.
    * @param task The task to run after the delay.
    */
   public static void scheduleDelayedTask(Runnable task) {

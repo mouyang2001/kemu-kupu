@@ -261,6 +261,7 @@ public class Quiz {
         (quiz.getMode() == Mode.Practice)
             ? "#" + quiz.getCurrentRound()
             : quiz.getCurrentRound() + "/" + quiz.getNumberOfRounds();
+
     progressLabel.setText(progress);
   }
 

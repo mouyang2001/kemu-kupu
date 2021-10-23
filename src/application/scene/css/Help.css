@@ -20,19 +20,19 @@
 }
 
 #back:hover {
-	-fx-background-color : #6076C4;
+	-fx-background-color: #6076C4;
 }
 
 #back:pressed {
-	-fx-background-color : #475B9F;
+	-fx-background-color: #475B9F;
 }
 
 #instructions {
-    -fx-font-family : Play;
+    -fx-font-family: Play;
     -fx-font-size: 20;
     -fx-text-fill: #FFFFFF;
 }
 
 #instructions .content {
-    -fx-background-color : #36393e;
+    -fx-background-color: #36393e;
 }

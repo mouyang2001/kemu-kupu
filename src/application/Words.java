@@ -12,7 +12,7 @@ public class Words {
   private static final Path WORDS_DIR = Paths.get("words");
 
   /**
-   * Grabs string ArrayList of all the topics.
+   * Grabs list of all the topics.
    *
    * @return List of topic filenames.
    * @throws IOException If topics files could not be found.
@@ -25,7 +25,7 @@ public class Words {
   }
 
   /**
-   * Grabs string ArrayList of all the topics.
+   * Grabs list of all the words.
    *
    * @param topic filename of the specific topic file.
    * @return List of words in the specified topic file.

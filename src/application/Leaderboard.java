@@ -124,6 +124,7 @@ public class Leaderboard {
       Files.createFile(file);
     }
 
+    // Store scores as "Name|Score|Topic".
     List<String> lines =
         scores.stream()
             .limit(3)

@@ -57,11 +57,11 @@
 }
 
 #back:hover {
-	-fx-background-color : #4A4A4A;
+	-fx-background-color: #4A4A4A;
 }
 
 #back:pressed {
-	-fx-background-color : #3B3B3C;
+	-fx-background-color: #3B3B3C;
 }
 
 #practice {
@@ -72,11 +72,11 @@
 }
 
 #practice:hover {
-	-fx-background-color : #36966b;
+	-fx-background-color: #36966b;
 }
 
 #practice:pressed {
-	-fx-background-color : #235e44;
+	-fx-background-color: #235e44;
 }
 
 #start {
@@ -87,11 +87,11 @@
 }
 
 #start:hover {
-	-fx-background-color : #6076C4;
+	-fx-background-color: #6076C4;
 }
 
 #start:pressed {
-	-fx-background-color : #475B9F;
+	-fx-background-color: #475B9F;
 }
 
 #topics {

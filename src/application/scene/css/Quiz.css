@@ -52,11 +52,11 @@
 }
 
 #submit:hover {
-	-fx-background-color : #6076C4;
+	-fx-background-color: #6076C4;
 }
 
 #submit:pressed {
-	-fx-background-color : #475B9F;
+	-fx-background-color: #475B9F;
 }
 
 #skip {
@@ -67,11 +67,11 @@
 }
 
 #skip:hover {
-	-fx-background-color : #4A4A4A;
+	-fx-background-color: #4A4A4A;
 }
 
 #skip:pressed {
-	-fx-background-color : #3B3B3C;
+	-fx-background-color: #3B3B3C;
 }
 
 #input {

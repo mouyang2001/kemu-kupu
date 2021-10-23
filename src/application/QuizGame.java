@@ -42,6 +42,7 @@ public class QuizGame {
    * Creates a quiz game to quiz the user on their spelling.
    *
    * @param topic Filename of the topic file.
+   * @param mode The mode of the quiz to run.
    * @throws IOException If an I/O error occurred.
    */
   public QuizGame(String topic, Mode mode) throws IOException {

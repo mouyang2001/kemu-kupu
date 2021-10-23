@@ -20,11 +20,11 @@
 }
 
 #newQuiz:hover {
-	-fx-background-color : #6076C4;
+	-fx-background-color: #6076C4;
 }
 
 #newQuiz:pressed {
-	-fx-background-color : #475B9F;
+	-fx-background-color: #475B9F;
 }
 
 #leaderboard {
@@ -35,11 +35,11 @@
 }
 
 #leaderboard:hover {
-	-fx-background-color : rgb(155, 132, 238, 0.7);
+	-fx-background-color: rgb(155, 132, 238, 0.7);
 }
 
 #leaderboard:pressed {
-	-fx-background-color : #475B9F;
+	-fx-background-color: #475B9F;
 }
 
 #help {
@@ -50,11 +50,11 @@
 }
 
 #help:hover {
-	-fx-background-color : #36966b;
+	-fx-background-color: #36966b;
 }
 
 #help:pressed {
-	-fx-background-color : #235e44;
+	-fx-background-color: #235e44;
 }
 
 #quit {
@@ -65,9 +65,9 @@
 }
 
 #quit:hover {
-	-fx-background-color : #4A4A4A;
+	-fx-background-color: #4A4A4A;
 }
 
 #quit:pressed {
-	-fx-background-color : #3B3B3C;
+	-fx-background-color: #3B3B3C;
 }

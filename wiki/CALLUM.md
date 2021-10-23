@@ -73,3 +73,6 @@
 ### 17/10
 - I have been adding small improvements to the application that have been brought up on the issue tracker.
 - Lots of small style issues and consistency issues are very time consuming to fix and it may help to get everyone to find all the small inconsistencies and tackle them together.
+
+### 23/10
+- I did a final pass of the code and fixed minor documentation and formatting errors.

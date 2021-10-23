@@ -14,11 +14,11 @@
 }
 
 #back:hover {
-	-fx-background-color : #6076C4;
+	-fx-background-color: #6076C4;
 }
 
 #back:pressed {
-	-fx-background-color : #475B9F;
+	-fx-background-color: #475B9F;
 }
 
 #avTime {
