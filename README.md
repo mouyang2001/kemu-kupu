@@ -23,10 +23,6 @@ Add a Māori keyboard to Elementary OS by going to:
 Add macrons to vowels by pressing `<Right Alt> + <Vowel>`.
 
 ## Run
-First, give the script permission
-```bash
-> chmod +x run.sh
-```
 
 Run the project with the following command.
 
